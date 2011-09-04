@@ -2,7 +2,7 @@
 import os
 
 from mako.lookup import TemplateLookup
-from pylons import config
+from pylons.configuration import PylonsConfig
 from pylons.error import handle_mako_error
 
 import swat.lib.app_globals as app_globals
@@ -13,6 +13,8 @@ def load_environment(global_conf, app_conf):
     """Configure the Pylons environment via the ``pylons.config``
     object
     """
+    config = PylonsConfig()
+    
     # Pylons paths
     root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     paths = dict(root=root,
@@ -23,9 +25,14 @@ def load_environment(global_conf, app_conf):
     # Initialize config with the basic options
     config.init_app(global_conf, app_conf, package='swat', paths=paths)
 
-    config['routes.map'] = make_map()
-    config['pylons.app_globals'] = app_globals.Globals()
+    config['routes.map'] = make_map(config)
+    config['pylons.app_globals'] = app_globals.Globals(config)
     config['pylons.h'] = swat.lib.helpers
+    
+    # Setup cache object as early as possible
+    import pylons
+    pylons.cache._push_object(config['pylons.app_globals'].cache)
+    
 
     # Create the Mako TemplateLookup, with the default auto-escaping
     config['pylons.app_globals'].mako_lookup = TemplateLookup(
@@ -37,4 +44,5 @@ def load_environment(global_conf, app_conf):
 
     # CONFIGURATION OPTIONS HERE (note: all config options will override
     # any Pylons config options)
-    config['pylons.strict_c'] = True
+    
+    return config

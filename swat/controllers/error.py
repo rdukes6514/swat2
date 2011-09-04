@@ -6,10 +6,7 @@ from pylons.controllers.util import forward
 from pylons.middleware import error_document_template
 from webhelpers.html.builder import literal
 
-from swat.lib.base import BaseController, render
-
-from swat.lib.helpers import SwatMessages
-from pylons.i18n.translation import _
+from swat.lib.base import BaseController
 
 class ErrorController(BaseController):
 
@@ -47,7 +44,3 @@ class ErrorController(BaseController):
         """
         request.environ['PATH_INFO'] = '/%s' % path
         return forward(PkgResourcesParser('pylons', 'pylons'))
-        
-    def no_libs(self):
-        SwatMessages.add(_("Python libraries not found"), "critical")
-        return render("/default/derived/error/no-libs.mako")

@@ -1,0 +1,55 @@
+.usuario {
+	background: transparent url(icons/usuario.ico) 0 0  no-repeat !important;
+}
+.dusuario {
+	background: transparent url(icons/dusuario.ico) 0 0  no-repeat !important;
+}
+.group-icon {
+	background: transparent url(icons/user-group.ico) 0 0 no-repeat !important;
+}
+
+.Listbox-group-icon {
+	background: url(icons/user-group.ico) no-repeat center left #FFFFCC;
+	padding-left: 20px;	
+}
+
+.pc-icon {
+	background: transparent url(icons/Laptop.ico) 0 0 no-repeat !important;
+}
+
+.server-icon {
+	background: transparent url(icons/samba.ico) 0 0 no-repeat !important;
+}
+
+.system-icon {
+	background: transparent url(icons/development-tools.ico) 0 0 no-repeat !important;
+}
+
+.share-icon {
+	background: transparent url(icons/App-network.ico) 0 0 no-repeat !important;
+}
+
+.sharefolder-icon {
+	background: transparent url(icons/Aluminium-generic-icon32.png) 0 0 no-repeat !important;
+}
+
+.HD-icon {
+	background: transparent url(icons/HD-Linux-icon.png) 0 0 no-repeat !important;
+}
+
+.users-icon {
+	background: transparent url(icons/users_groups16.png) 0 0 no-repeat !important;
+}
+
+.user-icon {
+	background: transparent url(icons/system-users.ico) 0 0 no-repeat !important;
+}
+
+.groups-icon {
+	background: transparent url(icons/group-gear-icon.png) 0 0 no-repeat !important;
+}
+
+.acc-icon {
+	background: transparent url(icons/808645381.png) 0 0 no-repeat !important;
+}
+

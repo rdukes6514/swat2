@@ -6,7 +6,8 @@ DialogUserManager = {
 			if(data==null)return;
 			
 			
-			
+		var oldgrouplist = '';
+		
 		var fullname = new Ext.form.TextField({
 			xtype: "textfield"
 			,labelAlign: 'left'
@@ -146,8 +147,10 @@ DialogUserManager = {
                         for (j in data.grouplist) {
 							if(typeof(data.grouplist[j])=='object'){
 								appendOptionLast('GroupList', data.grouplist[j].rid,data.grouplist[j].name);
+								
 							}    
                         }
+                        oldgrouplist=ExplodeGroupListbyComma();
 			        }
 			    }
 			    ,width: '100%'
@@ -184,16 +187,7 @@ DialogUserManager = {
 						}
 			        }
 			        
-                            var optionList = new Array();
-                            var elSel = document.getElementById('GroupList');
-                            if (elSel) {
-                                var count = elSel.options.length - 1;
-                                for (i = 0; i <= count; i++) {
-                                    optionList.push(elSel.options[i].value);
-                                }
-                            }
-                            var sendJson = Ext.util.JSON.encode(optionList);
-                            console.log(sendJson);			        
+	        
 
 			    },style: 'float:right;padding-right: 5px;padding-top:2px;'
 
@@ -429,7 +423,15 @@ DialogUserManager = {
 								} else {
 									homedir = homedir.getValue();
 								}
-																
+								
+                            //var optionList = new Array();
+
+                            
+                            
+                            //var sendJson = Ext.util.JSON.encode(optionList);
+                            //console.log(grouplist);	
+                            
+                            	grouplist=ExplodeGroupListbyComma();															
 								params={
 										description:description.getValue()
 										,changepassword:ForcePasswordChange.getValue()
@@ -442,7 +444,8 @@ DialogUserManager = {
 										,maphomedirdrive:drivecombo.getValue()
 										,passwordexpires:passwordexpires.getValue()
 										,profile:profile.getValue()
-										//,grouplist:GroupList
+										,grouplist:grouplist
+										,oldgrouplist:oldgrouplist
 										,rid:data.rid
 										,username:data.username
 								}
@@ -470,6 +473,20 @@ DialogUserManager = {
 		}
 }
 
+function ExplodeGroupListbyComma(){
+	var grouplist = "";
+    var elSel = document.getElementById('GroupList');
+    if (elSel) {
+        var count = elSel.options.length - 1;
+        for (i = 0; i <= count; i++) {
+         //optionList.push(elSel.options[i].value);
+			grouplist+=elSel.options[i].value;
+            if(i<count)grouplist+=',';
+        }
+    }
+    return grouplist;
+}   
+                   
  function getJsonOfStore(store){
         var datar = new Array();
         var jsonDataEncode = "";

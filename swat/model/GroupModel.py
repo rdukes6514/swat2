@@ -54,6 +54,26 @@ class GroupModel(BaseModel):
 		return GroupList;
 		
 
+	def AddUserToGroup(self,GroupRid,UserRid):
+		try:
+			GroupRid =  int(GroupRid);
+			UserRid =  int(UserRid);
+			group_handle = self.samrpipe.OpenGroup(self.domain_handle, security.SEC_FLAG_MAXIMUM_ALLOWED,GroupRid)
+			self.samrpipe.AddGroupMember(group_handle,UserRid, samr.SE_GROUP_ENABLED)
+		except Exception,e:
+				self.SetError(e.args[1],e.args[0])
+				raise Exception(str(e.args));
+
+
+	def RemoveUserFromGroup(self,GroupRid,UserRid):
+		try:
+			GroupRid =  int(GroupRid);
+			UserRid =  int(UserRid);
+			group_handle = self.samrpipe.OpenGroup(self.domain_handle, security.SEC_FLAG_MAXIMUM_ALLOWED,GroupRid);
+			self.samrpipe.DeleteGroupMember(group_handle,UserRid);
+		except Exception,e:
+				self.SetError(e.args[1],e.args[0])
+				raise Exception(str(e.args));
 
 class Group:
 	""" Support Class obtained from Calin Crisan's 2009 Summer of Code project

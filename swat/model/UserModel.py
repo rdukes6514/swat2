@@ -12,15 +12,65 @@ class UserModel(BaseModel):
 		BaseModel.__init__(self,username,password);
 		self.user_list = []
 		if self.isAuthenticate():
-			# fetch users
-			self.sam_users = self.toArray(self.samrpipe.EnumDomainUsers(self.domain_handle, 0, 0, -1))
 			self.net = Net(self.creds,self.lp,server='127.0.0.1');
+			self.LoadUserList();
 
+	def AddUser(self,username):
+		if self.isAuthenticate():
+			try:
+				#Creates the new user on the server using default values for everything. Only the username is taken into account here.
+				(user_handle, rid) = self.samrpipe.CreateUser(self.domain_handle, self.SetLsaString(username), security.SEC_FLAG_MAXIMUM_ALLOWED)		
+				user = self.GetUser(rid)
+				#response.write('ok');
+				#user.rid = rid #update the user's RID
+				#if user.group_list == []: #The user must be part of a group. If the user is not part of any groups, the user is actually part of the "None" group! 
+				#	user.group_list = new_user.group_list #use the default values assigned to the user when it was created on the server, which is probably "None"
+				self.UpdateUser(user)
+			except Exception,e:
+				self.SetError(e.args[1],e.args[0])
+				#Printer(e);
+				#response.write(str(dir(e)));
+				return False;
+			return True;
+		else:
+			return False;
+
+	def Exists(self, rid):
+		""" Checks if a certain User (identified by its RID) exists in the
+		Database
+		
+		Keyword arguments:
+		rid -- The RID of the User to check
+		
+		Returns:
+		Boolean indicating if the User exists or not
+		
+		TODO Handle Exception
+		
+		"""
+		exists = False
+		
+		try:
+			rid=int(rid)
+			self.samrpipe.OpenUser(self.domain_handle, security.SEC_FLAG_MAXIMUM_ALLOWED, rid)
+			exists = True
+		except RuntimeError:
+			pass
+		
+		return exists
+		
+	def LoadUserList(self):
+		# fetch users
+		try:
+			self.sam_users = self.toArray(self.samrpipe.EnumDomainUsers(self.domain_handle, 0, 0, -1))
 			for (rid, username) in self.sam_users:
 				user = self.GetUser(rid)
 				self.user_list.append(user)
-		
-	
+		except Exception,e:
+			self.SetError(e.message,0)
+			return False;
+		return True;
+
 	def GetUserList(self):
 		return self.user_list;
 
@@ -249,3 +299,13 @@ class User:
 		self.logon_script = ""
 		self.homedir_path = ""
 		self.map_homedir_drive = -1
+
+class Printer:
+
+	def __init__ (self, PrintableClass):
+		for name in dir(PrintableClass):
+			value = getattr(PrintableClass,name)
+			if  '_' not in str(name).join(str(value)):
+				response.write('  .%s: %r' % (name, value))
+
+  

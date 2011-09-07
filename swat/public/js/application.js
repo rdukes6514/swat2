@@ -49,9 +49,16 @@ Ext.ux.swat.MainWindowApp = Ext.extend(Ext.Window,{
 
 				
         this.UserStore = new Ext.data.JsonStore({
-            url: 'User',
-            root: 'Nodos',
-            fields: [  
+            url: 'User'
+            ,root: 'Nodos'
+            //,remoteSort:true
+			,paramNames:{
+              start : 'start'  // The parameter name which specifies the start row
+              ,limit : 'limit'  // The parameter name which specifies number of rows to return
+              ,sort : 'sort'    // The parameter name which specifies the column to sort on
+              ,dir : 'dir'       // The parameter name which specifies the sort direction
+            }	
+            ,fields: [  
 						'username'
 						,'fullname'
 						,'description'
@@ -232,7 +239,7 @@ Ext.ux.swat.MainWindowApp = Ext.extend(Ext.Window,{
             stripeRows: true,
         }); 
                				
-		this.UserStore.load();
+		//this.UserStore.load();
 		
 		
 		

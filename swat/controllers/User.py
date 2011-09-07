@@ -2,9 +2,11 @@ import logging
 
 from pylons import request, response, session, tmpl_context as c, url
 from pylons.controllers.util import abort, redirect
+import webhelpers.paginate
 
 from swat.lib.base import BaseController, render,json
 from swat.model.UserModel import UserModel,User;
+from swat.model.GroupModel import GroupModel;
 import samba
 log = logging.getLogger(__name__)
 
@@ -14,6 +16,7 @@ class UserController(BaseController):
 		BaseController.__init__(self)
 		if self._check_session():
 			self.model = UserModel(session['username'],session['password']);
+			self.GroupModel = GroupModel(session['username'],session['password']);
 			self.ChildNodes = [];
 
 	def index(self):
@@ -21,7 +24,12 @@ class UserController(BaseController):
 			return json.dumps(self.AuthErr);
 
 		users = self.model.GetUserList();
-		for user in users:
+		total=len(users);
+		start = int(request.params.get("start",0))
+		limit = int(request.params.get("limit",18))
+		Page = webhelpers.paginate.Page(users, page=start, items_per_page=limit)
+
+		for user in Page:
 			#response.write(user.username+"<br>");
 			icon = 'usuario';
 			if(user.account_disabled):
@@ -50,7 +58,7 @@ class UserController(BaseController):
 				,'type':'user'
 			});
 
-		return json.dumps({"Nodos":self.ChildNodes});
+		return json.dumps({"Nodos":self.ChildNodes,'total':total});
 
 
 	def SetPassword(self):
@@ -173,7 +181,29 @@ class UserController(BaseController):
 			
 				#user.password = ""
 				#,'grouplist':user.group_list
-				#grouplist = request.params.get("grouplist",[])
+				oldgrouplist = request.params.get("oldgrouplist","")
+				grouplist = request.params.get("grouplist","")
+				
+				if(oldgrouplist.count(',')==0):
+					oldgrouplist=["513"]
+				else:
+					oldgrouplist = oldgrouplist.split(',')
+				
+				if(grouplist.count(',')==0):
+					grouplist=["513"]
+				else:
+					grouplist = grouplist.split(',')
+				
+				groupdiff = set(oldgrouplist).difference(grouplist);
+				
+				for group_rid in groupdiff:
+					self.GroupModel.RemoveUserFromGroup(group_rid,rid);
+				
+				groupdiff = set(grouplist).difference(oldgrouplist);
+				for group_rid in groupdiff:
+					self.GroupModel.AddUserToGroup(group_rid,rid);
+				
+
 				#user.group_list = []
 				#user.account_disabled = True;
 				if not self.model.UpdateUser(user):
@@ -181,11 +211,26 @@ class UserController(BaseController):
 
 			except Exception,e:
 					return json.dumps({'success': False, 'msg': e.message,'num':0})
-			return json.dumps(self.successOK)
+			
+			
+			
+			return json.dumps({'success': True, 'groupdiff':list(groupdiff), 'oldgrouplist':list(oldgrouplist), 'grouplist':list(grouplist)})
+			#return json.dumps(self.successOK)
 
 	def test(self):
 		#List = ['nada'];
-		List = self.model.GetUserGroups(500);
-		
-		return json.dumps({"Nodos":List});
+		#List = self.model.GetUserGroups(500);
+		#return json.dumps({"Nodos":List});
 		#response.write(str(dir(self.model)));
+		#user = User("test001","","",-1);
+		try:
+			for i in range(1,20):
+				if not self.model.AddUser("test%s"%i):
+					raise Exception(self.model.LastErrorStr);
+		except Exception,e:
+				if self.model.LastErrorNumber !=0:
+					num=self.model.LastErrorNumber
+				return json.dumps({'success': False, 'msg': e.message,'num':num})
+				
+		return json.dumps(self.successOK)
+

@@ -110,7 +110,7 @@ class BaseModel:
 		if (self.samrpipe != None):
 			self.samrpipe.Close(self.connect_handle)
 
-	def SetError(self,message,number):
+	def SetError(self,message,number=0):
 		self.LastErrorStr = message;
 		self.LastErrorNumber = number;
 		#self.Log.LogError(message);

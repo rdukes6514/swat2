@@ -213,7 +213,16 @@ Ext.ux.swat.MainWindowApp = Ext.extend(Ext.Window,{
             clicksToEdit: 2,
             id: 'idRowEditor'
         });
-        
+
+	this.SearchBox = new Ext.ux.grid.Search({
+		iconCls:'icon-zoom',
+		align:'left',
+		//searchText:'<b>Buscar</b>',
+		minChars:3,
+		autoFocus:false,
+		iconCls: 'search',
+		menuStyle:'radio'
+	});
 
 
         this.GridObjectBrowser = new Ext.grid.EditorGridPanel({
@@ -223,7 +232,7 @@ Ext.ux.swat.MainWindowApp = Ext.extend(Ext.Window,{
             ,loadMask:true
             //,enableDragDrop: true
             // ,loadMask : Mascara,
-             ,plugins : [this.RowEditor]
+             ,plugins : [this.RowEditor,this.SearchBox]
             ,sm:new Ext.grid.CheckboxSelectionModel()
             ,cm:this.UserColumnModel
             ,bbar: new Ext.PagingToolbar({

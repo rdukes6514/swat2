@@ -179,7 +179,7 @@ class UserModel(BaseModel):
 			self.samrpipe.SetUserInfo(user_handle, samr.UserAdminCommentInformation, info)
 			
 			info = self.samrpipe.QueryUserInfo(user_handle, samr.UserControlInformation)
-			user.must_change_password = True;
+			#user.must_change_password = True;
 			if (user.must_change_password):
 				info.acct_flags |= samr.ACB_PW_EXPIRED
 			else:

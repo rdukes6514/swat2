@@ -328,7 +328,8 @@ Ext.extend(Ext.ux.grid.Search, Ext.util.Observable, {
 					fields.push(item.dataIndex);
 				}
 			});
-
+			
+			fields = fields.toString();
 			// add fields and query to baseParams of store
 			delete(store.baseParams[this.paramNames.fields]);
 			delete(store.baseParams[this.paramNames.query]);
@@ -337,9 +338,12 @@ Ext.extend(Ext.ux.grid.Search, Ext.util.Observable, {
 				delete(store.lastOptions.params[this.paramNames.query]);
 			}
 			if(fields.length) {
-				store.baseParams[this.paramNames.fields] = Ext.encode(fields);
+				//store.baseParams[this.paramNames.fields] = Ext.encode(fields);
+				store.baseParams[this.paramNames.fields] = fields;
 				store.baseParams[this.paramNames.query] = val;
 			}
+			
+			
 
 			// reload store
 			store.reload();

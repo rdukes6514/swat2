@@ -24,9 +24,53 @@ class UserController(BaseController):
 			return json.dumps(self.AuthErr);
 
 		users = self.model.GetUserList();
-		total=len(users);
-		start = int(request.params.get("start",0))
-		limit = int(request.params.get("limit",18))
+		
+		start = int(request.params.get("start",0));
+		limit = int(request.params.get("limit",18));
+		
+		query = request.params.get("query","");
+		query = query.lower();
+		fields = request.params.get("fields","");
+		
+		
+		if query.strip() != '':
+			if fields.count(',')>0:
+				fields='username';
+			
+			if fields.strip() == '':
+				fields='username';
+				
+			#if fields.strip() != '':
+			#	fields='username';
+			newuserlist = [];
+			for user in users:
+				#response.write(user.username+"<br>");
+				#icon = 'usuario';
+				
+				if(user.account_disabled):
+					icon = 'dusuario';
+				
+				if(fields=='rid'):
+					if query.isdigit():
+						query = int(query);
+					
+					if(user.rid!=query):
+						continue;
+				elif(fields=='username'):
+					if(not user.username.lower().count(query)):
+						continue;
+				elif(fields=='description'):
+					if(not user.description.lower().count(query)):
+						continue;
+				else:
+					continue;
+				
+				newuserlist.append(user);
+
+			del users
+			users=newuserlist;
+		
+		total=len(users);		
 		Page = webhelpers.paginate.Page(users, page=start, items_per_page=limit)
 
 		for user in Page:

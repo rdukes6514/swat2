@@ -15,7 +15,7 @@ AppContexMenu={
 
                 ,items: [
 							{
-								text: 'Copiar ...'
+								text: 'Copy ...'
 
 
 								,handler: this.OnUserContexMenuCopyClick
@@ -24,7 +24,7 @@ AppContexMenu={
 
 							}, {
 
-								text: 'Agregar a un grupo'
+								text: 'Add a group'
 
 
 								,handler: this.OnContexMenuAddUserGroupClick
@@ -33,7 +33,7 @@ AppContexMenu={
 
 							}, {
 
-								text: 'Deshabilitar cuenta'
+								text: 'Disable account'
 								,id:'IdUserContexMenuDisableAccount'
 
 								,handler: this.OnUserContexMenuDisableAccountClick
@@ -42,7 +42,7 @@ AppContexMenu={
 
 							}, {
 
-								text: 'Restablecer contrase&ntilde;a'
+								text: 'Reset password'
 
 
 								,handler: this.OnUserContexMenuResetPassClick
@@ -51,7 +51,7 @@ AppContexMenu={
 
 							}, {
 
-								text: 'Eliminar'
+								text: 'Delete'
 								,id:'IdUserContexMenuDelete'
 
 								,handler: this.OnUserContexMenuDeleteClick
@@ -60,7 +60,7 @@ AppContexMenu={
 
 							}, {
 
-								text: 'Cambiar nombre'
+								text: 'Rename'
 								,id:'IdUserContexMenuChangeName'
 
 								,handler: this.OnUserContexMenuRenameClick
@@ -69,7 +69,7 @@ AppContexMenu={
 
 							}, '-', {
 
-								text: 'Propiedades'
+								text: 'Properties'
 
 
 								,handler: this.OnUserContexMenuPropertyClick

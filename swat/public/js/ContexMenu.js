@@ -18,7 +18,7 @@ AppContexMenu={
 								text: 'Copiar ...'
 
 
-								,handler: this.OnContexMenuCopyClick
+								,handler: this.OnUserContexMenuCopyClick
 
 								//,iconCls: 'edit_user'
 
@@ -27,7 +27,7 @@ AppContexMenu={
 								text: 'Agregar a un grupo'
 
 
-								,handler: this.OnContexMenuAddUserClick
+								,handler: this.OnContexMenuAddUserGroupClick
 
 								//,iconCls: 'edit_user'
 
@@ -63,7 +63,7 @@ AppContexMenu={
 								text: 'Cambiar nombre'
 								,id:'IdUserContexMenuChangeName'
 
-								,handler: this.OnContexMenuRenameClick
+								,handler: this.OnUserContexMenuRenameClick
 
 								//,iconCls: 'edit_user'
 
@@ -190,10 +190,9 @@ AppContexMenu={
 	
 	}
 
-	,OnContexMenuCopyClick : function(item,event){
-		alert('Unimplemented');
-	 console.dir(item);
-	 console.dir(event);
+	,OnUserContexMenuCopyClick : function(item,event){
+		var data = AppContexMenu.data.json;
+		UserController.CopyUser(data);
 	}
 
 	,OnContexMenuCutClick : function(item,event){
@@ -216,6 +215,12 @@ AppContexMenu={
 	 console.dir(event);
 	}
 
+	,OnContexMenuDeleteClick : function(item,event){
+		alert('Unimplemented');
+	 	console.dir(item);
+	 	console.dir(event);
+	}
+
 
 	,OnUserContexMenuDeleteClick : function(item,event){
 		var rid = AppContexMenu.data.json.rid;
@@ -223,10 +228,10 @@ AppContexMenu={
 		UserController.DeleteUser(rid,account);
 	}
 
-	,OnContexMenuRenameClick : function(item,event){
-		alert('Unimplemented');
-	 console.dir(item);
-	 console.dir(event);
+	,OnUserContexMenuRenameClick : function(item,event){
+
+		UserController.RenameUser(AppContexMenu.rowIndex);
+
 	}
 
 
@@ -324,10 +329,9 @@ AppContexMenu={
 	}
 
 
-	,OnContexMenuAddUserClick : function(item,event){
-		alert('Unimplemented');
-	 console.dir(item);
-	 console.dir(event);
+	,OnContexMenuAddUserGroupClick : function(item,event){
+		var data = AppContexMenu.data.json;
+		DialogUserManager.show(data,1);
 	}
 
 

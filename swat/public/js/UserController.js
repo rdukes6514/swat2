@@ -37,7 +37,23 @@ UserController = {
         :param setpassword: optionally disable password reset
         """    
     */
-   	    DeleteUser:function(rid,username){
+   	    NewUser:function(){
+		DialogNewUser.show();
+	    }
+
+   	    ,RenameUser:function(rowIndex){
+		MainAppW.RowEditor.startEditing(rowIndex, false);
+	    }
+
+
+
+   	    ,CopyUser:function(data){
+		if(data==null) return;
+		DialogNewUser.show(data);
+	    }
+	
+			
+   	    ,DeleteUser:function(rid,username){
 		ParamsObj = {
 			rid:rid
 			,username:username

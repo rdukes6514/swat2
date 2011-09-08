@@ -1,10 +1,11 @@
 DialogUserManager = {};
 
 DialogUserManager = {
-		show:function(data){
+		show:function(data,activeTab){
 			
 			if(data==null)return;
 			
+			if(activeTab==null)activeTab=0;
 			
 		var oldgrouplist = '';
 		
@@ -234,10 +235,10 @@ DialogUserManager = {
 		}
 
 		var driveStore = new Ext.data.SimpleStore({  
-            id      : 0 ,  
-            fields  : [  'id', 'name' ],  
-            data    : driveArray
-        });
+            		id      : 0 ,  
+            		fields  : [  'id', 'name' ],  
+           		 data    : driveArray
+        	});
         	
 		var radio1 = false;
 		var radio2 = false;
@@ -382,7 +383,7 @@ DialogUserManager = {
         
             		
 			var tabs = new Ext.TabPanel({
-			activeTab: 0,
+			activeTab: activeTab,
 			items: [
 					{
 						title: 'General'

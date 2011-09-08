@@ -11,13 +11,18 @@ import samba
 log = logging.getLogger(__name__)
 
 class UserController(BaseController):
-
+	iscopy=False;
+	rid=-1;
 	def __init__(self):
 		BaseController.__init__(self)
 		if self._check_session():
 			self.model = UserModel(session['username'],session['password']);
 			self.GroupModel = GroupModel(session['username'],session['password']);
 			self.ChildNodes = [];
+			
+			if not 'UserPageStart' in session:
+				session['UserPageStart']=0;
+				session['UserPageLimit']=18;
 
 	def index(self):
 		if not self._check_session():
@@ -25,8 +30,12 @@ class UserController(BaseController):
 
 		users = self.model.GetUserList();
 		
-		start = int(request.params.get("start",0));
-		limit = int(request.params.get("limit",18));
+		start = int(request.params.get("start",session['UserPageStart']));
+		limit = int(request.params.get("limit",session['UserPageLimit']));
+		
+		#session['UserPageStart']=start;
+		#session['UserPageLimit']=limit;
+		#session.save();
 		
 		query = request.params.get("query","");
 		query = query.lower();
@@ -115,6 +124,7 @@ class UserController(BaseController):
 			password = request.params.get("password",samba.generate_random_password(7,15))		
 			fullname = request.params.get("fullname","")
 			description = request.params.get("description","")
+			iscopy = request.params.get("iscopy","false")
 			
 			changepassword = request.params.get("changepassword","false");
 			if(changepassword!="false"):
@@ -145,21 +155,23 @@ class UserController(BaseController):
 			if rid == False:
 				raise Exception(self.model.LastErrorStr);
 			
-			user = User(username,fullname,description,rid);
-			
-			user.must_change_password = changepassword;
-			user.cannot_change_password = cannotchangepassword;
-			user.password_never_expires = passwordexpires;
-			user.account_disabled = disable;
-			
-			if not self.model.UpdateUser(user):
-				raise Exception(self.model.LastErrorStr);
-
-			if(not self.model.SetPassword(username,password)):
-				raise Exception(self.model.LastErrorStr);			
-			
-			
-
+			if(iscopy!="false"):
+				self.iscopy=True;
+				self.rid=rid;
+				self.UpdateUser();
+			else:
+				user = User(username,fullname,description,rid);
+				
+				user.must_change_password = changepassword;
+				user.cannot_change_password = cannotchangepassword;
+				user.password_never_expires = passwordexpires;
+				user.account_disabled = disable;
+				
+				if not self.model.UpdateUser(user):
+					raise Exception(self.model.LastErrorStr);
+	
+				if(not self.model.SetPassword(username,password)):
+					raise Exception(self.model.LastErrorStr);			
 			
 		
 		except Exception,e:
@@ -191,7 +203,7 @@ class UserController(BaseController):
 			
 		try:
 			
-			rid = request.params.get("rid",-1)
+			rid = request.params.get("rid",self.rid)
 			username = request.params.get("account","")
 			password = request.params.get("password",samba.generate_random_password(7,15))
 			
@@ -222,7 +234,7 @@ class UserController(BaseController):
 		if not self._check_session():
 			return json.dumps(self.AuthErr);
 		try:
-			rid = request.params.get("rid",-1)
+			rid = request.params.get("rid",self.rid)
 			username = request.params.get("username","")
 			enable = request.params.get("enable","yes").strip();
 			
@@ -252,7 +264,7 @@ class UserController(BaseController):
 				username = request.params.get("username","");
 				fullname = request.params.get("fullname","");
 				description = request.params.get("description","");
-				rid = request.params.get("rid",-1);
+				rid = request.params.get("rid",self.rid);
 
 				changepassword = request.params.get("changepassword","false");
 				if(changepassword!="false"):
@@ -334,10 +346,13 @@ class UserController(BaseController):
 					raise Exception(self.model.LastErrorStr);
 
 			except Exception,e:
+					if(self.iscopy):
+						raise;
 					return json.dumps({'success': False, 'msg': e.message,'num':0})
 			
 			
-			
+			if(self.iscopy):
+				return True;
 			return json.dumps({'success': True, 'groupdiff':list(groupdiff), 'oldgrouplist':list(oldgrouplist), 'grouplist':list(grouplist)})
 			#return json.dumps(self.successOK)
 

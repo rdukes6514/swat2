@@ -213,7 +213,7 @@ Ext.ux.swat.MainWindowApp = Ext.extend(Ext.Window,{
 			clicksToEdit: 2,
 			id: 'idRowEditor'
 		});
-
+		
 		this.SearchBox = new Ext.ux.grid.Search({
 			iconCls:'icon-zoom',
 			align:'left',
@@ -296,7 +296,7 @@ Ext.ux.swat.MainWindowApp = Ext.extend(Ext.Window,{
 			text: 'New user'
 			,iconCls: 'add'
 			,handler: function () {
-			       DialogNewUser.show();
+			       UserController.NewUser();
 			}
 		};	
 	
@@ -417,7 +417,9 @@ Ext.ux.swat.MainWindowApp = Ext.extend(Ext.Window,{
             Ext.getCmp('idRowEditor').stopEditing();
             var coords = e.getXY();
             var row = obj.getStore().getAt(rowIndex);
-             
+
+            
+
             var sm = obj.getSelectionModel();
             
             if (!sm.isSelected(rowIndex)) {
@@ -426,6 +428,8 @@ Ext.ux.swat.MainWindowApp = Ext.extend(Ext.Window,{
             }
             
             AppContexMenu.data = row;
+	    AppContexMenu.rowIndex=rowIndex;
+
             
             var type = obj.getStore().getAt(rowIndex).get('type');
             var disable = obj.getStore().getAt(rowIndex).get('disable');

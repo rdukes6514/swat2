@@ -54,7 +54,7 @@ AppContexMenu={
 								text: 'Eliminar'
 								,id:'IdUserContexMenuDelete'
 
-								,handler: this.OnContexMenuDeleteClick
+								,handler: this.OnUserContexMenuDeleteClick
 
 								//,iconCls: 'edit_user'
 
@@ -216,6 +216,12 @@ AppContexMenu={
 	 console.dir(event);
 	}
 
+
+	,OnUserContexMenuDeleteClick : function(item,event){
+		var rid = AppContexMenu.data.json.rid;
+		var account = AppContexMenu.data.json.username;
+		UserController.DeleteUser(rid,account);
+	}
 
 	,OnContexMenuRenameClick : function(item,event){
 		alert('Unimplemented');

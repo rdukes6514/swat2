@@ -169,6 +169,21 @@ class UserController(BaseController):
 			return json.dumps({'success': False, 'msg': e.message,'num':num})
 		
 		return json.dumps(self.successOK);
+			
+	
+	def DeleteUser(self):
+		try:
+			if not self._check_session():
+				return json.dumps(self.AuthErr);
+			
+			#rid = request.params.get("rid",-1)
+			username = request.params.get("username","")
+			if(not self.model.DeleteUser(username)):
+				raise Exception(self.model.LastErrorStr);			
+			
+		except Exception,e:
+				return json.dumps({'success': False, 'msg': e.message,'num':0})
+		return json.dumps(self.successOK)	
 
 	def SetPassword(self):
 		if not self._check_session():

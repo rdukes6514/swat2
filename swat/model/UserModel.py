@@ -132,8 +132,14 @@ class UserModel(BaseModel):
 		return True;
 
 	def DeleteUser(self,username):
-		net.delete_user(username)
-		return true;
+		try:
+			self.net.delete_user(username)		
+		except Exception,e:
+			self.SetError(e.message,0)
+			return False;
+		return True;		
+		
+
 
 	def EnableAccount(self,rid,username,enable=True):
 		try:

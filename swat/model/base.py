@@ -105,6 +105,7 @@ class BaseModel:
 		self.domain = self.sam_domains[domain_index]
 		self.domain_sid = self.samrpipe.LookupDomain(self.connect_handle, self.domain[1])
 		self.domain_handle = self.samrpipe.OpenDomain(self.connect_handle, security.SEC_FLAG_MAXIMUM_ALLOWED, self.domain_sid)
+		self.creds.set_domain(self.domain_name_list[domain_index])
 
 	def close(self):
 		if (self.samrpipe != None):

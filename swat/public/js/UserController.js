@@ -37,9 +37,15 @@ UserController = {
         :param setpassword: optionally disable password reset
         """    
     */
-   
+   	    DeleteUser:function(rid,username){
+		ParamsObj = {
+			rid:rid
+			,username:username
+		}
+		UserController.SendData('User/DeleteUser',ParamsObj);
+	    }
     
-            EnableAccount: function(rid,username,enable) {
+            ,EnableAccount: function(rid,username,enable) {
 				enable= enable || false;
 				if(enable) enable = 'yes';
 				ParamsObj = {

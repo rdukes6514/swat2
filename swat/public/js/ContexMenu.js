@@ -24,7 +24,7 @@ AppContexMenu={
 
 							}, {
 
-								text: 'Add a group'
+								text: 'Add to a group'
 
 
 								,handler: this.OnContexMenuAddUserGroupClick

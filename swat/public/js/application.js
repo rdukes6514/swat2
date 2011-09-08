@@ -440,9 +440,9 @@ Ext.ux.swat.MainWindowApp = Ext.extend(Ext.Window,{
             if(type == 'user') {
 				
 				if(disable){
-					AppContexMenu.UserContexMenu.items.get('IdUserContexMenuDisableAccount').setText('Habilitar cuenta');
+					AppContexMenu.UserContexMenu.items.get('IdUserContexMenuDisableAccount').setText('Enable account');
 				} else {
-					AppContexMenu.UserContexMenu.items.get('IdUserContexMenuDisableAccount').setText('Deshabilitar cuenta');
+					AppContexMenu.UserContexMenu.items.get('IdUserContexMenuDisableAccount').setText('Disable account');
 				}
 				
   			    AppContexMenu.UserContexMenu.showAt([coords[0], coords[1]]);	

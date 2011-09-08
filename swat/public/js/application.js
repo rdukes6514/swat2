@@ -34,219 +34,219 @@ Ext.ux.swat.MainWindowApp = Ext.extend(Ext.Window,{
 		
 
 
-        this.TreePanelBrowser = new Ext.tree.TreePanel({
-			id: 'Browser/TreePanelBrowser'
-            ,width: 200
-            ,collapsible: true			
-            ,animate:true
-            ,region: 'west'
-			//,border: false 
-			,autoScroll:true
-			//rootVisible:false,  
-			,root: this.getTreeData()  
-        });
+		this.TreePanelBrowser = new Ext.tree.TreePanel({
+				id: 'Browser/TreePanelBrowser'
+		,width: 200
+		,collapsible: true			
+		,animate:true
+		,region: 'west'
+				//,border: false 
+				,autoScroll:true
+				//rootVisible:false,  
+				,root: this.getTreeData()  
+		});
         
 
 				
-        this.UserStore = new Ext.data.JsonStore({
-            url: 'User'
-            ,root: 'Nodos'
-            //,remoteSort:true
-			,paramNames:{
-              start : 'start'  // The parameter name which specifies the start row
-              ,limit : 'limit'  // The parameter name which specifies number of rows to return
-              ,sort : 'sort'    // The parameter name which specifies the column to sort on
-              ,dir : 'dir'       // The parameter name which specifies the sort direction
-            }	
-            ,fields: [  
-						'username'
-						,'fullname'
-						,'description'
-						,'rid'
-						,'changepassword'
-						,'cannotchangepassword'
-						,'passwordexpires'
-						,'disable'
-						,'locked'
-						//,'grouplist'
-						,'profile'
-						,'logonscript'
-						,'homedir'
-						,'maphomedirdrive'
-						,'icon'
-						,'type'
-					]
-        });
+		this.UserStore = new Ext.data.JsonStore({
+		url: 'User'
+		,root: 'Nodos'
+		//,remoteSort:true
+				,paramNames:{
+		start : 'start'  // The parameter name which specifies the start row
+		,limit : 'limit'  // The parameter name which specifies number of rows to return
+		,sort : 'sort'    // The parameter name which specifies the column to sort on
+		,dir : 'dir'       // The parameter name which specifies the sort direction
+		}	
+		,fields: [  
+							'username'
+							,'fullname'
+							,'description'
+							,'rid'
+							,'changepassword'
+							,'cannotchangepassword'
+							,'passwordexpires'
+							,'disable'
+							,'locked'
+							//,'grouplist'
+							,'profile'
+							,'logonscript'
+							,'homedir'
+							,'maphomedirdrive'
+							,'icon'
+							,'type'
+						]
+		});
 
 
 
-        this.GroupStore = new Ext.data.JsonStore({
-            url: 'Group',
-            root: 'Nodos',
-            fields: [  
-					   'name','description','rid'
-					   ,'icon','type'
-					]
-        });
-        this.GroupStore.load();
-        
-        this.ShareStore = new Ext.data.JsonStore({
-            url: 'Share',
-            root: 'Nodos',
-            fields: [  
-					   'sharename', 'path','comment'
-					   ,'icon','type'
-					]
-        });        
+		this.GroupStore = new Ext.data.JsonStore({
+		url: 'Group',
+		root: 'Nodos',
+		fields: [  
+						'name','description','rid'
+						,'icon','type'
+						]
+		});
+		this.GroupStore.load();
+		
+		this.ShareStore = new Ext.data.JsonStore({
+		url: 'Share',
+		root: 'Nodos',
+		fields: [  
+						'sharename', 'path','comment'
+						,'icon','type'
+						]
+		});        
                 
         
-        var NameEditor = new Ext.form.TextField({allowBlank: false,name:'newusername'});
+        	var NameEditor = new Ext.form.TextField({allowBlank: false,name:'newusername'});
         
-        /*NameEditor.on('change',function(UidEditor,newValue, oldValue){
-				//oldusername = oldValue;
-				console.log(newValue);
-        });*/	
+		/*NameEditor.on('change',function(UidEditor,newValue, oldValue){
+					//oldusername = oldValue;
+					console.log(newValue);
+		});*/	
                 
 		this.UserColumnModel = new Ext.grid.ColumnModel([
 			 new Ext.grid.RowNumberer(), new Ext.grid.CheckboxSelectionModel(),
 			{
-                header: 'Uid'
-                ,dataIndex: 'rid'
-                ,sortable: true
-                ,width: 50
-                ,editor : new Ext.form.TextField({readOnly:true})
-            },{
-                header: 'Nombre:',
-                renderer: function (value, metaData, record, rowIndex, colIndex, store) {
-                     //alert(record.data.icon);
-                    metaData.css = 'usuario';
-                    if (record.data.icon != '') {
-                        metaData.css = record.data.icon;
-                    }
-                    // metaData.value = 'ceo-icon';
-                    return '&nbsp;&nbsp;&nbsp;&nbsp;' + value + String.format('<img class="padding-img" src="{0}"/>', Ext.BLANK_IMAGE_URL);
-                    
-                }
-                ,dataIndex: 'username'
-                ,sortable: true
-                ,width: 200
-                ,editor : NameEditor
-            },{
-                header: 'Descripcion'
-                ,dataIndex: 'description'
-                ,sortable: true
-                ,width: 600
-                ,editor : new Ext.form.TextField({name:'description'})
-            }
-            ]);        
+				header: 'Uid'
+				,dataIndex: 'rid'
+				,sortable: true
+				,width: 50
+				,editor : new Ext.form.TextField({readOnly:true})
+			},{
+				header: 'Nombre:',
+				renderer: function (value, metaData, record, rowIndex, colIndex, store) {
+				//alert(record.data.icon);
+				metaData.css = 'usuario';
+				if (record.data.icon != '') {
+					metaData.css = record.data.icon;
+				}
+				// metaData.value = 'ceo-icon';
+				return '&nbsp;&nbsp;&nbsp;&nbsp;' + value + String.format('<img class="padding-img" src="{0}"/>', Ext.BLANK_IMAGE_URL);
+				
+				}
+				,dataIndex: 'username'
+				,sortable: true
+				,width: 200
+				,editor : NameEditor
+			},{
+				header: 'Descripcion'
+				,dataIndex: 'description'
+				,sortable: true
+				,width: 600
+				,editor : new Ext.form.TextField({name:'description'})
+			}
+            	]);        
             
 
 		this.GroupColumnModel = new Ext.grid.ColumnModel([
 		 new Ext.grid.RowNumberer(), new Ext.grid.CheckboxSelectionModel(),
 			{
-                header: 'Gid'
-                ,dataIndex: 'rid'
-                ,sortable: true
-                ,width: 50
-                ,editor : new Ext.form.TextField({readOnly:true})
-            },{
-                header: 'Nombre:',
-                renderer: function (value, metaData, record, rowIndex, colIndex, store) {
-                     //alert(record.data.icon);
-                    metaData.css = 'group-icon';
-                    if (record.data.icon != '') {
-                        metaData.css = record.data.icon;
-                    }
-                    return '&nbsp;&nbsp;&nbsp;&nbsp;' + value + String.format('<img class="padding-img" src="{0}"/>', Ext.BLANK_IMAGE_URL);
-                    
-                }
-                ,dataIndex: 'name'
-                ,sortable: true
-                ,width: 200
-                ,editor : new Ext.form.TextField({allowBlank: false,name:'newname'})
-            },{
-                header: 'Descripcion'
-                ,dataIndex: 'description'
-                ,sortable: true
-                ,width: 600
-                ,editor : new Ext.form.TextField({name:'description'})
-            }
-            ]); 
+				header: 'Gid'
+				,dataIndex: 'rid'
+				,sortable: true
+				,width: 50
+				,editor : new Ext.form.TextField({readOnly:true})
+			},{
+				header: 'Nombre:',
+				renderer: function (value, metaData, record, rowIndex, colIndex, store) {
+				//alert(record.data.icon);
+				metaData.css = 'group-icon';
+				if (record.data.icon != '') {
+					metaData.css = record.data.icon;
+				}
+				return '&nbsp;&nbsp;&nbsp;&nbsp;' + value + String.format('<img class="padding-img" src="{0}"/>', Ext.BLANK_IMAGE_URL);
+				
+				}
+				,dataIndex: 'name'
+				,sortable: true
+				,width: 200
+				,editor : new Ext.form.TextField({allowBlank: false,name:'newname'})
+			},{
+				header: 'Descripcion'
+				,dataIndex: 'description'
+				,sortable: true
+				,width: 600
+				,editor : new Ext.form.TextField({name:'description'})
+			}
+            	]); 
             
 		this.ShareColumnModel = new Ext.grid.ColumnModel([
-		 new Ext.grid.RowNumberer(), new Ext.grid.CheckboxSelectionModel(),
+		 	new Ext.grid.RowNumberer(), new Ext.grid.CheckboxSelectionModel(),
 			{
-                header: 'Name',
-                renderer: function (value, metaData, record, rowIndex, colIndex, store) {
-                    //alert(record.data.icon);
-                    metaData.css = 'HD-icon';
-                    if (record.data.icon != '') {
-                        metaData.css = record.data.icon;
-                    }
-                    
-                    // metaData.value = 'ceo-icon';
-                    return '&nbsp;&nbsp;&nbsp;&nbsp;' + value + String.format('<img class="padding-img" src="{0}"/>', Ext.BLANK_IMAGE_URL);
-                    
-                }
-                ,dataIndex: 'sharename'
-                ,sortable: true
-                ,width: 100
-                ,editor : new Ext.form.TextField({allowBlank: false,name:'newsharename'})
-            },{
-                header: 'Path'
-                ,dataIndex: 'path'
-                ,sortable: true
-                ,width: 400
-                ,editor : new Ext.form.TextField({allowBlank: false,name:'path'})
-            },{
-                header: 'Comment'
-                ,dataIndex: 'comment'
-                ,sortable: true
-                ,width: 600
-                ,editor : new Ext.form.TextField({name:'comment'})
-            }
-            ]); 
+				header: 'Name',
+				renderer: function (value, metaData, record, rowIndex, colIndex, store) {
+				//alert(record.data.icon);
+				metaData.css = 'HD-icon';
+				if (record.data.icon != '') {
+					metaData.css = record.data.icon;
+				}
+				
+				// metaData.value = 'ceo-icon';
+				return '&nbsp;&nbsp;&nbsp;&nbsp;' + value + String.format('<img class="padding-img" src="{0}"/>', Ext.BLANK_IMAGE_URL);
+				
+				}
+				,dataIndex: 'sharename'
+				,sortable: true
+				,width: 100
+				,editor : new Ext.form.TextField({allowBlank: false,name:'newsharename'})
+			},{
+				header: 'Path'
+				,dataIndex: 'path'
+				,sortable: true
+				,width: 400
+				,editor : new Ext.form.TextField({allowBlank: false,name:'path'})
+			},{
+				header: 'Comment'
+				,dataIndex: 'comment'
+				,sortable: true
+				,width: 600
+				,editor : new Ext.form.TextField({name:'comment'})
+			}
+           	]); 
 
-        this.RowEditor = new Ext.ux.grid.RowEditor({
-            saveText: 'Update',
-            //cancelText: 'Cancelar',
-            clicksToEdit: 2,
-            id: 'idRowEditor'
-        });
+		this.RowEditor = new Ext.ux.grid.RowEditor({
+			saveText: 'Update',
+			//cancelText: 'Cancelar',
+			clicksToEdit: 2,
+			id: 'idRowEditor'
+		});
 
-	this.SearchBox = new Ext.ux.grid.Search({
-		iconCls:'icon-zoom',
-		align:'left',
-		//searchText:'<b>Buscar</b>',
-		minChars:3,
-		autoFocus:false,
-		iconCls: 'search',
-		menuStyle:'radio'
-	});
+		this.SearchBox = new Ext.ux.grid.Search({
+			iconCls:'icon-zoom',
+			align:'left',
+			//searchText:'<b>Buscar</b>',
+			minChars:3,
+			autoFocus:false,
+			iconCls: 'search',
+			menuStyle:'radio'
+		});
 
 
-        this.GridObjectBrowser = new Ext.grid.EditorGridPanel({
-            id: 'GridObjectBrowser'
-            ,region: 'center'
-            ,store: this.UserStore 
-            ,loadMask:true
-            //,enableDragDrop: true
-            // ,loadMask : Mascara,
-             ,plugins : [this.RowEditor,this.SearchBox]
-            ,sm:new Ext.grid.CheckboxSelectionModel()
-            ,cm:this.UserColumnModel
-            ,bbar: new Ext.PagingToolbar({
-
-                displayInfo: true,
-                displayMsg: 'Mostrando {0} - {1} de {2}',
-                emptyMsg: "No hay elementos",
-                store: this.UserStore,
-                pageSize: 18,
-
-            }),
-            border: false,
-            stripeRows: true,
-        }); 
+		this.GridObjectBrowser = new Ext.grid.EditorGridPanel({
+			id: 'GridObjectBrowser'
+			,region: 'center'
+			,store: this.UserStore 
+			,loadMask:true
+			//,enableDragDrop: true
+			// ,loadMask : Mascara,
+			,plugins : [this.RowEditor,this.SearchBox]
+			,sm:new Ext.grid.CheckboxSelectionModel()
+			,cm:this.UserColumnModel
+			,bbar: new Ext.PagingToolbar({
+		
+				displayInfo: true,
+				displayMsg: 'Mostrando {0} - {1} de {2}',
+				emptyMsg: "No hay elementos",
+				store: this.UserStore,
+				pageSize: 18,
+		
+			}),
+			border: false,
+			stripeRows: true,
+		}); 
                				
 		//this.UserStore.load();
 		
@@ -254,16 +254,16 @@ Ext.ux.swat.MainWindowApp = Ext.extend(Ext.Window,{
 		
 		
 		
-        var MainContainer = new Ext.Panel({
-            id: 'MainContainer',
-            // width : 425,
-            // height : 250,
-            collapsible: true,
-            layout: 'fit',
-            region: 'center',
-            // title : 'Simple ListView <i>(0 items selected)</i>',
-            items: this.GridObjectBrowser
-        });
+		var MainContainer = new Ext.Panel({
+			id: 'MainContainer',
+			// width : 425,
+			// height : 250,
+			collapsible: true,
+			layout: 'fit',
+			region: 'center',
+			// title : 'Simple ListView <i>(0 items selected)</i>',
+			items: this.GridObjectBrowser
+		});
         
 		//this.items = [this.LogoPanel,this.TreePanelBrowser,MainContainer];
 		this.items = [this.TreePanelBrowser,MainContainer];
@@ -275,7 +275,31 @@ Ext.ux.swat.MainWindowApp = Ext.extend(Ext.Window,{
 		this.RowEditor.on("afteredit",this.OnRowEditorAfterEdit);
 		
 		Ext.ux.swat.MainWindowApp.superclass.initComponent.apply(this, arguments);
+
 		
+		this.AddGroupBtn= {
+			text: 'Add group'
+			,iconCls: 'add'
+		};
+			
+		this.DomainWizzardBtn= {
+			text: 'Domain wizzard'
+			,iconCls: 'add'
+		};
+			
+		this.AddShareBtn= {
+			text: 'Add share'
+			,iconCls: 'add'
+		};
+		
+		this.AddUserBtn= {
+			text: 'New user'
+			,iconCls: 'add'
+			,handler: function () {
+			       DialogNewUser.show();
+			}
+		};	
+	
 		
 	},
 	getTreeData: function(){
@@ -341,13 +365,7 @@ Ext.ux.swat.MainWindowApp = Ext.extend(Ext.Window,{
 	,fillToolBarUsers:function(){
 		var tb = this.getTopToolbar();
 		tb.removeAll();
-		var	btnbar  =	[{
-							text: 'New user',
-							iconCls: 'add',
-						},{
-							text: 'Domain wizzard',
-							iconCls: 'add',
-						}];
+		var	btnbar  =[this.AddUserBtn,this.DomainWizzardBtn];
                 
 		tb.addField(btnbar);
 		tb.doLayout();	
@@ -361,13 +379,7 @@ Ext.ux.swat.MainWindowApp = Ext.extend(Ext.Window,{
 	,fillToolBarShares:function(){
 		var tb = this.getTopToolbar();
 		tb.removeAll();
-		var	btnbar  =	[{
-							text: 'Add share',
-							iconCls: 'add',
-						},{
-							text: 'Domain wizzard',
-							iconCls: 'add',
-						}];
+		var	btnbar  =[this.AddShareBtn,this.DomainWizzardBtn];
                 
 		tb.addField(btnbar);
 		tb.doLayout();	
@@ -381,14 +393,8 @@ Ext.ux.swat.MainWindowApp = Ext.extend(Ext.Window,{
 	,fillToolBarGroups:function(){
 		var tb = this.getTopToolbar();
 		tb.removeAll();
-		var	btnbar  =	[{
-							text: 'Add group',
-							iconCls: 'add',
-						},{
-							text: 'Domain wizzard',
-							iconCls: 'add',
-						}];
-                
+		var	btnbar  = [this.AddGroupBtn,this.DomainWizzardBtn];
+
 		tb.addField(btnbar);
 		tb.doLayout();	
 		this.CurrentStore=this.GroupStore;

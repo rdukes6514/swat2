@@ -105,6 +105,71 @@ class UserController(BaseController):
 		return json.dumps({"Nodos":self.ChildNodes,'total':total});
 
 
+	def AddUser(self):
+		try:
+			if not self._check_session():
+				return json.dumps(self.AuthErr);	
+
+			
+			username = request.params.get("username","")
+			password = request.params.get("password",samba.generate_random_password(7,15))		
+			fullname = request.params.get("fullname","")
+			description = request.params.get("description","")
+			
+			changepassword = request.params.get("changepassword","false");
+			if(changepassword!="false"):
+				changepassword = True
+			else:
+				changepassword = False
+				
+			cannotchangepassword = request.params.get("cannotchangepassword","false");
+			if(cannotchangepassword!="false"):
+				cannotchangepassword = True
+			else:
+				cannotchangepassword = False
+			
+			passwordexpires = request.params.get("passwordexpires","false");
+			if(passwordexpires!="false"):
+				passwordexpires = True
+			else:
+				passwordexpires = False
+				
+			disable = request.params.get("disable","false");
+			if(disable!="false"):
+				disable = True
+			else:
+				disable = False
+								
+			rid = self.model.AddUser(username);
+			
+			if rid == False:
+				raise Exception(self.model.LastErrorStr);
+			
+			user = User(username,fullname,description,rid);
+			
+			user.must_change_password = changepassword;
+			user.cannot_change_password = cannotchangepassword;
+			user.password_never_expires = passwordexpires;
+			user.account_disabled = disable;
+			
+			if not self.model.UpdateUser(user):
+				raise Exception(self.model.LastErrorStr);
+
+			if(not self.model.SetPassword(username,password)):
+				raise Exception(self.model.LastErrorStr);			
+			
+			
+
+			
+		
+		except Exception,e:
+			num=0;	
+			if self.model.LastErrorNumber !=0:
+				num=self.model.LastErrorNumber
+			return json.dumps({'success': False, 'msg': e.message,'num':num})
+		
+		return json.dumps(self.successOK);
+
 	def SetPassword(self):
 		if not self._check_session():
 			return json.dumps(self.AuthErr);
@@ -216,7 +281,7 @@ class UserController(BaseController):
 				user.cannot_change_password = cannotchangepassword;
 				user.password_never_expires = passwordexpires;
 				user.account_disabled = disable;
-				locked = True;
+				#locked = True;
 				user.account_locked_out = locked;
 				user.profile_path = profile;
 				user.logon_script = logonscript;

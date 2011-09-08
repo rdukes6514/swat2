@@ -405,7 +405,7 @@ DialogUserManager = {
 			,modal:true
 			,labelWidth: 75
 			,width:380
-				,height:365
+			,height:365
 			,frame: true
 			,bodyStyle: 'padding:5px 5px 5px 5px'
 			,layout: 'form'

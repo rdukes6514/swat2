@@ -31,7 +31,7 @@ class UserModel(BaseModel):
 				#Printer(e);
 				#response.write(str(dir(e)));
 				return False;
-			return True;
+			return rid;
 		else:
 			return False;
 
@@ -298,7 +298,7 @@ class User:
 		self.profile_path = ""
 		self.logon_script = ""
 		self.homedir_path = ""
-		self.map_homedir_drive = -1
+		self.map_homedir_drive = ""
 
 class Printer:
 

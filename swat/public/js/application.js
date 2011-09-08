@@ -299,6 +299,14 @@ Ext.ux.swat.MainWindowApp = Ext.extend(Ext.Window,{
 			       UserController.NewUser();
 			}
 		};	
+
+		this.DeleteUserBtn= {
+			text: 'Remove'
+			,iconCls: 'add'
+			,handler: function () {
+				UserController.DeleteUserList();
+			}
+		};
 	
 		
 	},
@@ -365,7 +373,7 @@ Ext.ux.swat.MainWindowApp = Ext.extend(Ext.Window,{
 	,fillToolBarUsers:function(){
 		var tb = this.getTopToolbar();
 		tb.removeAll();
-		var	btnbar  =[this.AddUserBtn,this.DomainWizzardBtn];
+		var	btnbar  =[this.AddUserBtn,this.DeleteUserBtn,this.DomainWizzardBtn];
                 
 		tb.addField(btnbar);
 		tb.doLayout();	

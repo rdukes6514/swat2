@@ -60,6 +60,25 @@ UserController = {
 		}
 		UserController.SendData('User/DeleteUser',ParamsObj);
 	    }
+
+   	    ,DeleteUserList:function(){
+	    	var seleccionados = Ext.getCmp('GridObjectBrowser').getSelectionModel().getSelections();
+		var RemoveList = Array();
+
+		Ext.each(seleccionados, function (record) {
+			RemoveList.push(record.data['username']);	
+		});
+
+		ParamsObj = {
+			UserList:RemoveList.toString()
+		}
+		//console.log(RemoveList.toString());
+		if(RemoveList.length>0){
+			UserController.SendData('User/DeleteUserList',ParamsObj);
+		}
+	    }
+
+
     
             ,EnableAccount: function(rid,username,enable) {
 				enable= enable || false;

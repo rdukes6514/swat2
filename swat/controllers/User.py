@@ -197,6 +197,25 @@ class UserController(BaseController):
 				return json.dumps({'success': False, 'msg': e.message,'num':0})
 		return json.dumps(self.successOK)	
 
+	def DeleteUserList(self):
+		try:
+			if not self._check_session():
+				return json.dumps(self.AuthErr);
+			
+			#rid = request.params.get("rid",-1)
+			UserList = request.params.get("UserList","")
+			if(UserList.count(',')>0):
+				UserList = UserList.split(',');
+				for username in UserList:
+					if(not self.model.DeleteUser(username)):
+						raise Exception(self.model.LastErrorStr);			
+			
+		except Exception,e:
+				return json.dumps({'success': False, 'msg': e.message,'num':0})
+		return json.dumps(self.successOK)	
+
+
+
 	def SetPassword(self):
 		if not self._check_session():
 			return json.dumps(self.AuthErr);

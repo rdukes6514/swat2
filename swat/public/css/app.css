@@ -13,6 +13,11 @@
 	padding-left: 20px;	
 }
 
+.Listbox-user-icon {
+	background: url(icons/usuario.ico) no-repeat center left #FFFFCC;
+	padding-left: 20px;	
+}
+
 .pc-icon {
 	background: transparent url(icons/Laptop.ico) 0 0 no-repeat !important;
 }

@@ -352,11 +352,11 @@ class UserController(BaseController):
 				groupdiff = set(oldgrouplist).difference(grouplist);
 				
 				for group_rid in groupdiff:
-					self.GroupModel.RemoveUserFromGroup(group_rid,rid);
+					self.GroupModel.DeleteGroupMember(group_rid,rid);
 				
 				groupdiff = set(grouplist).difference(oldgrouplist);
 				for group_rid in groupdiff:
-					self.GroupModel.AddUserToGroup(group_rid,rid);
+					self.GroupModel.AddGroupMember(group_rid,rid);
 				
 
 				#user.group_list = []

@@ -151,7 +151,7 @@ DialogUserManager = {
 								
 							}    
                         }
-                        oldgrouplist=ExplodeGroupListbyComma();
+                        oldgrouplist=ExplodeListByComma('GroupList');
 			        }
 			    }
 			    ,width: '100%'
@@ -432,7 +432,7 @@ DialogUserManager = {
                             //var sendJson = Ext.util.JSON.encode(optionList);
                             //console.log(grouplist);	
                             
-                            	grouplist=ExplodeGroupListbyComma();															
+                            	grouplist=ExplodeListByComma('GroupList');															
 								params={
 										description:description.getValue()
 										,changepassword:ForcePasswordChange.getValue()
@@ -474,7 +474,7 @@ DialogUserManager = {
 		}
 }
 
-function ExplodeGroupListbyComma(){
+function ExplodeListByComma(idlist){
 	var grouplist = "";
     var elSel = document.getElementById('GroupList');
     if (elSel) {
@@ -503,10 +503,11 @@ function ExplodeGroupListbyComma(){
 
 
 
-function appendOptionLast(idselect, value, text) {
+function appendOptionLast(idselect, value, text,type) {
 
 	var elOptNew = document.createElement('option');
 	var errores = 0;
+	type = type || lsa_SidType.SID_NAME_DOM_GRP;
 
 	if (value && text) {
 
@@ -536,13 +537,48 @@ function appendOptionLast(idselect, value, text) {
 
 			}
 
+			css='';
+			
 			if (errores == 0) {
+				
+				switch(type){
+					case lsa_SidType.SID_NAME_USER:
+						css='Listbox-user-icon';
+					break;
+					case lsa_SidType.SID_NAME_DOM_GRP:
+						css='Listbox-group-icon';
+					break;
+					case lsa_SidType.SID_NAME_DOMAIN:
+						css='Listbox-unknown-icon';
+					break;
+					case lsa_SidType.SID_NAME_ALIAS:
+						css='Listbox-unknown-icon';
+					break;
+					case lsa_SidType.SID_NAME_WKN_GRP:
+						css='Listbox-group-icon';
+					break;
+					case lsa_SidType.SID_NAME_DELETED:
+						css='Listbox-unknown-icon';
+					break;
+					case lsa_SidType.SID_NAME_INVALID:
+						css='Listbox-unknown-icon';
+					break;
+					case lsa_SidType.SID_NAME_UNKNOWN:
+						css='Listbox-unknown-icon';
+					break;
+					case lsa_SidType.SID_NAME_COMPUTER:
+						css='Listbox-pc-icon';
+					break;
+					default:
+						css='Listbox-group-icon';
+				}
+	
 
 				try {
 
 					elSel.add(elOptNew, null); // standards compliant; doesn't work in IE
 
-					Ext.get(elOptNew.id).addClass('Listbox-group-icon');
+					Ext.get(elOptNew.id).addClass(css);
 
 				} catch (ex) {
 

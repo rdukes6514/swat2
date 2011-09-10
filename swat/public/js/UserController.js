@@ -38,44 +38,44 @@ UserController = {
         """    
     */
    	    NewUser:function(){
-		DialogNewUser.show();
+			DialogNewUser.show();
 	    }
 
    	    ,RenameUser:function(rowIndex){
-		MainAppW.RowEditor.startEditing(rowIndex, false);
+			MainAppW.RowEditor.startEditing(rowIndex, false);
 	    }
 
 
 
    	    ,CopyUser:function(data){
-		if(data==null) return;
-		DialogNewUser.show(data);
+			if(data==null) return;
+			DialogNewUser.show(data);
 	    }
 	
 			
    	    ,DeleteUser:function(rid,username){
-		ParamsObj = {
-			rid:rid
-			,username:username
-		}
-		UserController.SendData('User/DeleteUser',ParamsObj);
+			ParamsObj = {
+				rid:rid
+				,username:username
+			}
+			UserController.SendData('User/DeleteUser',ParamsObj);
 	    }
 
    	    ,DeleteUserList:function(){
 	    	var seleccionados = Ext.getCmp('GridObjectBrowser').getSelectionModel().getSelections();
-		var RemoveList = Array();
+			var RemoveList = Array();
 
-		Ext.each(seleccionados, function (record) {
-			RemoveList.push(record.data['username']);	
-		});
+			Ext.each(seleccionados, function (record) {
+				RemoveList.push(record.data['username']);	
+			});
 
-		ParamsObj = {
-			UserList:RemoveList.toString()
-		}
-		//console.log(RemoveList.toString());
-		if(RemoveList.length>0){
-			UserController.SendData('User/DeleteUserList',ParamsObj);
-		}
+			ParamsObj = {
+				UserList:RemoveList.toString()
+			}
+			//console.log(RemoveList.toString());
+			if(RemoveList.length>0){
+				UserController.SendData('User/DeleteUserList',ParamsObj);
+			}
 	    }
 
 

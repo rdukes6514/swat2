@@ -25,6 +25,7 @@ class GroupModel(BaseModel):
 		info = self.samrpipe.QueryGroupInfo(group_handle, 1)
 		group = self.QueryInfoToGroup(info, group)
 		group.rid = rid
+		group.memberlist=self.GetGroupMembers(rid);
 		
 		return group
 
@@ -36,12 +37,55 @@ class GroupModel(BaseModel):
 		else:
 			group.name = self.GetLsaString(query_info.name)
 			group.description = self.GetLsaString(query_info.description)
-		
 		return group
 		
-	def GetGroupUsers(self,gid):
-		pass
-		
+	def GetGroupMembers(self,gid):
+
+		try:
+			gid = int(gid);
+			group_handle = self.samrpipe.OpenGroup(self.domain_handle, security.SEC_FLAG_MAXIMUM_ALLOWED,gid)
+			Menbers = self.samrpipe.QueryGroupMember(group_handle)
+			#attributes = Menbers.attributes
+			#response.write(str(count));
+			MenberList=[];
+			if(Menbers.count>0):
+				MembersLookup=self.samrpipe.LookupRids(self.domain_handle,Menbers.rids);
+				
+				#response.write(str(Menbers.rids)+"\n");
+				#response.write(str(type(MembersLookup[1].ids))+"\n");
+				#response.write(str(dir(MembersLookup[0].names)));
+				#response.write(str(self.GetLsaString(i)));
+				#response.write(str(dir(MembersLookup[0].names)));
+				k=0;
+				for i in MembersLookup[0].names:
+					#response.write(self.GetLsaString(i)+' '+str(MembersLookup[1].ids[k])+' '+str(Menbers.rids[k]));
+					member = Member(self.GetLsaString(i),Menbers.rids[k],MembersLookup[1].ids[k]);
+					MenberList.append(member);
+					k+=1
+				
+			#response.write(str(MembersLookup));
+					
+			#		count,
+			#		
+					#[out,ref]     lsa_Strings *names,
+					#[out,ref]     samr_Ids *types
+			#		);
+					#group = self.GetGroup(i);
+					#MenberList.append({'name':group.name,'rid':rid});
+					#MenberList.append({'rid':i});
+
+
+		except Exception,e:
+			if(len(e.args)>1):
+				self.SetError(e.args[1],e.args[0])
+			else:
+				self.SetError(e.args,0)
+			self.SetError(e.args,0)
+			
+			return False;
+
+		return MenberList;
+
 	def GetUserGroups(self,rid):
 		rid = int(rid);
 		user_handle = self.samrpipe.OpenUser(self.domain_handle, security.SEC_FLAG_MAXIMUM_ALLOWED,rid)
@@ -54,23 +98,23 @@ class GroupModel(BaseModel):
 		return GroupList;
 		
 
-	def AddUserToGroup(self,GroupRid,UserRid):
+	def AddGroupMember(self,GroupRid,NewRid):
 		try:
 			GroupRid =  int(GroupRid);
-			UserRid =  int(UserRid);
+			NewRid =  int(NewRid);
 			group_handle = self.samrpipe.OpenGroup(self.domain_handle, security.SEC_FLAG_MAXIMUM_ALLOWED,GroupRid)
-			self.samrpipe.AddGroupMember(group_handle,UserRid, samr.SE_GROUP_ENABLED)
+			self.samrpipe.AddGroupMember(group_handle,NewRid, samr.SE_GROUP_ENABLED)
 		except Exception,e:
 				self.SetError(e.args[1],e.args[0])
 				raise Exception(str(e.args));
 
 
-	def RemoveUserFromGroup(self,GroupRid,UserRid):
+	def DeleteGroupMember(self,GroupRid,RemoveRid):
 		try:
 			GroupRid =  int(GroupRid);
-			UserRid =  int(UserRid);
+			RemoveRid =  int(RemoveRid);
 			group_handle = self.samrpipe.OpenGroup(self.domain_handle, security.SEC_FLAG_MAXIMUM_ALLOWED,GroupRid);
-			self.samrpipe.DeleteGroupMember(group_handle,UserRid);
+			self.samrpipe.DeleteGroupMember(group_handle,RemoveRid);
 		except Exception,e:
 				self.SetError(e.args[1],e.args[0])
 				raise Exception(str(e.args));
@@ -86,3 +130,11 @@ class Group:
 		self.name = name
 		self.description = description
 		self.rid = rid
+		self.memberlist = []
+		
+class Member:
+	def __init__(self, name,rid,type):
+		self.name = name
+		self.rid = rid
+		self.type = type
+

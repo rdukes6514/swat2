@@ -135,9 +135,9 @@ AppContexMenu={
 
 							},'-', {
 
-								text: 'Propiedades'
+								text: 'Properties'
 
-								,handler: this.OnContexMenuPropertyClick
+								,handler: this.OnGroupContexMenuPropertyClick
 
 								//,iconCls: 'edit_user'
 
@@ -176,10 +176,10 @@ AppContexMenu={
 
 							},'-', {
 
-								text: 'Propiedades'
+								text: 'Properties'
 								//,id:'IdBuiltinContexMenuProperties'
 
-								,handler: this.OnContexMenuPropertyClick
+								,handler: this.OnGroupContexMenuPropertyClick
 
 								//,iconCls: 'edit_user'
 
@@ -292,6 +292,12 @@ AppContexMenu={
 	,OnContexMenuPropertyClick : function(item,event){
 
 
+	}
+
+	,OnGroupContexMenuPropertyClick : function(item,event){
+		var data = AppContexMenu.data.json;
+		var group = data.name;
+		GroupController.Manage(group,data);		
 	}
 
 	,OnContexMenuAddPcClick : function(item,event){

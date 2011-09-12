@@ -3,7 +3,7 @@ Ext.ns("GroupController");
 GroupController = {
  
 			NewGroup:function(){
-				//DialogNewUser.show();
+				DialogNewGroup.show();
 			}
 
 			,RenameGroup:function(rowIndex){

@@ -4,7 +4,7 @@ UNDEFINED = runtime.UNDEFINED
 __M_dict_builtin = dict
 __M_locals_builtin = locals
 _magic_number = 5
-_modified_time = 1315685842.2992859
+_modified_time = 1315849397.716399
 _template_filename='/home/GSoC-SWAT/swat/templates/index.html'
 _template_uri='/index.html'
 _template_cache=cache.Cache(__name__, _modified_time)
@@ -36,13 +36,13 @@ def render_body(context,**pageargs):
             __M_writer(u"';\r\n\t\tExt.ux.swat.Config.SambaVersion =   '")
             # SOURCE LINE 73
             __M_writer(escape(c.SambaVersion))
-            __M_writer(u'\';\r\n\t</script> \r\n\t\r\n\t\r\n\r\n\t\r\n\t<script type="text/javascript" src="./jslibs/CompositeField.js"></script>\r\n\t<script type="text/javascript" src="./jslibs/RowEditor.js"></script>\r\n\t<script type="text/javascript" src="./jslibs/CheckColumn.js"></script>\r\n\t<script type="text/javascript" src="./jslibs/PasswordMeter.js"></script>\r\n\t<script type="text/javascript" src="./jslibs/Ext.ux.grid.Search.js"></script>\r\n\r\n\r\n\t<script type="text/javascript" src="./jslibs/wizard/CardLayout.js"></script>\r\n\t<script type="text/javascript" src="./jslibs/wizard/Wizard.js"></script>\r\n\t<script type="text/javascript" src="./jslibs/wizard/Header.js"></script>\r\n\t<script type="text/javascript" src="./jslibs/wizard/Card.js"></script>\t\t\r\n\t\r\n\t<script type="text/javascript" src="./js/lsaflags.js"></script>\r\n\t\r\n\t<script type="text/javascript" src="./js/Dialogs/SendDialog.js"></script> \r\n\t<script type="text/javascript" src="./js/Dialogs/DialogResetPass.js"></script> \r\n\t<script type="text/javascript" src="./js/Dialogs/DialogUserManager.js"></script>\r\n\t<script type="text/javascript" src="./js/Dialogs/DialogNewUser.js"></script>  \r\n\t<script type="text/javascript" src="./js/Dialogs/DialogGroupManager.js"></script>\r\n\r\n\t\r\n\t<script type="text/javascript" src="./js/UserController.js"></script> \r\n\t<script type="text/javascript" src="./js/GroupController.js"></script> \r\n\t<script type="text/javascript" src="./js/ContexMenu.js"></script> \r\n\t\r\n\t\r\n\t<script type="text/javascript" src="./js/application.js"></script> \r\n')
-            # SOURCE LINE 106
-        else:
+            __M_writer(u'\';\r\n\t</script> \r\n\t\r\n\t\r\n\r\n\t\r\n\t<script type="text/javascript" src="./jslibs/CompositeField.js"></script>\r\n\t<script type="text/javascript" src="./jslibs/RowEditor.js"></script>\r\n\t<script type="text/javascript" src="./jslibs/CheckColumn.js"></script>\r\n\t<script type="text/javascript" src="./jslibs/PasswordMeter.js"></script>\r\n\t<script type="text/javascript" src="./jslibs/Ext.ux.grid.Search.js"></script>\r\n\r\n\r\n\t<script type="text/javascript" src="./jslibs/wizard/CardLayout.js"></script>\r\n\t<script type="text/javascript" src="./jslibs/wizard/Wizard.js"></script>\r\n\t<script type="text/javascript" src="./jslibs/wizard/Header.js"></script>\r\n\t<script type="text/javascript" src="./jslibs/wizard/Card.js"></script>\t\t\r\n\t\r\n\t<script type="text/javascript" src="./js/lsaflags.js"></script>\r\n\t\r\n\t<script type="text/javascript" src="./js/Dialogs/SendDialog.js"></script> \r\n\t<script type="text/javascript" src="./js/Dialogs/DialogResetPass.js"></script> \r\n\t<script type="text/javascript" src="./js/Dialogs/DialogUserManager.js"></script>\r\n\t<script type="text/javascript" src="./js/Dialogs/DialogNewUser.js"></script>  \r\n\t<script type="text/javascript" src="./js/Dialogs/DialogGroupManager.js"></script>\r\n\t<script type="text/javascript" src="./js/Dialogs/DialogNewGroup.js"></script>\r\n\r\n\t\r\n\t<script type="text/javascript" src="./js/UserController.js"></script> \r\n\t<script type="text/javascript" src="./js/GroupController.js"></script> \r\n\t<script type="text/javascript" src="./js/ContexMenu.js"></script> \r\n\t\r\n\t\r\n\t<script type="text/javascript" src="./js/application.js"></script> \r\n')
             # SOURCE LINE 107
+        else:
+            # SOURCE LINE 108
             __M_writer(u'\t<script type="text/javascript" src="./js/login.js"></script> \r\n')
             pass
-        # SOURCE LINE 109
+        # SOURCE LINE 110
         __M_writer(u'</head> \r\n<body> \r\n\r\n\t<!--\r\n<div id="loading-mask" style=""></div>\r\n<div id="loading">\r\n    <div class="loading-indicator"><img src="./jslibs/resources/images/extanim32.gif" width="32" height="32" style="margin-right:8px;float:left;vertical-align:top;"/>ADS Browser - <br /><span id="loading-msg"></span></div>\r\n</div>\r\n\t-->\r\n\r\n\t<!--\r\n    <script type="text/javascript" src="config.js"></script> \r\n\t-->\r\n\r\n\r\n</body> \r\n</html>\t')
         return ''
     finally:

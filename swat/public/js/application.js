@@ -280,6 +280,9 @@ Ext.ux.swat.MainWindowApp = Ext.extend(Ext.Window,{
 		this.AddGroupBtn= {
 			text: 'Add group'
 			,iconCls: 'add'
+			,handler: function () {
+			       GroupController.NewGroup();
+			}			
 		};
 			
 		this.DomainWizzardBtn= {
@@ -378,6 +381,7 @@ Ext.ux.swat.MainWindowApp = Ext.extend(Ext.Window,{
 		tb.addField(btnbar);
 		tb.doLayout();	
 		this.CurrentStore=this.UserStore;
+		this.CurrentStoreStr='UserStore';
 		this.GridObjectBrowser.reconfigure(this.UserStore,this.UserColumnModel);
 		this.GridObjectBrowser.getBottomToolbar().bindStore(this.UserStore);
 		this.GridObjectBrowser.getStore().reload();
@@ -392,6 +396,7 @@ Ext.ux.swat.MainWindowApp = Ext.extend(Ext.Window,{
 		tb.addField(btnbar);
 		tb.doLayout();	
 		this.CurrentStore=this.ShareStore;
+		this.CurrentStoreStr='ShareStore';
 		this.GridObjectBrowser.reconfigure(this.ShareStore,this.ShareColumnModel);
 		this.GridObjectBrowser.getBottomToolbar().bindStore(this.ShareStore);
 		this.GridObjectBrowser.getStore().reload();
@@ -406,6 +411,7 @@ Ext.ux.swat.MainWindowApp = Ext.extend(Ext.Window,{
 		tb.addField(btnbar);
 		tb.doLayout();	
 		this.CurrentStore=this.GroupStore;
+		this.CurrentStoreStr='GroupStore';
 		this.GridObjectBrowser.reconfigure(this.GroupStore,this.GroupColumnModel);
 		this.GridObjectBrowser.getBottomToolbar().bindStore(this.GroupStore);
 		this.GridObjectBrowser.getStore().reload();
@@ -436,7 +442,7 @@ Ext.ux.swat.MainWindowApp = Ext.extend(Ext.Window,{
             }
             
             AppContexMenu.data = row;
-	    AppContexMenu.rowIndex=rowIndex;
+			AppContexMenu.rowIndex=rowIndex;
 
             
             var type = obj.getStore().getAt(rowIndex).get('type');
@@ -484,7 +490,13 @@ Ext.ux.swat.MainWindowApp = Ext.extend(Ext.Window,{
 	}
 	
 	,OnRowEditorAfterEdit:function(roweditor, changes, record, rowIndex) {
+		if(Ext.getCmp('MainWindowApp').CurrentStoreStr=='UserStore'){
 			UserController.SendData('User/UpdateUser',changes);
+		} else if (Ext.getCmp('MainWindowApp').CurrentStoreStr=='GroupStore'){
+			GroupController.SendData('Group/UpdateGroup',changes);
+		} else if(Ext.getCmp('MainWindowApp').CurrentStoreStr=='ShareStore'){
+		
+		} 
 	}
 });
 

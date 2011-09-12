@@ -58,8 +58,36 @@ class GroupController(BaseController):
 			
 		return jsonpickle.encode({"Nodos":self.ChildNodes},unpicklable=False);
 	
+	def AddGroup(self):
+		if not self._check_session():
+			return json.dumps(self.AuthErr);
+		try:
+			name = request.params.get("name","");
+			description = request.params.get("description","");
+			rid=self.model.AddGroup(name);
+			if(rid==False):
+				raise Exception(self.model.LastErrorNumber,self.model.LastErrorStr)
+				
+			group = self.model.GetGroup(rid);
+			if(group==False):
+				raise Exception(self.model.LastErrorNumber,self.model.LastErrorStr)
+			group.description=description;
+			if(self.model.UpdateGroup(group)==False):
+				raise Exception(self.model.LastErrorNumber,self.model.LastErrorStr)
+			self._UpdateMenbers(rid);
+			
+		except Exception,e:
+			if(len(e.args)>1):
+				return json.dumps({'success': False, 'msg': e.args[1],'num':e.args[0]})
+			else:
+				return json.dumps({'success': False, 'msg': e.args,'num':-1})
+				
+		
+		return json.dumps(self.successOK);
 
 	def UpdateGroup(self):
+		if not self._check_session():
+			return json.dumps(self.AuthErr);
 		try:
 			
 			rid = int(request.params.get("rid",-1));
@@ -67,16 +95,29 @@ class GroupController(BaseController):
 			description = request.params.get("description","");
 			group = self.model.GetGroup(rid);
 			if(group==False):
-				raise Exception(self.LastErrorStr,self.LastErrorNumber)
+				raise Exception(self.model.LastErrorNumber,self.model.LastErrorStr)
 			
 			group = Group(name,description,rid);
 			if(self.model.UpdateGroup(group)==False):
-				raise Exception(self.LastErrorStr,self.LastErrorNumber)
+				raise Exception(self.model.LastErrorNumber,self.model.LastErrorStr)
 
-			oldmemberlist = request.params.get("oldmemberlist",-1)
-			memberlist = request.params.get("memberlist",-1)
+			self._UpdateMenbers(rid);
 			
+		except Exception,e:
+			if(len(e.args)>1):
+				return json.dumps({'success': False, 'msg': e.args[1],'num':e.args[0]})
+			else:
+				return json.dumps({'success': False, 'msg': e.args,'num':-1})
+				
+		
+		return json.dumps(self.successOK);
+
+	def _UpdateMenbers(self,rid):
+		if not self._check_session():
+			return json.dumps(self.AuthErr);
 			
+			oldmemberlist = request.params.get("oldmemberlist","")
+			memberlist = request.params.get("memberlist","")
 				
 			if(oldmemberlist.count(',')==0):
 				if(oldmemberlist.isdigit()):
@@ -111,28 +152,26 @@ class GroupController(BaseController):
 				self.model.AddGroupMember(rid,member_rid);
 
 
-		except Exception,e:
-			if(len(e.args)>1):
-				return json.dumps({'success': False, 'msg': e.args[1],'num':e.args[0]})
-			else:
-				return json.dumps({'success': False, 'msg': e.args,'num':-1})
-				
-		
-		return json.dumps(self.successOK);
-
-
 	def test(self):
-		#if (self.model.AddGroup('testgrp')):
-		group = self.model.GetGroup(1145)
-		if(group):
+		rid=self.model.AddGroup('testgrp');
+		if (rid):
+			return response.write(str(rid));
+		else:
+			return response.write(self.model.LastErrorStr);
+		response.write('test');
+			
+			
+			
+		#group = self.model.GetGroup(1145)
+		#if(group):
 			#group.description='aaa';
 			#response.write(group.name);
-			if (self.model.UpdateGroup(group)):
-				return jsonpickle.encode('ok');
-			else:
-				return jsonpickle.encode(self.model.LastErrorStr);
-		else:
-			return jsonpickle.encode(self.model.LastErrorStr);
+		#	if (self.model.UpdateGroup(group)):
+		#		return jsonpickle.encode('ok');
+		#	else:
+		#		return jsonpickle.encode(self.model.LastErrorStr);
+		#else:
+		#	return jsonpickle.encode(self.model.LastErrorStr);
 		
 		#return json.dumps(List);
 

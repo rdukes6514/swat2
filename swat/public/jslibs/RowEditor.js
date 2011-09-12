@@ -172,12 +172,14 @@ Ext.ux.grid.RowEditor = Ext.extend(Ext.Panel, {
         if(!this.isVisible()){
             return;
         }
+
         if(saveChanges === false || !this.isValid()){
             this.hide();
             return;
         }
         var changes = {}, r = this.record;
         //hasChange= false;
+        this.hasChange= true;
         var cm = this.grid.colModel, fields = this.items.items;
         for(var i = 0, len = cm.getColumnCount(); i < len; i++){
             if(!cm.isHidden(i)){

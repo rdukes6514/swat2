@@ -22,7 +22,7 @@ class GroupModel(BaseModel):
 		
 	def GetGroup(self, rid, group = None):
 		try:
-
+			rid=int(rid);
 			if not self.isAuthenticate():
 				self.SetError('Usted no esta autenticado',0)
 				return False;
@@ -38,7 +38,6 @@ class GroupModel(BaseModel):
 				self.SetError(e.args[1],e.args[0])
 			else:
 				self.SetError(e.args,0)
-			self.SetError(e.args,0)
 			
 			return False;
 		return group
@@ -60,7 +59,6 @@ class GroupModel(BaseModel):
 				self.SetError(e.args[1],e.args[0])
 			else:
 				self.SetError(e.args,0)
-			self.SetError(e.args,0)
 			return False;
 		return group
 		
@@ -183,32 +181,32 @@ class GroupModel(BaseModel):
 				self.SetError(e.args[1],e.args[0])
 			else:
 				self.SetError(e.args,0)
-			self.SetError(e.args,0)
-			
 			return False;
 		return True;
 
 
 
 	def AddGroup(self,name):
+		rid=-1;
 		if not self.isAuthenticate():
 			self.SetError('Usted no esta autenticado',0)
 			return False;
-			
-			try:
-				#Creates the new user on the server using default values for everything. Only the username is taken into account here.
-				(group_handle, rid) = self.samrpipe.CreateDomainGroup(self.domain_handle, self.SetLsaString(name), security.SEC_FLAG_MAXIMUM_ALLOWED)		
-				#group = self.GetGroup(rid)
-				#self.UpdateGroup(group)
-			except Exception,e:
-				if(len(e.args)>1):
-					self.SetError(e.args[1],e.args[0])
-				else:
-					self.SetError(e.args,0)
+		try:
+			#Creates the new user on the server using default values for everything. Only the username is taken into account here.
+			(group_handle, rid) = self.samrpipe.CreateDomainGroup(self.domain_handle, self.SetLsaString(name), security.SEC_FLAG_MAXIMUM_ALLOWED)		
+			#group = self.GetGroup(rid)
+			#self.UpdateGroup(group)
+			return rid;
+		except Exception,e:
+			if(len(e.args)>1):
+				self.SetError(e.args[1],e.args[0])
+				return False;
+			else:
 				self.SetError(e.args,0)
 				return False;
 
-			return rid;
+
+
 
 class Group:
 	""" Support Class obtained from Calin Crisan's 2009 Summer of Code project

@@ -476,7 +476,7 @@ DialogUserManager = {
 
 function ExplodeListByComma(idlist){
 	var grouplist = "";
-    var elSel = document.getElementById('GroupList');
+    var elSel = document.getElementById(idlist);
     if (elSel) {
         var count = elSel.options.length - 1;
         for (i = 0; i <= count; i++) {

@@ -21,26 +21,53 @@ class GroupModel(BaseModel):
 		return self.group_list;
 		
 	def GetGroup(self, rid, group = None):
-		group_handle = self.samrpipe.OpenGroup(self.domain_handle, security.SEC_FLAG_MAXIMUM_ALLOWED, rid)
-		info = self.samrpipe.QueryGroupInfo(group_handle, 1)
-		group = self.QueryInfoToGroup(info, group)
-		group.rid = rid
-		group.memberlist=self.GetGroupMembers(rid);
-		
+		try:
+
+			if not self.isAuthenticate():
+				self.SetError('Usted no esta autenticado',0)
+				return False;
+
+			group_handle = self.samrpipe.OpenGroup(self.domain_handle, security.SEC_FLAG_MAXIMUM_ALLOWED, rid)
+			info = self.samrpipe.QueryGroupInfo(group_handle, 1)
+			group = self.QueryInfoToGroup(info, group)
+			group.rid = rid
+			group.memberlist=self.GetGroupMembers(rid);
+			
+		except Exception,e:
+			if(len(e.args)>1):
+				self.SetError(e.args[1],e.args[0])
+			else:
+				self.SetError(e.args,0)
+			self.SetError(e.args,0)
+			
+			return False;
 		return group
 
 	def QueryInfoToGroup(self, query_info, group = None):
-		if (group == None):
-			group = Group(self.GetLsaString(query_info.name), 
-						  self.GetLsaString(query_info.description),  
-						  0)
-		else:
-			group.name = self.GetLsaString(query_info.name)
-			group.description = self.GetLsaString(query_info.description)
+		try:
+			if not self.isAuthenticate():
+				self.SetError('Usted no esta autenticado',0)
+				return False;
+			if (group == None):
+				group = Group(self.GetLsaString(query_info.name), 
+							  self.GetLsaString(query_info.description),  
+							  0)
+			else:
+				group.name = self.GetLsaString(query_info.name)
+				group.description = self.GetLsaString(query_info.description)
+		except Exception,e:
+			if(len(e.args)>1):
+				self.SetError(e.args[1],e.args[0])
+			else:
+				self.SetError(e.args,0)
+			self.SetError(e.args,0)
+			return False;
 		return group
 		
 	def GetGroupMembers(self,gid):
-
+		if not self.isAuthenticate():
+			self.SetError('Usted no esta autenticado',0)
+			return False;
 		try:
 			gid = int(gid);
 			group_handle = self.samrpipe.OpenGroup(self.domain_handle, security.SEC_FLAG_MAXIMUM_ALLOWED,gid)
@@ -87,18 +114,34 @@ class GroupModel(BaseModel):
 		return MenberList;
 
 	def GetUserGroups(self,rid):
-		rid = int(rid);
-		user_handle = self.samrpipe.OpenUser(self.domain_handle, security.SEC_FLAG_MAXIMUM_ALLOWED,rid)
-		rids = self.samrpipe.GetGroupsForUser(user_handle).rids
-		GroupList=[];
-		for i in rids:
-			rid = i.rid;
-			group = self.GetGroup(i.rid);
-			GroupList.append({'name':group.name,'rid':rid});
+		try:
+			if not self.isAuthenticate():
+				self.SetError('Usted no esta autenticado',0)
+				return False;
+
+			rid = int(rid);
+			user_handle = self.samrpipe.OpenUser(self.domain_handle, security.SEC_FLAG_MAXIMUM_ALLOWED,rid)
+			rids = self.samrpipe.GetGroupsForUser(user_handle).rids
+			GroupList=[];
+			for i in rids:
+				rid = i.rid;
+				group = self.GetGroup(i.rid);
+				GroupList.append({'name':group.name,'rid':rid});
+		except Exception,e:
+			if(len(e.args)>1):
+				self.SetError(e.args[1],e.args[0])
+			else:
+				self.SetError(e.args,0)
+			self.SetError(e.args,0)
+			return False;
+			
 		return GroupList;
 		
 
 	def AddGroupMember(self,GroupRid,NewRid):
+		if not self.isAuthenticate():
+			self.SetError('Usted no esta autenticado',0)
+			return False;
 		try:
 			GroupRid =  int(GroupRid);
 			NewRid =  int(NewRid);
@@ -110,6 +153,9 @@ class GroupModel(BaseModel):
 
 
 	def DeleteGroupMember(self,GroupRid,RemoveRid):
+		if not self.isAuthenticate():
+			self.SetError('Usted no esta autenticado',0)
+			return False;
 		try:
 			GroupRid =  int(GroupRid);
 			RemoveRid =  int(RemoveRid);
@@ -118,6 +164,51 @@ class GroupModel(BaseModel):
 		except Exception,e:
 				self.SetError(e.args[1],e.args[0])
 				raise Exception(str(e.args));
+
+
+	def UpdateGroup(self,group):
+		if not self.isAuthenticate():
+			self.SetError('Usted no esta autenticado',0)
+			return False;
+		try:
+			group_handle = self.samrpipe.OpenGroup(self.domain_handle, security.SEC_FLAG_MAXIMUM_ALLOWED, group.rid)
+			#info = self.samrpipe.QueryGroupInfo(group_handle,samr.GROUPINFONAME)
+			info= Empty();
+			info.name = self.SetLsaString(group.name)
+			info.description = self.SetLsaString(group.description)
+			self.samrpipe.SetGroupInfo(group_handle,samr.GROUPINFONAME,info.name)
+			self.samrpipe.SetGroupInfo(group_handle,samr.GROUPINFODESCRIPTION,info.description)
+		except Exception,e:
+			if(len(e.args)>1):
+				self.SetError(e.args[1],e.args[0])
+			else:
+				self.SetError(e.args,0)
+			self.SetError(e.args,0)
+			
+			return False;
+		return True;
+
+
+
+	def AddGroup(self,name):
+		if not self.isAuthenticate():
+			self.SetError('Usted no esta autenticado',0)
+			return False;
+			
+			try:
+				#Creates the new user on the server using default values for everything. Only the username is taken into account here.
+				(group_handle, rid) = self.samrpipe.CreateDomainGroup(self.domain_handle, self.SetLsaString(name), security.SEC_FLAG_MAXIMUM_ALLOWED)		
+				#group = self.GetGroup(rid)
+				#self.UpdateGroup(group)
+			except Exception,e:
+				if(len(e.args)>1):
+					self.SetError(e.args[1],e.args[0])
+				else:
+					self.SetError(e.args,0)
+				self.SetError(e.args,0)
+				return False;
+
+			return rid;
 
 class Group:
 	""" Support Class obtained from Calin Crisan's 2009 Summer of Code project
@@ -137,4 +228,7 @@ class Member:
 		self.name = name
 		self.rid = rid
 		self.type = type
+
+class Empty:
+	pass
 

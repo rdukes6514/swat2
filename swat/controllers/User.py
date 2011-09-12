@@ -336,16 +336,33 @@ class UserController(BaseController):
 			
 				#user.password = ""
 				#,'grouplist':user.group_list
+				#user.group_list = []
+				#user.account_disabled = True;
+				if not self.model.UpdateUser(user):
+					raise Exception(self.model.LastErrorStr);
+
 				oldgrouplist = request.params.get("oldgrouplist","")
 				grouplist = request.params.get("grouplist","")
 				
 				if(oldgrouplist.count(',')==0):
-					oldgrouplist=["513"]
+					if(oldgrouplist.isdigit()):
+						number = int(oldgrouplist);
+						oldgrouplist=list();
+						oldgrouplist.append(number);
+					else:
+						oldgrouplist=list()
+						oldgrouplist.append(513);
 				else:
 					oldgrouplist = oldgrouplist.split(',')
 				
 				if(grouplist.count(',')==0):
-					grouplist=["513"]
+					if(grouplist.isdigit()):
+						number = int(grouplist);
+						grouplist=list();
+						grouplist.append(number);
+					else:
+						grouplist=list()
+						grouplist.append(513);
 				else:
 					grouplist = grouplist.split(',')
 				
@@ -357,12 +374,6 @@ class UserController(BaseController):
 				groupdiff = set(grouplist).difference(oldgrouplist);
 				for group_rid in groupdiff:
 					self.GroupModel.AddGroupMember(group_rid,rid);
-				
-
-				#user.group_list = []
-				#user.account_disabled = True;
-				if not self.model.UpdateUser(user):
-					raise Exception(self.model.LastErrorStr);
 
 			except Exception,e:
 					if(self.iscopy):

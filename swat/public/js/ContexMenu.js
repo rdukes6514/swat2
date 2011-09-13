@@ -85,29 +85,14 @@ AppContexMenu={
             
             this.ShareContexMenu = new Ext.menu.Menu({
 
-                id: 'ContainerContexMenu',
+                id: 'ShareContexMenu',
 
                 items: [
                 
 							{
-								text: 'Delegar control'
+								text: 'Copy ..'
 								,handler: this.OnContexMenuDelegateControlClick
 							},{
-								text: 'Mover...'
-								,id:'IdContainerContexMenuMove'
-
-								,handler: this.OnContexMenuMoveClick
-
-								//,iconCls: 'edit_user'
-
-							},{
-								text: 'Buscar'
-
-								,handler: this.OnContexMenuSearchClick
-
-								//,iconCls: 'edit_user'
-
-							}, {
 
 								text: 'Eliminar'
 								,id:'IdContainerContexMenuDelete'
@@ -137,7 +122,7 @@ AppContexMenu={
 
 								text: 'Properties'
 
-								,handler: this.OnGroupContexMenuPropertyClick
+								,handler: this.OnShareContexMenuPropertyClick
 
 								//,iconCls: 'edit_user'
 
@@ -305,9 +290,10 @@ AppContexMenu={
 
 	}
 
-	,OnContexMenuPropertyClick : function(item,event){
-
-
+	,OnShareContexMenuPropertyClick : function(item,event){
+		var data = AppContexMenu.data.json;
+		var name = data.name;
+		ShareController.Manage(name,data);
 	}
 
 	,OnGroupContexMenuPropertyClick : function(item,event){

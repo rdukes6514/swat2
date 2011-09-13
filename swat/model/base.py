@@ -1,7 +1,7 @@
 
 import samba
 import ldb
-from samba.dcerpc import samr, security, lsa
+from samba.dcerpc import samr, security, lsa,srvsvc
 from samba import credentials
 from samba import param
 from samba.auth import system_session
@@ -36,16 +36,15 @@ class BaseModel:
 
 	def _connect(self):
 		try:
-			
 			self.creds = credentials.Credentials()
 			self.creds.set_username(self.username)
 			self.creds.set_password(self.password)
 			#self.creds.set_domain("SAMDOM")
 			self.creds.set_domain("")
 			self.creds.set_workstation("")
-			self.LdapConn = samba.Ldb("ldap://"+self.server_address,lp=self.lp,credentials=self.creds)
-			self.samrpipe = samr.samr("ncalrpc:", self.lp, self.creds)
-			self.pipe = srvsvc.srvsvc(binding % server_address,credentials=creds)
+			self.LdapConn = samba.Ldb("ldap://%s" % self.server_address,lp=self.lp,credentials=self.creds)
+			self.samrpipe = samr.samr("ncalrpc:%s"% self.server_address, self.lp, self.creds)
+			self.srvsvcpipe = srvsvc.srvsvc('ncalrpc:%s' % self.server_address,credentials=self.creds)
 			#self.connect_handle = self.samrpipe.Connect(None, security.SEC_FLAG_MAXIMUM_ALLOWED)			
 			self.connect_handle = self.samrpipe.Connect2(None, security.SEC_FLAG_MAXIMUM_ALLOWED)
 		except ldb.LdbError, (num, msg):

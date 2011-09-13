@@ -3,7 +3,7 @@ import logging
 from pylons import request, response, session, tmpl_context as c, url
 from pylons.controllers.util import abort, redirect
 
-from swat.lib.base import BaseController, render,json
+from swat.lib.base import BaseController, render,json,jsonpickle
 from swat.model.ShareModel import ShareModel;
 
 log = logging.getLogger(__name__)
@@ -17,22 +17,24 @@ class ShareController(BaseController):
 			self.ChildNodes = [];
 
 	def index(self):
+		if not self._check_session():
+			return json.dumps(self.AuthErr);
+			
 		Shares = self.model.GetShareList();
 		for Share in Shares:
 			#response.write(Share.Sharename+"<br>");
-			Path = '-';
-			if len(Share.get("path")) > 0:
-				Path = Share.get("path");
+			Share.type='share';
+			Share.icon='HD-icon';
+			
+			#self.ChildNodes.append({
+			#	'name':Share.name
+			#	,'path':Share.path
+			#	,'comment':Share.comment
+			#	,'icon':'HD-icon'
+			#	,'type':'share'
+			#});
 
-			Comment = '-';
-			if len(Share.get("comment")) > 0:
-				Comment = Share.get("comment");
-				
-			self.ChildNodes.append({
-				'sharename':Share.GetShareName()
-				,'path':Path
-				,'comment':Comment
-				,'icon':'HD-icon'
-				,'type':'share'
-			});
-		return json.dumps({"Nodos":self.ChildNodes});
+		return jsonpickle.encode({"Nodos":Shares},unpicklable=False);
+		
+	def test(self):
+		return jsonpickle.encode(self.model.GetShareList());

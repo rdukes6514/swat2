@@ -105,10 +105,11 @@ Ext.ux.swat.MainWindowApp = Ext.extend(Ext.Window,{
 			,sort : 'sort'    // The parameter name which specifies the column to sort on
 			,dir : 'dir'       // The parameter name which specifies the sort direction
 		}		
-		,fields: [  
-						'sharename', 'path','comment'
-						,'icon','type'
-						]
+		,fields: [  'comment','name','type'
+					,'current_users','max_users','password'
+					,'path','permissions','sd_buf'
+					,'icon','type'
+				]
 		});        
                 
 		this.MemberOfStore = new Ext.data.JsonStore({
@@ -136,7 +137,7 @@ Ext.ux.swat.MainWindowApp = Ext.extend(Ext.Window,{
 				,width: 50
 				,editor : new Ext.form.TextField({readOnly:true})
 			},{
-				header: 'Nombre:',
+				header: 'Name:',
 				renderer: function (value, metaData, record, rowIndex, colIndex, store) {
 				//alert(record.data.icon);
 				metaData.css = 'usuario';
@@ -152,7 +153,7 @@ Ext.ux.swat.MainWindowApp = Ext.extend(Ext.Window,{
 				,width: 200
 				,editor : NameEditor
 			},{
-				header: 'Descripcion'
+				header: 'Description'
 				,dataIndex: 'description'
 				,sortable: true
 				,width: 600
@@ -170,7 +171,7 @@ Ext.ux.swat.MainWindowApp = Ext.extend(Ext.Window,{
 				,width: 50
 				,editor : new Ext.form.TextField({readOnly:true})
 			},{
-				header: 'Nombre:',
+				header: 'Name:',
 				renderer: function (value, metaData, record, rowIndex, colIndex, store) {
 				//alert(record.data.icon);
 				metaData.css = 'group-icon';
@@ -208,7 +209,7 @@ Ext.ux.swat.MainWindowApp = Ext.extend(Ext.Window,{
 				return '&nbsp;&nbsp;&nbsp;&nbsp;' + value + String.format('<img class="padding-img" src="{0}"/>', Ext.BLANK_IMAGE_URL);
 				
 				}
-				,dataIndex: 'sharename'
+				,dataIndex: 'name'
 				,sortable: true
 				,width: 100
 				,editor : new Ext.form.TextField({allowBlank: false,name:'newsharename'})
@@ -492,7 +493,7 @@ Ext.ux.swat.MainWindowApp = Ext.extend(Ext.Window,{
 
 	 
 				
-				AppContexMenu.ContainerContexMenu.showAt([coords[0], coords[1]]);
+				AppContexMenu.ShareContexMenu.showAt([coords[0], coords[1]]);
 				
 				
 			} else if (type == 'group'){

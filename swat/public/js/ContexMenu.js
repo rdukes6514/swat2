@@ -153,24 +153,24 @@ AppContexMenu={
 
                 items: [
 							{
-								text: 'Agregar a un grupo'
-								//,id:'IdContexMenuUpdate'
-								,handler: this.OnContexMenuAddToGroupClick
+								text: 'Copy ...'
+								,handler: this.OnGroupContexMenuCopyClick
+								//,iconCls: 'edit_user'
 							},{
 
-								text: 'Eliminar'
+								text: 'Delete'
 								,id:'IdGroupContexMenuDelete'
 
-								,handler: this.OnContexMenuDeleteClick
+								,handler: this.OnGroupContexMenuDeleteClick
 
 								//,iconCls: 'edit_user'
 
 							},{
 
-								text: 'Cambiar nombre'
+								text: 'Rename'
 								,id:'IdGroupContexMenuRename'
 
-								,handler: this.OnContexMenuRenameClick
+								,handler: this.OnGroupContexMenuRenameClick
 
 								//,iconCls: 'edit_user'
 
@@ -190,11 +190,16 @@ AppContexMenu={
 	
 	}
 
+	,OnGroupContexMenuCopyClick : function(item,event){
+		var data = AppContexMenu.data.json;
+		GroupController.CopyGroup(data);
+	}
+
 	,OnUserContexMenuCopyClick : function(item,event){
 		var data = AppContexMenu.data.json;
 		UserController.CopyUser(data);
 	}
-
+	
 	,OnContexMenuCutClick : function(item,event){
 		alert('Unimplemented');
 	 console.dir(item);
@@ -209,10 +214,10 @@ AppContexMenu={
 	}
 
 
-	,OnContexMenuDeleteClick : function(item,event){
-		alert('Unimplemented');
-	 console.dir(item);
-	 console.dir(event);
+	,OnGroupContexMenuDeleteClick : function(item,event){
+		var rid = AppContexMenu.data.json.rid;
+		var group = AppContexMenu.data.json.name;
+		GroupController.DeleteGroup(rid,group);
 	}
 
 	,OnContexMenuDeleteClick : function(item,event){
@@ -234,7 +239,18 @@ AppContexMenu={
 
 	}
 
+	,OnGroupContexMenuRenameClick : function(item,event){
+		
+		GroupController.RenameGroup(AppContexMenu.rowIndex);
 
+	}
+
+	,OnContexMenuRenameClick : function(item,event){
+
+		
+
+	}
+	
 	,OnContexMenuSearchClick : function(item,event){
 		alert('Unimplemented');
 	 console.dir(item);

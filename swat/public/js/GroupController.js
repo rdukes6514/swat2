@@ -7,40 +7,40 @@ GroupController = {
 			}
 
 			,RenameGroup:function(rowIndex){
-				//MainAppW.RowEditor.startEditing(rowIndex, false);
+				MainAppW.RowEditor.startEditing(rowIndex, false);
 			}
 
 
 
 			,CopyGroup:function(data){
 				if(data==null) return;
-				//DialogNewUser.show(data);
+				DialogNewGroup.show(data);
 			}
 	
 			
 			,DeleteGroup:function(rid,group){
 				ParamsObj = {
 					rid:rid
-					,username:username
+					,group:group
 				}
-				//GroupController.SendData('User/DeleteUser',ParamsObj);
+				GroupController.SendData('Group/DeleteGroup',ParamsObj);
 			}
 
 			,DeleteGroupList:function(){
-				/*var seleccionados = Ext.getCmp('GridObjectBrowser').getSelectionModel().getSelections();
+				var seleccionados = Ext.getCmp('GridObjectBrowser').getSelectionModel().getSelections();
 				var RemoveList = Array();
 
 				Ext.each(seleccionados, function (record) {
-					RemoveList.push(record.data['name']);	
+					RemoveList.push(record.data['rid']);	
 				});
 
 				ParamsObj = {
-					UserList:RemoveList.toString()
+					GroupList:RemoveList.toString()
 				}
-				//console.log(RemoveList.toString());
+
 				if(RemoveList.length>0){
-					GroupController.SendData('User/DeleteUserList',ParamsObj);
-				}*/
+					GroupController.SendData('Group/DeleteGroupList',ParamsObj);
+				}
 			}
 
             

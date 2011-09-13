@@ -205,7 +205,20 @@ class GroupModel(BaseModel):
 				self.SetError(e.args,0)
 				return False;
 
-
+	def DeleteGroup(self,gid):
+		try:
+			gid = int(gid);
+			group_handle = self.samrpipe.OpenGroup(self.domain_handle, security.SEC_FLAG_MAXIMUM_ALLOWED,gid)
+			self.samrpipe.DeleteDomainGroup(group_handle)
+		except Exception,e:
+			if(len(e.args)>1):
+				self.SetError(e.args[1],e.args[0])
+				return False;
+			else:
+				self.SetError(e.args,0)
+				return False;
+		return True;
+		
 
 
 class Group:

@@ -67,7 +67,7 @@ DialogGroupManager = {
 						,items: [
 								{
 									xtype: "label"
-									,html: sprintf('<img width="32" height="32" src="css/icons/808645381.png"/><b>&nbsp;&nbsp;%s</b><br/><hr/>',data.name.capitalize())
+									,html: sprintf('<img width="32" height="32" src="css/icons/user-group32.png"/><b>&nbsp;&nbsp;%s</b><br/><hr/>',data.name.capitalize())
 								}
 								,description
 								,Combo

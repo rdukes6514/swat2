@@ -23,6 +23,7 @@ class BaseModel:
 	DnsDomain='' 
 	SambaVersion='' 
 	schemaNamingContext='' 
+	server_address='127.0.0.1'
 	#Log = AppLog();
 	
 	def __init__(self,username,password):
@@ -42,8 +43,9 @@ class BaseModel:
 			#self.creds.set_domain("SAMDOM")
 			self.creds.set_domain("")
 			self.creds.set_workstation("")
-			self.LdapConn = samba.Ldb("ldap://127.0.0.1",lp=self.lp,credentials=self.creds)
+			self.LdapConn = samba.Ldb("ldap://"+self.server_address,lp=self.lp,credentials=self.creds)
 			self.samrpipe = samr.samr("ncalrpc:", self.lp, self.creds)
+			self.pipe = srvsvc.srvsvc(binding % server_address,credentials=creds)
 			#self.connect_handle = self.samrpipe.Connect(None, security.SEC_FLAG_MAXIMUM_ALLOWED)			
 			self.connect_handle = self.samrpipe.Connect2(None, security.SEC_FLAG_MAXIMUM_ALLOWED)
 		except ldb.LdbError, (num, msg):

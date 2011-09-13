@@ -52,11 +52,11 @@ Ext.ux.swat.MainWindowApp = Ext.extend(Ext.Window,{
 		url: 'User'
 		,root: 'Nodos'
 		//,remoteSort:true
-				,paramNames:{
-		start : 'start'  // The parameter name which specifies the start row
-		,limit : 'limit'  // The parameter name which specifies number of rows to return
-		,sort : 'sort'    // The parameter name which specifies the column to sort on
-		,dir : 'dir'       // The parameter name which specifies the sort direction
+		,paramNames:{
+			start : 'start'  // The parameter name which specifies the start row
+			,limit : 'limit'  // The parameter name which specifies number of rows to return
+			,sort : 'sort'    // The parameter name which specifies the column to sort on
+			,dir : 'dir'       // The parameter name which specifies the sort direction
 		}	
 		,fields: [  
 							'username'
@@ -81,26 +81,46 @@ Ext.ux.swat.MainWindowApp = Ext.extend(Ext.Window,{
 
 
 		this.GroupStore = new Ext.data.JsonStore({
-		url: 'Group',
-		root: 'Nodos',
-		fields: [  
+		url: 'Group'
+		,root: 'Nodos'
+		,paramNames:{
+			start : 'start'  // The parameter name which specifies the start row
+			,limit : 'limit'  // The parameter name which specifies number of rows to return
+			,sort : 'sort'    // The parameter name which specifies the column to sort on
+			,dir : 'dir'       // The parameter name which specifies the sort direction
+		}		
+		,fields: [  
 						'name','description','rid'
 						,'icon','type'
 						]
 		});
-		this.GroupStore.load();
+		//this.GroupStore.load();
 		
 		this.ShareStore = new Ext.data.JsonStore({
-		url: 'Share',
-		root: 'Nodos',
-		fields: [  
+		url: 'Share'
+		,root: 'Nodos'
+		,paramNames:{
+			start : 'start'  // The parameter name which specifies the start row
+			,limit : 'limit'  // The parameter name which specifies number of rows to return
+			,sort : 'sort'    // The parameter name which specifies the column to sort on
+			,dir : 'dir'       // The parameter name which specifies the sort direction
+		}		
+		,fields: [  
 						'sharename', 'path','comment'
 						,'icon','type'
 						]
 		});        
                 
-        
-        	var NameEditor = new Ext.form.TextField({allowBlank: false,name:'newusername'});
+		this.MemberOfStore = new Ext.data.JsonStore({
+		url: 'Group/ListAll',
+		root: 'Nodos',
+		fields: [  
+						'name','rid','type'
+				]
+		});		
+		this.MemberOfStore.load();
+		        
+        var NameEditor = new Ext.form.TextField({allowBlank: false,name:'newusername'});
         
 		/*NameEditor.on('change',function(UidEditor,newValue, oldValue){
 					//oldusername = oldValue;
@@ -238,8 +258,8 @@ Ext.ux.swat.MainWindowApp = Ext.extend(Ext.Window,{
 			,bbar: new Ext.PagingToolbar({
 		
 				displayInfo: true,
-				displayMsg: 'Mostrando {0} - {1} de {2}',
-				emptyMsg: "No hay elementos",
+				displayMsg: 'Displaying  {0} - {1} of {2}',
+				//emptyMsg: "No hay elementos",
 				store: this.UserStore,
 				pageSize: 18,
 		
@@ -278,7 +298,7 @@ Ext.ux.swat.MainWindowApp = Ext.extend(Ext.Window,{
 
 		
 		this.AddGroupBtn= {
-			text: 'Add group'
+			text: 'New group'
 			,iconCls: 'add'
 			,handler: function () {
 			       GroupController.NewGroup();
@@ -310,7 +330,14 @@ Ext.ux.swat.MainWindowApp = Ext.extend(Ext.Window,{
 				UserController.DeleteUserList();
 			}
 		};
-	
+
+		this.DeleteGroupBtn= {
+			text: 'Remove'
+			,iconCls: 'add'
+			,handler: function () {
+				GroupController.DeleteGroupList();
+			}
+		};	
 		
 	},
 	getTreeData: function(){
@@ -406,7 +433,7 @@ Ext.ux.swat.MainWindowApp = Ext.extend(Ext.Window,{
 	,fillToolBarGroups:function(){
 		var tb = this.getTopToolbar();
 		tb.removeAll();
-		var	btnbar  = [this.AddGroupBtn,this.DomainWizzardBtn];
+		var	btnbar  = [this.AddGroupBtn,this.DeleteGroupBtn,this.DomainWizzardBtn];
 
 		tb.addField(btnbar);
 		tb.doLayout();	

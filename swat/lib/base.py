@@ -9,6 +9,7 @@ from pylons import c, cache, config, g, request, response, session
 from pylons.controllers import WSGIController
 from pylons.templating import render_mako as render
 
+
 class BaseController(WSGIController):
 
 	AuthErr = {"success": False, "msg": 'Usted no esta autenticado'};

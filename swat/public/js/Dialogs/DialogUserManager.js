@@ -121,7 +121,7 @@ DialogUserManager = {
 			    name: "comboGroups",
 			    id: "idcomboGroups",
 			    forceSelection: false,
-			    store: MainAppW.GroupStore,
+			    store: MainAppW.MemberOfStore,
 			    allowBlank: false,
 			    emptyText: 'ejemplo admins ...',
 			    triggerAction: 'all',

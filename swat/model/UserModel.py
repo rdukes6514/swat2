@@ -12,7 +12,7 @@ class UserModel(BaseModel):
 		BaseModel.__init__(self,username,password);
 		self.user_list = []
 		if self.isAuthenticate():
-			self.net = Net(self.creds,self.lp,server='127.0.0.1');
+			self.net = Net(self.creds,self.lp,server=self.server_address);
 			self.LoadUserList();
 
 	def AddUser(self,username):

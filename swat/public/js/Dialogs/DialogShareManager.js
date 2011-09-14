@@ -6,27 +6,6 @@ DialogShareManager = {
 			if(data==null)return;
 
 		
-		
-		var path = new Ext.form.TextField({
-			xtype: "textfield"
-			,labelAlign: 'left'
-			,id: "IdPath"
-			,value:data.path 
-			,name: "path"
-			,fieldLabel: "<b>Path</b>"
-			,width: '95%'
-		});				
-
-		var comment = new Ext.form.TextField({
-			xtype: "textfield"
-			,labelAlign: 'left'
-			,id: "IdComment"
-			,value:data.comment 
-			,name: "comment"
-			,fieldLabel: "<b>Comment</b>"
-			,width: '95%'
-		});
-
 		var Spinner = new Ext.ux.form.SpinnerField({
 			xtype: 'spinnerfield'
 			,name: 'SpinAllow'
@@ -74,8 +53,24 @@ DialogShareManager = {
 									,fieldLabel: "<b>Name</b>"
 									,width: '95%'								
 								}
-								,path
-								,comment
+								,{
+									xtype: "textfield"
+									,labelAlign: 'left'
+									,id: "IdPath"
+									,value:data.path 
+									,name: "path"
+									,fieldLabel: "<b>Path</b>"
+									,width: '95%'
+								}
+								,{
+									xtype: "textfield"
+									,labelAlign: 'left'
+									,id: "IdComment"
+									,value:data.comment 
+									,name: "comment"
+									,fieldLabel: "<b>Comment</b>"
+									,width: '95%'
+								}
 								,{	
 									xtype: 'fieldset'
 									,title: 'User Limit'

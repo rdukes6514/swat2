@@ -13,7 +13,7 @@ DialogShareManager = {
 			,id: "IdPath"
 			,value:data.path 
 			,name: "path"
-			,fieldLabel: "<b>Comment</b>"
+			,fieldLabel: "<b>Path</b>"
 			,width: '95%'
 		});				
 

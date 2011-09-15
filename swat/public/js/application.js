@@ -339,7 +339,14 @@ Ext.ux.swat.MainWindowApp = Ext.extend(Ext.Window,{
 				GroupController.DeleteGroupList();
 			}
 		};	
-		
+
+		this.DeleteShareBtn= {
+			text: 'Remove'
+			,iconCls: 'add'
+			,handler: function () {
+				ShareController.DeleteShareList();
+			}
+		};		
 	},
 	getTreeData: function(){
 		//here we are going to define the data
@@ -419,7 +426,7 @@ Ext.ux.swat.MainWindowApp = Ext.extend(Ext.Window,{
 	,fillToolBarShares:function(){
 		var tb = this.getTopToolbar();
 		tb.removeAll();
-		var	btnbar  =[this.AddShareBtn,this.DomainWizzardBtn];
+		var	btnbar  =[this.AddShareBtn,this.DeleteShareBtn,this.DomainWizzardBtn];
                 
 		tb.addField(btnbar);
 		tb.doLayout();	

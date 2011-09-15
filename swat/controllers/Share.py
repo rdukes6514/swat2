@@ -70,7 +70,7 @@ class ShareController(BaseController):
 				return json.dumps(self.AuthErr);
 			
 			name = request.params.get("name","")
-			if(not self.model.DeleteGroup(name)):
+			if(not self.model.DeleteShare(name)):
 				raise Exception(self.model.LastErrorNumber,self.model.LastErrorStr)			
 			
 		except Exception,e:
@@ -90,10 +90,10 @@ class ShareController(BaseController):
 			if(ShareList.count(',')>0):
 				ShareList = ShareList.split(',');
 				for name in ShareList:
-					if(not self.model.DeleteGroup(name)):
+					if(not self.model.DeleteShare(name)):
 						raise Exception(self.model.LastErrorNumber,self.model.LastErrorStr)			
 			else:
-				if(not self.model.DeleteGroup(GroupList)):
+				if(not self.model.DeleteShare(ShareList)):
 					raise Exception(self.model.LastErrorNumber,self.model.LastErrorStr)
 
 		except Exception,e:

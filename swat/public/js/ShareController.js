@@ -18,9 +18,9 @@ ShareController = {
 			}
 	
 			
-			,DeleteShare:function(rid,Share){
+			,DeleteShare:function(name,Share){
 				ParamsObj = {
-					rid:rid
+					name:name
 					,Share:Share
 				}
 				ShareController.SendData('Share/DeleteShare',ParamsObj);
@@ -31,7 +31,7 @@ ShareController = {
 				var RemoveList = Array();
 
 				Ext.each(seleccionados, function (record) {
-					RemoveList.push(record.data['rid']);	
+					RemoveList.push(record.data['name']);	
 				});
 
 				ParamsObj = {

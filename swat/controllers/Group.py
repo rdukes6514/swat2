@@ -215,10 +215,13 @@ class GroupController(BaseController):
 			
 			rid = request.params.get("rid",-1)
 			if(not self.model.DeleteGroup(rid)):
-				raise Exception(self.model.LastErrorStr);			
+				raise Exception(self.model.LastErrorNumber,self.model.LastErrorStr)
 			
 		except Exception,e:
-				return json.dumps({'success': False, 'msg': e.message,'num':0})
+			if(len(e.args)>1):
+				return json.dumps({'success': False, 'msg': e.args[1],'num':e.args[0]})
+			else:
+				return json.dumps({'success': False, 'msg': e.args,'num':-1})
 		return json.dumps(self.successOK)	
 
 
@@ -232,13 +235,16 @@ class GroupController(BaseController):
 				GroupList = GroupList.split(',');
 				for rid in GroupList:
 					if(not self.model.DeleteGroup(rid)):
-						raise Exception(self.model.LastErrorStr);			
+						raise Exception(self.model.LastErrorNumber,self.model.LastErrorStr)
 			else:
 				if(not self.model.DeleteGroup(GroupList)):
-					raise Exception(self.model.LastErrorStr);
+					raise Exception(self.model.LastErrorNumber,self.model.LastErrorStr)
 
 		except Exception,e:
-				return json.dumps({'success': False, 'msg': e.message,'num':0})
+			if(len(e.args)>1):
+				return json.dumps({'success': False, 'msg': e.args[1],'num':e.args[0]})
+			else:
+				return json.dumps({'success': False, 'msg': e.args,'num':-1})
 		return json.dumps(self.successOK)	
 
 	def test(self):

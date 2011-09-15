@@ -65,6 +65,39 @@ class ShareController(BaseController):
 		
 		return json.dumps(self.successOK);
 
+	def DeleteShare(self):
+		try:
+			if not self._check_session():
+				return json.dumps(self.AuthErr);
+			
+			name = request.params.get("name","")
+			if(not self.model.DeleteGroup(name)):
+				raise Exception(self.model.LastErrorStr);			
+			
+		except Exception,e:
+				return json.dumps({'success': False, 'msg': e.message,'num':0})
+		return json.dumps(self.successOK)	
+
+
+	def DeleteShareList(self):
+		try:
+			if not self._check_session():
+				return json.dumps(self.AuthErr);
+			
+			ShareList = request.params.get("ShareList","")
+			if(ShareList.count(',')>0):
+				ShareList = ShareList.split(',');
+				for name in ShareList:
+					if(not self.model.DeleteGroup(name)):
+						raise Exception(self.model.LastErrorStr);			
+			else:
+				if(not self.model.DeleteGroup(GroupList)):
+					raise Exception(self.model.LastErrorStr);
+
+		except Exception,e:
+				return json.dumps({'success': False, 'msg': e.message,'num':0})
+		return json.dumps(self.successOK)	
+
 	def test(self):
 		#return jsonpickle.encode(self.model.GetShareList());
 		if(self.model.AddShare("test")==False):

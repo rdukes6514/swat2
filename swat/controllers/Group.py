@@ -233,7 +233,10 @@ class GroupController(BaseController):
 				for rid in GroupList:
 					if(not self.model.DeleteGroup(rid)):
 						raise Exception(self.model.LastErrorStr);			
-			
+			else:
+				if(not self.model.DeleteGroup(GroupList)):
+					raise Exception(self.model.LastErrorStr);
+
 		except Exception,e:
 				return json.dumps({'success': False, 'msg': e.message,'num':0})
 		return json.dumps(self.successOK)	

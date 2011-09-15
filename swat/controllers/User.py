@@ -209,7 +209,10 @@ class UserController(BaseController):
 				for username in UserList:
 					if(not self.model.DeleteUser(username)):
 						raise Exception(self.model.LastErrorStr);			
-			
+			else:
+				if(not self.model.DeleteUser(UserList)):
+					raise Exception(self.model.LastErrorStr);
+					
 		except Exception,e:
 				return json.dumps({'success': False, 'msg': e.message,'num':0})
 		return json.dumps(self.successOK)	

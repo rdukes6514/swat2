@@ -153,7 +153,7 @@ class UserController(BaseController):
 			rid = self.model.AddUser(username);
 			
 			if rid == False:
-				raise Exception(self.model.LastErrorStr);
+				raise Exception(self.model.LastErrorNumber,self.model.LastErrorStr)
 			
 			if(iscopy!="false"):
 				self.iscopy=True;
@@ -168,17 +168,17 @@ class UserController(BaseController):
 				user.account_disabled = disable;
 				
 				if not self.model.UpdateUser(user):
-					raise Exception(self.model.LastErrorStr);
+					raise Exception(self.model.LastErrorNumber,self.model.LastErrorStr)
 	
 				if(not self.model.SetPassword(username,password)):
-					raise Exception(self.model.LastErrorStr);			
+					raise Exception(self.model.LastErrorNumber,self.model.LastErrorStr)
 			
 		
 		except Exception,e:
-			num=0;	
-			if self.model.LastErrorNumber !=0:
-				num=self.model.LastErrorNumber
-			return json.dumps({'success': False, 'msg': e.message,'num':num})
+			if(len(e.args)>1):
+				return json.dumps({'success': False, 'msg': e.args[1],'num':e.args[0]})
+			else:
+				return json.dumps({'success': False, 'msg': e.args,'num':-1})
 		
 		return json.dumps(self.successOK);
 			
@@ -191,10 +191,13 @@ class UserController(BaseController):
 			#rid = request.params.get("rid",-1)
 			username = request.params.get("username","")
 			if(not self.model.DeleteUser(username)):
-				raise Exception(self.model.LastErrorStr);			
+				raise Exception(self.model.LastErrorNumber,self.model.LastErrorStr)			
 			
 		except Exception,e:
-				return json.dumps({'success': False, 'msg': e.message,'num':0})
+			if(len(e.args)>1):
+				return json.dumps({'success': False, 'msg': e.args[1],'num':e.args[0]})
+			else:
+				return json.dumps({'success': False, 'msg': e.args,'num':-1})
 		return json.dumps(self.successOK)	
 
 	def DeleteUserList(self):
@@ -208,13 +211,16 @@ class UserController(BaseController):
 				UserList = UserList.split(',');
 				for username in UserList:
 					if(not self.model.DeleteUser(username)):
-						raise Exception(self.model.LastErrorStr);			
+						raise Exception(self.model.LastErrorNumber,self.model.LastErrorStr)
 			else:
 				if(not self.model.DeleteUser(UserList)):
-					raise Exception(self.model.LastErrorStr);
+					raise Exception(self.model.LastErrorNumber,self.model.LastErrorStr)
 					
 		except Exception,e:
-				return json.dumps({'success': False, 'msg': e.message,'num':0})
+			if(len(e.args)>1):
+				return json.dumps({'success': False, 'msg': e.args[1],'num':e.args[0]})
+			else:
+				return json.dumps({'success': False, 'msg': e.args,'num':-1})
 		return json.dumps(self.successOK)	
 
 
@@ -233,23 +239,26 @@ class UserController(BaseController):
 			#response.write(password);
 			if(self.model.isAuthenticate()):
 				if(not self.model.SetPassword(username,password)):
-					raise Exception(self.model.LastErrorStr);
+					raise Exception(self.model.LastErrorNumber,self.model.LastErrorStr)
 			
 			UnlockUserAccount = request.params.get("UnlockUserAccount",False)
 			if(UnlockUserAccount != False):
 				if(not self.model.EnableAccount(rid,username,True)):
-					raise Exception(self.model.LastErrorStr);
+					raise Exception(self.model.LastErrorNumber,self.model.LastErrorStr)
 			
 			ForcePasswordChange = request.params.get("ForcePasswordChange","off").strip();
 			if(ForcePasswordChange == "on"):
 				if(not self.model.ForcePasswordChangeAtNextLogin(rid,username)):
-					raise Exception(self.model.LastErrorStr);
+					raise Exception(self.model.LastErrorNumber,self.model.LastErrorStr)
 			else:
 				if(not self.model.ForcePasswordChangeAtNextLogin(rid,username,False)):
-					raise Exception(self.model.LastErrorStr);
+					raise Exception(self.model.LastErrorNumber,self.model.LastErrorStr)
 
 		except Exception,e:
-				return json.dumps({'success': False, 'msg': e.message,'num':0})
+			if(len(e.args)>1):
+				return json.dumps({'success': False, 'msg': e.args[1],'num':e.args[0]})
+			else:
+				return json.dumps({'success': False, 'msg': e.args,'num':-1})
 		return json.dumps(self.successOK)
 
 	def EnableAccount(self):
@@ -268,12 +277,15 @@ class UserController(BaseController):
 					enable=False
 					
 				if(not self.model.EnableAccount(rid,username,enable)):
-					raise Exception(self.model.LastErrorStr);
+					raise Exception(self.model.LastErrorNumber,self.model.LastErrorStr)
 
 			else:
-				raise Exception(self.model.LastErrorStr);
+				raise Exception(self.model.LastErrorNumber,self.model.LastErrorStr)
 		except Exception,e:
-				return json.dumps({'success': False, 'msg': e.message,'num':0})
+			if(len(e.args)>1):
+				return json.dumps({'success': False, 'msg': e.args[1],'num':e.args[0]})
+			else:
+				return json.dumps({'success': False, 'msg': e.args,'num':-1})
 		return json.dumps({'success': True,'enable':enable})
 		
 
@@ -342,7 +354,7 @@ class UserController(BaseController):
 				#user.group_list = []
 				#user.account_disabled = True;
 				if not self.model.UpdateUser(user):
-					raise Exception(self.model.LastErrorStr);
+					raise Exception(self.model.LastErrorNumber,self.model.LastErrorStr)
 
 				oldgrouplist = request.params.get("oldgrouplist","")
 				grouplist = request.params.get("grouplist","")
@@ -379,15 +391,17 @@ class UserController(BaseController):
 					self.GroupModel.AddGroupMember(group_rid,rid);
 
 			except Exception,e:
-					if(self.iscopy):
-						raise;
-					return json.dumps({'success': False, 'msg': e.message,'num':0})
-			
-			
+				if(self.iscopy):
+					raise;
+				if(len(e.args)>1):
+					return json.dumps({'success': False, 'msg': e.args[1],'num':e.args[0]})
+				else:
+					return json.dumps({'success': False, 'msg': e.args,'num':-1})
+
 			if(self.iscopy):
 				return True;
-			return json.dumps({'success': True, 'groupdiff':list(groupdiff), 'oldgrouplist':list(oldgrouplist), 'grouplist':list(grouplist)})
-			#return json.dumps(self.successOK)
+			#return json.dumps({'success': True, 'groupdiff':list(groupdiff), 'oldgrouplist':list(oldgrouplist), 'grouplist':list(grouplist)})
+			return json.dumps(self.successOK)
 
 	def test(self):
 		#List = ['nada'];
@@ -398,7 +412,7 @@ class UserController(BaseController):
 		try:
 			for i in range(1,20):
 				if not self.model.AddUser("test%s"%i):
-					raise Exception(self.model.LastErrorStr);
+					raise Exception(self.model.LastErrorNumber,self.model.LastErrorStr)
 		except Exception,e:
 				if self.model.LastErrorNumber !=0:
 					num=self.model.LastErrorNumber

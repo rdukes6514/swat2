@@ -36,15 +36,7 @@ class ShareModel(BaseModel):
 			if totalentries != 0:
 				ResourceList = info_ctr.ctr.array
 				for i in ResourceList:
-				
-					share = Share(i.name,i.path,i.type);
-					share.comment = i.comment
-					share.current_users = i.current_users
-					share.max_users= i.max_users
-					share.password = i.password
-					share.permissions = i.permissions
-					#share.sd_buf = i.
-					
+					share = self.Info502ToShare(i);
 					self.share_list.append(share);
 					#response.write(str(i.permissions)+'\n');
 					#response.write(i.name+'\n');
@@ -59,24 +51,91 @@ class ShareModel(BaseModel):
 		return True;
 
 	def GetShareList(self):
-	
 		return self.share_list;
 
-	def GetShare(share = None):
-		return share
-
-	def UpdateShare(self,group):
+	def GetShare(self,name):
 		if not self.isAuthenticate():
 			self.SetError('Usted no esta autenticado',0)
 			return False;
 		try:
-			pass
+			name = unicode(name)
+			info = self.srvsvcpipe.NetShareGetInfo(self.server_unc, name, 502);
+			share = self.Info502ToShare(info);
 		except Exception,e:
 			if(len(e.args)>1):
 				self.SetError(e.args[1],e.args[0])
 			else:
 				self.SetError(e.args,0)
 			return False;
+		return share
+
+	def UpdateShare(self,share):
+		if not self.isAuthenticate():
+			self.SetError('Usted no esta autenticado',0)
+			return False;
+		try:
+			parm_error = 0x00000000
+			share=share.ToShareInfo502();
+			parm_error = self.srvsvcpipe.NetShareSetInfo(self.server_unc,share.name,502, share, parm_error);
+			if(parm_error!=0x00000000):
+				raise Exception(parm_error,"Error NetShareSetInfo");
+		except Exception,e:
+			if(len(e.args)>1):
+				self.SetError(e.args[1],e.args[0])
+			else:
+				self.SetError(e.args,0)
+			return False;
+		return True;
+
+	def Info502ToShare(self,info):
+		share = Share(info.name,info.path,info.type);
+		share.comment = info.comment;
+		share.current_users = info.current_users;
+		share.max_users= info.max_users;
+		share.password = info.password;
+		share.permissions = info.permissions;
+		#share.sd_buf = i.
+		return share;
+
+	def AddShare(self,name):
+		rid=-1;
+		if not self.isAuthenticate():
+			self.SetError('Usted no esta autenticado',0)
+			return False;
+		try:
+				#NetShareAdd(server_unc, level, info, parm_error) 
+				parm_error = 0x00000000
+				info = srvsvc.NetShareInfo2()
+				info.name = unicode(name)
+				self.srvsvcpipe.NetShareAdd(self.server_unc,2,info,parm_error)
+				if(parm_error!=0x00000000):
+					raise Exception(parm_error,"Error NetShareAdd");
+		except Exception,e:
+			if(len(e.args)>1):
+				self.SetError(e.args[1],e.args[0])
+				return False;
+			else:
+				self.SetError(e.args,0)
+				return False;
+		return True;
+
+	def DeleteShare(self,name):
+		rid=-1;
+		if not self.isAuthenticate():
+			self.SetError('Usted no esta autenticado',0)
+			return False;
+		try:
+				#NetShareDel(server_unc, share_name, reserved) -> None
+				name = unicode(name)
+				self.srvsvcpipe.NetShareDel(self.server_unc,name,0)
+				
+		except Exception,e:
+			if(len(e.args)>1):
+				self.SetError(e.args[1],e.args[0])
+				return False;
+			else:
+				self.SetError(e.args,0)
+				return False;
 		return True;
 
 	def test(self):
@@ -93,7 +152,7 @@ class Share:
 		self.max_users= 0xFFFFFFFF
 		self.password = ""
 		self.path = path
-		self.permissions = 0
+		self.permissions = 0 # reserved , has to defined to 0 as in MS-Srvs
 		self.sd_buf =  security.sec_desc_buf()
 
 

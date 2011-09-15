@@ -35,6 +35,39 @@ class ShareController(BaseController):
 			#});
 
 		return jsonpickle.encode({"Nodos":Shares},unpicklable=False);
+
+	def UpdateShare(self):
+		if not self._check_session():
+			return json.dumps(self.AuthErr);
+		try:
+			
+			name = request.params.get("name","");
+			comment = request.params.get("comment","");
+			#FIXME check path
+			path = request.params.get("path","");
+			share = self.model.GetShare(name);
+			
+			if(share==False):
+				raise Exception(self.model.LastErrorNumber,self.model.LastErrorStr)
+			share.name=name;
+			share.comment=comment;
+			share.path=path;
+			
+			if(self.model.UpdateShare(share)==False):
+				raise Exception(self.model.LastErrorNumber,self.model.LastErrorStr)
+
+		except Exception,e:
+			if(len(e.args)>1):
+				return json.dumps({'success': False, 'msg': e.args[1],'num':e.args[0]})
+			else:
+				return json.dumps({'success': False, 'msg': e.args,'num':-1})
+				
 		
+		return json.dumps(self.successOK);
+
 	def test(self):
-		return jsonpickle.encode(self.model.GetShareList());
+		#return jsonpickle.encode(self.model.GetShareList());
+		if(self.model.AddShare("test")==False):
+			return json.dumps({'success': False, 'msg':self.model.LastErrorStr,'num':self.model.LastErrorNumber})
+			
+		return jsonpickle.encode(self.successOK);

@@ -19,15 +19,7 @@ class ShareModel(BaseModel):
 			self.server_unc = ''.join(['\\',self.server_address])
 			self.LoadShareList();
 		
-		#self.sam_shares = self.toArray(self.samrpipe.EnumDomainshares(self.domain_handle, 0, -1))
-		
-		#for (rid, sharename) in self.sam_shares:
-		#	share = self.Getshare(rid)
-		#	self.share_list.append(share)
-		#log.debug("Configured backend is: " + self.lp.get("share backend") + " so the Class Name will be " + self.lp.get("share backend").title())
 
-
-		#self.share_list = backend.GetShareList()
 	def LoadShareList(self):
 		try:
 			info_ctr = srvsvc.NetShareInfoCtr()

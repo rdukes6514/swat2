@@ -26,8 +26,8 @@ DialogNewUser = {
 				,frame:true
 				//,title: 'Restablecer contrase&ntilde;a'
 				//,bodyStyle:'padding:5px 5px 0'
-                		,bodyStyle: 'x-window-body'
-                		,border: false
+                ,bodyStyle: 'x-window-body'
+                ,border: false
 				,monitorValid:true
 				,items: [{
 							layout: 'form'

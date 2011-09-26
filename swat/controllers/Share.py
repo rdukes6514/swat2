@@ -40,9 +40,9 @@ class ShareController(BaseController):
 		if not self._check_session():
 			return json.dumps(self.AuthErr)
 		try:
-			name = request.params.get("sharename", "")
-			comment = request.params.get("sharecomment", "")
-			path = request.params.get("sharepath", "")
+			name = request.params.get("name", "")
+			path = request.params.get("path", "")
+			comment = request.params.get("comment", "")
 			ret = self.model.AddShare(name, path, comment)
 			if ret == False:
 				raise Exception(self.model.LastErrorNumber, self.model.LastErrorStr)

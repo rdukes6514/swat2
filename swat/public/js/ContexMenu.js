@@ -91,28 +91,28 @@ AppContexMenu={
                 
 							{
 								text: 'Copy ..'
-								,handler: this.OnContexMenuDelegateControlClick
+								,handler: this.OnShareContexMenuCopy
 							},{
 
-								text: 'Eliminar'
+								text: 'Delete'
 								,id:'IdContainerContexMenuDelete'
 
-								,handler: this.OnContexMenuDeleteClick
+								,handler: this.OnShareContexMenuDeleteClick
 
 								//,iconCls: 'edit_user'
 
 							}, {
 
-								text: 'Cambiar nombre'
+								text: 'Rename'
 								,id:'IdContainerContexMenuChangeName'
 
-								,handler: this.OnContexMenuRenameClick
+								,handler: this.OnShareContexMenuRenameClick
 
 								//,iconCls: 'edit_user'
 
 							}, {
 
-								text: 'Actualizar'
+								text: 'Update'
 
 								,handler: this.OnContexMenuUpdateClick
 
@@ -205,10 +205,9 @@ AppContexMenu={
 		GroupController.DeleteGroup(rid,group);
 	}
 
-	,OnContexMenuDeleteClick : function(item,event){
-		alert('Unimplemented');
-	 	console.dir(item);
-	 	console.dir(event);
+	,OnShareContexMenuDeleteClick : function(item,event){
+		var name = AppContexMenu.data.json.name;
+		ShareController.DeleteShare(name);
 	}
 
 
@@ -230,10 +229,8 @@ AppContexMenu={
 
 	}
 
-	,OnContexMenuRenameClick : function(item,event){
-
-		
-
+	,OnShareContexMenuRenameClick : function(item,event){
+		ShareController.RenameShare(AppContexMenu.rowIndex);
 	}
 	
 	,OnContexMenuSearchClick : function(item,event){
@@ -275,10 +272,9 @@ AppContexMenu={
 	}
 
 
-	,OnContexMenuDelegateControlClick : function(item,event){
-		alert('Unimplemented');
-	 console.dir(item);
-	 console.dir(event);
+	,OnShareContexMenuCopy : function(item,event){
+		var data = AppContexMenu.data.json;
+		ShareController.CopyShare(data);	
 	}
 
 

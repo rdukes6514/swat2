@@ -3,7 +3,8 @@ Ext.ns("ShareController");
 ShareController = {
  
 			NewShare:function(){
-				DialogNewShare.show();
+				//DialogNewShare.show();
+				DialogShareManager.show(null,true);
 			}
 
 			,RenameShare:function(rowIndex){
@@ -14,14 +15,13 @@ ShareController = {
 
 			,CopyShare:function(data){
 				if(data==null) return;
-				DialogNewShare.show(data);
+				DialogShareManager.show(data,true);
 			}
 	
 			
-			,DeleteShare:function(name,Share){
+			,DeleteShare:function(name){
 				ParamsObj = {
 					name:name
-					,Share:Share
 				}
 				ShareController.SendData('Share/DeleteShare',ParamsObj);
 			}

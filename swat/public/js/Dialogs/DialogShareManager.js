@@ -1,11 +1,69 @@
 DialogShareManager = {};
 
 DialogShareManager = {
-		show:function(data){
+		show:function(data,iscopy_or_new){
 			
-			if(data==null)return;
-
+			var title = '';
+			var name = '';
+			if (typeof data == "undefined" || data == null) {
+				data = {
+					name:''
+					,path:''
+					,comment:''
+					,max_users:-1
+				};
+				title = 'New share';
+		   } else {
+				title = sprintf('%s properties',data.name.capitalize());	
+				name = data.name;
+			}
+		   
+			if (typeof iscopy_or_new == "undefined") {
+				iscopy_or_new = false
+			} else if(iscopy_or_new){
+				if(name.trim()!= ''){
+					title = 'Copy of '+name;
+				}
+				
+				name = '';
+			} 
+			
+		var txtname = new Ext.form.TextField({
+			xtype: "textfield"
+			,labelAlign: 'left'
+			,id: "IdShareName"
+			,value:name 
+			,name: "name"
+			,fieldLabel: "<b>Name</b>"
+			,width: '95%'	
+			,allowBlank: false							
+		});
 		
+		
+		var txtpath = new Ext.form.TextField({
+			xtype: "textfield"
+			,labelAlign: 'left'
+			,id: "IdPath"
+			,value:data.path 
+			,name: "path"
+			,fieldLabel: "<b>Path</b>"
+			,width: '95%'
+			,allowBlank: false
+			/*,listeners: {
+				'invalid': function(){
+					alert('you changed the text of this input field');
+				}	
+			}*/			
+		});		
+		
+		
+		txtname.on('invalid',this.oninvalid);
+		txtname.on('valid',this.onvalid);
+		
+		txtpath.on('invalid',this.oninvalid);
+		txtpath.on('valid',this.onvalid);
+		
+				
 		var Spinner = new Ext.ux.form.SpinnerField({
 			xtype: 'spinnerfield'
 			,name: 'SpinAllow'
@@ -44,24 +102,8 @@ DialogShareManager = {
 			,items: [{
 						layout: 'form'
 						,items: [
-								{
-									xtype: "textfield"
-									,labelAlign: 'left'
-									,id: "IdShareName"
-									,value:data.name 
-									,name: "name"
-									,fieldLabel: "<b>Name</b>"
-									,width: '95%'								
-								}
-								,{
-									xtype: "textfield"
-									,labelAlign: 'left'
-									,id: "IdPath"
-									,value:data.path 
-									,name: "path"
-									,fieldLabel: "<b>Path</b>"
-									,width: '95%'
-								}
+								txtname
+								,txtpath
 								,{
 									xtype: "textfield"
 									,labelAlign: 'left'
@@ -79,6 +121,7 @@ DialogShareManager = {
 												{
 													xtype : "radio"
 													,hideLabel:true
+													,id : "IdRadiobtn1"
 													,name : "radiob"
 													,boxLabel:'<b>Maximum allowed</b>'
 													,checked: radio1
@@ -131,7 +174,7 @@ DialogShareManager = {
 
 			
 			var WindowShareManager = new Ext.Window({
-					title: sprintf('%s properties',data.name.capitalize())
+					title: title
 					,modal:true
 					,labelWidth: 75
 					,width:380
@@ -142,20 +185,35 @@ DialogShareManager = {
 					,items: [tabs]
 						,buttons: [
 								{
-									text: 'Ok',
+									text: 'Ok'
+									,id:'WindowShareManagerBtnOk'
 									//formBind: true,
-									handler:function(){
+									,handler:function(){
 										
-									
 										
 										params={
-												name:data.name
+												name:Ext.getCmp('IdShareName').getValue()
+												,path:Ext.getCmp('IdPath').getValue()
+										}
+										
+										length
+										var comment = Ext.getCmp('IdComment').getValue();
+										
+										if(comment.trim()!=''){
+											params.comment=comment;
+										}
+										
+										if(Ext.getCmp('IdRadiobtn1').getValue()==false){
+											params.max_users=Spinner.getValue();
 										}
 										
 										//var form = new Ext.form.FormPanel({id:'idSendForm',url:''});
-											
 										//SendForm(form,WindowShareManager,'User/UpdateUser',params)
-										ShareController.SendData('Share/UpdateShare',params,WindowShareManager);
+										if(iscopy_or_new){
+											ShareController.SendData('Share/AddShare',params,WindowShareManager);
+										} else {
+											ShareController.SendData('Share/UpdateShare',params,WindowShareManager);
+										}
 									}
 								}, {
 									text: 'Cancel',
@@ -174,5 +232,19 @@ DialogShareManager = {
 			
 		
 		}
+	,oninvalid:function(Field,msg){
+			Ext.getCmp('WindowShareManagerBtnOk').disable();
+			
+		}
+
+	,onvalid:function(Field,msg){
+			
+			if(Ext.getCmp('IdShareName').isValid(false) && Ext.getCmp('IdPath').isValid(false)) {
+				Ext.getCmp('WindowShareManagerBtnOk').enable();
+			} else {
+				Ext.getCmp('WindowShareManagerBtnOk').disable();
+			}	
+			
+		}		
 }
 

@@ -314,6 +314,9 @@ Ext.ux.swat.MainWindowApp = Ext.extend(Ext.Window,{
 		this.AddShareBtn= {
 			text: 'Add share'
 			,iconCls: 'add'
+			,handler: function () {
+				   ShareController.NewShare();
+			}
 		};
 		
 		this.AddUserBtn= {

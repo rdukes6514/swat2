@@ -155,7 +155,7 @@ DialogShareManager = {
 										//var form = new Ext.form.FormPanel({id:'idSendForm',url:''});
 											
 										//SendForm(form,WindowShareManager,'User/UpdateUser',params)
-										//UserController.SendData('Group/UpdateGroup',params,WindowShareManager);
+										ShareController.SendData('Share/UpdateShare',params,WindowShareManager);
 									}
 								}, {
 									text: 'Cancel',

@@ -89,19 +89,22 @@ class ShareModel(BaseModel):
 		#share.sd_buf = i.
 		return share;
 
-	def AddShare(self,name):
+	def AddShare(self, name, path, comment=None):
 		rid=-1;
 		if not self.isAuthenticate():
-			self.SetError('Usted no esta autenticado',0)
+			self.SetError("You are not authenticated",0)
 			return False;
 		try:
-				#NetShareAdd(server_unc, level, info, parm_error) 
-				parm_error = 0x00000000
-				info = srvsvc.NetShareInfo2()
-				info.name = unicode(name)
-				self.srvsvcpipe.NetShareAdd(self.server_unc,2,info,parm_error)
-				if(parm_error!=0x00000000):
-					raise Exception(parm_error,"Error NetShareAdd");
+			#NetShareAdd(server_unc, level, info, parm_error)
+			parm_error = 0x00000000
+			info = srvsvc.NetShareInfo2()
+			info.name = unicode(name)
+			info.path = unicode(path)
+			if comment is not None:
+				info.comment = unicode(comment)
+			ret = self.srvsvcpipe.NetShareAdd(self.server_unc,2,info,parm_error)
+			if(parm_error!=0x00000000):
+				raise Exception(parm_error,"Error NetShareAdd");
 		except Exception,e:
 			if(len(e.args)>1):
 				self.SetError(e.args[1],e.args[0])

@@ -36,6 +36,20 @@ class ShareController(BaseController):
 
 		return jsonpickle.encode({"Nodos":Shares},unpicklable=False);
 
+	def AddShare(self):
+		if not self._check_session():
+			return json.dumps(self.AuthErr)
+		try:
+			name = request.params.get("sharename", "")
+			comment = request.params.get("sharecomment", "")
+			path = request.params.get("sharepath", "")
+			ret = self.model.AddShare(name, path, comment)
+			if ret == False:
+				raise Exception(self.model.LastErrorNumber, self.model.LastErrorStr)
+		except Exception, e:
+			return json.dumps({'success': False, 'msg': unicode(e)})
+		return json.dumps(self.successOK);
+
 	def UpdateShare(self):
 		if not self._check_session():
 			return json.dumps(self.AuthErr);

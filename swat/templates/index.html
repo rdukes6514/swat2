@@ -65,27 +65,24 @@
 	<!--
 	Lang:${c.language}
 	-->
-	
-% if len(c.language) == 0:
-	<script type="text/javascript" src="./jslibs/locale/ext-lang-en.js"></script> 
-	<script type="text/javascript" src="./js/locale/en.js"></script>
-% else:
+
 	<script type="text/javascript" src="./jslibs/locale/ext-lang-${c.language}.js"></script>
 	<script type="text/javascript" src="./js/locale/${c.language}.js"></script>
-% endif
+	<script>Ext.namespace('Ext.ux.swat');</script>
+	<script type="text/javascript">
+		Ext.ux.swat.Config = {}
+		Ext.ux.swat.Config.language =   '${c.language}';
+	</script> 
+
 
 	<script type="text/javascript" src="./js/utils.js"></script> 
 	<script type="text/javascript" src="./js/webtoolkit.sprintf.js"></script> 
-  <script>Ext.namespace('Ext.ux.swat');</script>
 % if c.auth == True:
 	
 	<script type="text/javascript">
-		Ext.ux.swat.Config = {}
 		Ext.ux.swat.Config.DnsDomain = '${c.DnsDomain}';
 		Ext.ux.swat.Config.RootDSE =   '${c.RootDSE}';
 		Ext.ux.swat.Config.SambaVersion =   '${c.SambaVersion}';
-		Ext.ux.swat.Config.languaje =   '${c.language}';
-		
 	</script> 
 	
 	

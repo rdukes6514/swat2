@@ -45,6 +45,7 @@ lang.dialog.MaximumAllowedUser = '<b>Allow this number of users&nbsp;&nbsp;&nbsp
 lang.dialog.username = "<b>Username</b>";
 lang.dialog.fullname = "<b>Fullname</b>";
 lang.dialog.password = "<b>Password</b>";
+lang.dialog.language = "<b>Language</b>";
 lang.dialog.profile = "<b>Path profile</b>";
 lang.dialog.logonscript = "<b>Logon script</b>"
 lang.dialog.LocalPath = "<b>Local path</b>"

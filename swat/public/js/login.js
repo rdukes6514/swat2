@@ -1,5 +1,3 @@
-Ext.ux.swat.Config = {}
-
 Ext.ux.swat.Login = Ext.extend(Ext.Window,{
 	
 	
@@ -26,7 +24,7 @@ Ext.ux.swat.Login = Ext.extend(Ext.Window,{
 
 		
 		this.langCombo = new Ext.form.ComboBox({
-			fieldLabel: "Language"
+			fieldLabel: lang.dialog.language
 			,name: "language"
 			,hiddenName: 'language'
 			,store: LangArray
@@ -40,14 +38,20 @@ Ext.ux.swat.Login = Ext.extend(Ext.Window,{
 			,width: this.mainFieldWidth
 			,listeners   : {  
 				beforerender: function(combo){  
-					combo.setValue('en');// El ID de la opción por defecto  
+					combo.setValue(Ext.ux.swat.Config.language);
+					console.log(Ext.ux.swat.Config.language);
 				}
 			}				
 		});
-	
+		
+		this.langCombo.on('select', function(){
+			if(this.langCombo.getValue()!='')
+				document.location='?language='+this.langCombo.getValue();
+		}, this);
+		
 		
 		this.userField = new Ext.form.TextField({
-			fieldLabel: "Username"
+			fieldLabel: lang.dialog.username
 			,name: "username"
 			,width: this.mainFieldWidth
 			,style: "margin:10px 0px 0px 0px;"
@@ -57,7 +61,7 @@ Ext.ux.swat.Login = Ext.extend(Ext.Window,{
 		});
 		
 		this.pwField = new Ext.form.TextField({
-			fieldLabel: "Password"
+			fieldLabel: lang.dialog.password
 			,name: "password"
 			,inputType: "password"
 			,width: this.mainFieldWidth

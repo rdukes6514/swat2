@@ -1,7 +1,8 @@
 lang = {};
 
 //Main App
-lang.name = 'Name';
+lang.name = 'Nombre';
+lang.username = 'Nombre de usuario';
 lang.description = 'Descripci&oacute;n';
 lang.path = 'Ruta';
 lang.comment = 'Comentario';

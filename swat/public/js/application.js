@@ -137,7 +137,7 @@ Ext.ux.swat.MainWindowApp = Ext.extend(Ext.Window,{
 				,width: 50
 				,editor : new Ext.form.TextField({readOnly:true})
 			},{
-				header: lang.name,
+				header: lang.username,
 				renderer: function (value, metaData, record, rowIndex, colIndex, store) {
 				//alert(record.data.icon);
 				metaData.css = 'usuario';

@@ -3,6 +3,7 @@ lang = {};
 
 //Main App
 lang.name = 'Name';
+lang.username = 'Username';
 lang.description = 'Description';
 lang.path = 'Path';
 lang.comment = 'Comment';

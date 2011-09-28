@@ -31,15 +31,28 @@ DialogUserManager = {
 			
 		var ForcePasswordChange = new Ext.form.Checkbox({
 			xtype:'checkbox'
+			,hideLabel:true
 			,fieldLabel: ''
 			,boxLabel: lang.ForcePasswordChange
 			,name: 'ForcePasswordChange'
+			,name: 'IdForcePasswordChange'
 			,checked : data.changepassword
+			,handler:function(checkbox,checked){
+				if(checked){
+					Ext.getCmp('IdPasswordExpires').disable();
+					Ext.getCmp('IdPasswordExpires').setValue(false);
+					//Ext.getCmp('IdCannotChangePassword').disable();											
+				} else {
+					Ext.getCmp('IdPasswordExpires').enable();
+					//Ext.getCmp('IdCannotChangePassword').enable();
+				}
+			}				
 		});
 
 		/*var CannotChangePassword = new Ext.form.Checkbox({
 			xtype:'checkbox'
 			,fieldLabel: ''
+			,'IdCannotChangePassword'
 			,boxLabel: 'Cannot Change Password'
 			,name: 'CannotChangePassword'
 			,checked : data.cannotchangepassword
@@ -47,17 +60,30 @@ DialogUserManager = {
 		
 		
 
-		var passwordexpires = new Ext.form.Checkbox({
+		var PasswordExpires = new Ext.form.Checkbox({
 			xtype:'checkbox'
+			,hideLabel:true
 			,fieldLabel: ''
 			,boxLabel: lang.PasswordNeverExpires
 			,name: 'passwordexpires'
+			,id: 'IdPasswordExpires'
 			,checked : data.passwordexpires
+			,handler:function(checkbox,checked){
+				if(checked){
+					Ext.getCmp('IdForcePasswordChange').disable();
+					Ext.getCmp('IdForcePasswordChange').setValue(false);
+				} else {
+					//if(Ext.getCmp('IdCannotChangePassword').getValue()==false){
+						Ext.getCmp('IdForcePasswordChange').enable();
+					//}
+				}
+			}			
 			//,height: 30
 		});
 		
 		var disable = new Ext.form.Checkbox({
 			xtype:'checkbox'
+			,hideLabel:true
 			,fieldLabel: ''
 			,boxLabel: lang.DisableAccount
 			,name: 'disable'
@@ -67,6 +93,7 @@ DialogUserManager = {
 		
 		var locked = new Ext.form.Checkbox({
 			xtype:'checkbox'
+			,hideLabel:true
 			,fieldLabel: ''
 			,boxLabel: lang.LockUserAccount
 			,name: 'locked'
@@ -96,7 +123,7 @@ DialogUserManager = {
 									,html: '&nbsp;'
 								}
 								,ForcePasswordChange
-								,passwordexpires
+								,PasswordExpires
 								,disable
 								,locked
 							]
@@ -105,6 +132,17 @@ DialogUserManager = {
 			});
 		
 		
+		FormGeneral.on('render',function(cmp){
+		
+			if(data.passwordexpires){
+				ForcePasswordChange.disable();
+			}
+		
+			if(data.changepassword){
+					PasswordExpires.disable();			
+			}
+			
+		});
 		
 		 	
         var FormMenberof = new Ext.form.FormPanel({
@@ -442,7 +480,7 @@ DialogUserManager = {
 										,locked:locked.getValue()
 										,logonscript:logonscript.getValue()
 										,maphomedirdrive:drivecombo.getValue()
-										,passwordexpires:passwordexpires.getValue()
+										,passwordexpires:PasswordExpires.getValue()
 										,profile:profile.getValue()
 										,grouplist:grouplist
 										,oldgrouplist:oldgrouplist

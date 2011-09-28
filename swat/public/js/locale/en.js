@@ -57,7 +57,6 @@ lang.close = 'Close';
 lang.ForcePasswordChange = 'The user must change the password';
 lang.PasswordNeverExpires = 'Password never expires';
 lang.CannotChangePassword = 'Cannot Change Password';
-lang.PasswordExpires = 'Password never expires';
 lang.PasswordsNotMatch = 'Passwords are not equal';
 lang.PasswordStrength = 'The password is too weak';
 lang.ResetPasswordInfo1 = '<span style="font-size: small">&nbsp;&nbsp;&nbsp;The user must log off and then reopen for the changes to take effect.<br><br></span>';

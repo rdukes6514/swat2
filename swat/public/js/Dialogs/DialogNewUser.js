@@ -125,7 +125,7 @@ DialogNewUser = {
 									,disabled:data.changepassword
 									,fieldLabel: ''
 									,id:'IdPasswordExpires'
-									,boxLabel: lang.PasswordExpires
+									,boxLabel:lang.PasswordNeverExpires
 									,name: 'passwordexpires'
 									,checked:data.passwordexpires
 									//,checked : true

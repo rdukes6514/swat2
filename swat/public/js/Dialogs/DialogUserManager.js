@@ -15,7 +15,7 @@ DialogUserManager = {
 			,id: "idfullname"
 			,value:data.fullname 
 			,name: "fullname"
-			,fieldLabel: "<b>FullName</b>"
+			,fieldLabel: lang.dialog.fullname
 			,width: '95%'
 		});
 
@@ -25,14 +25,14 @@ DialogUserManager = {
 			,id: "iddescription"
 			,value:data.description 
 			,name: "description"
-			,fieldLabel: "<b>Description</b>"
+			,fieldLabel: lang.dialog.description
 			,width: '95%'
 		});
 			
 		var ForcePasswordChange = new Ext.form.Checkbox({
 			xtype:'checkbox'
 			,fieldLabel: ''
-			,boxLabel: 'The user must change the password'
+			,boxLabel: lang.ForcePasswordChange
 			,name: 'ForcePasswordChange'
 			,checked : data.changepassword
 		});
@@ -50,7 +50,7 @@ DialogUserManager = {
 		var passwordexpires = new Ext.form.Checkbox({
 			xtype:'checkbox'
 			,fieldLabel: ''
-			,boxLabel: 'Password never expires'
+			,boxLabel: lang.PasswordNeverExpires
 			,name: 'passwordexpires'
 			,checked : data.passwordexpires
 			//,height: 30
@@ -59,7 +59,7 @@ DialogUserManager = {
 		var disable = new Ext.form.Checkbox({
 			xtype:'checkbox'
 			,fieldLabel: ''
-			,boxLabel: 'Disabled account'
+			,boxLabel: lang.DisableAccount
 			,name: 'disable'
 			,checked : data.disable
 			//,height: 30
@@ -68,7 +68,7 @@ DialogUserManager = {
 		var locked = new Ext.form.Checkbox({
 			xtype:'checkbox'
 			,fieldLabel: ''
-			,boxLabel: 'The account is locked'
+			,boxLabel: lang.LockUserAccount
 			,name: 'locked'
 			,checked : data.locked
 			//,height: 30
@@ -130,7 +130,7 @@ DialogUserManager = {
 			    //hiddenName: 'name',
 			    valueField: 'rid',
 			    //vtype: 'email',
-			    fieldLabel: "<b>Groups</b>"
+			    fieldLabel: lang.dialog.groups
 			    //,width: 250
 			    ,anchor: "100%"
 			}, {
@@ -158,13 +158,13 @@ DialogUserManager = {
 			    ,height: '75%'
 			},{
 			    xtype: 'tbbutton',
-			    text: 'Delete',
+			    text: lang.remove,
 			    handler: function () {
 			        removeOptionSelected('GroupList', 1);
 			    },style: 'float:right;padding-right: 5px;padding-top:2px;'
 			},{
 			    xtype: 'tbbutton',
-			    text: 'Add',
+			    text: lang.add,
 			    handler: function () {
 
 			        var idcomboGroups = Ext.getCmp('idcomboGroups');
@@ -203,7 +203,7 @@ DialogUserManager = {
 			,id: "idprofile"
 			,value:data.profile 
 			,name: "profile"
-			,fieldLabel: "<b>Path profile</b>"
+			,fieldLabel: lang.dialog.profile
 			,width: '95%'
 		});        
         
@@ -213,7 +213,7 @@ DialogUserManager = {
 			,id: "idlogonscript"
 			,value:data.logonscript 
 			,name: "logonscript"
-			,fieldLabel: "<b>Logon script</b>"
+			,fieldLabel: lang.dialog.logonscript
 			,width: '95%'
 		});  
 		
@@ -224,7 +224,7 @@ DialogUserManager = {
 			,id: "idhomedir"
 			,value:data.homedir 
 			,name: "homedir"
-			,fieldLabel: "<b>Local path</b>"
+			,fieldLabel: lang.dialog.LocalPath
 			,width: '72%'
 		});  
 		
@@ -295,14 +295,14 @@ DialogUserManager = {
 			items: [
 						{
 							xtype: 'fieldset'
-							,title: 'User Profile'
+							,title: lang.UserProfile
 							,labelAlign: 'left'
 							//collapsible: true
 							,items: [profile,logonscript]
 						}
 						,{
 							xtype: 'fieldset'
-							,title: 'Home Folder'
+							,title: lang.HomeDir
 							//,layout:'table'
 							//,layoutConfig: {columns:2}							
 							//,labelAlign: 'top'
@@ -310,14 +310,13 @@ DialogUserManager = {
 							,items: [
 										{  
 												xtype           : "compositefield", //step 2  
-												//fieldLabel  : "Phone",  
 												hideLabel:true,
 												border        : false,  
 												items           : [ 
 													{
 														xtype : "radio"
 														,name : "radio1"
-														,boxLabel:'Local path'
+														,boxLabel:lang.LocalPath
 														,checked: radio1
 														,handler:function(radio,checked){
 															if(checked){
@@ -339,7 +338,7 @@ DialogUserManager = {
 													{	
 														xtype : "radio"
 														,name : "radio1"
-														,boxLabel:'Connect'
+														,boxLabel:lang.connect
 														,checked: radio2
 														,handler:function(radio,checked){
 															if(checked){
@@ -352,7 +351,7 @@ DialogUserManager = {
 														}														
 													}
 													,drivecombo
-													,{xtype : "displayfield", value:" To: "}
+													,{xtype : "displayfield", value:lang.dialog.to}
 													,maphomedirdrive 
 													
 												]  
@@ -386,14 +385,14 @@ DialogUserManager = {
 			activeTab: activeTab,
 			items: [
 					{
-						title: 'General'
+						title: lang.general
 						//,html: 'Another one'
 						,items: [FormGeneral]
 					},{
-						title: 'Menber of'
+						title: lang.MenberOf
 						,items:[FormMenberof]
 					},{
-						title: 'Profile'
+						title: lang.profile
 						,items:[FormUserProfile]
 						//,html: 'Another one'
 					}
@@ -402,7 +401,7 @@ DialogUserManager = {
 
 			
 			var WindowUserManager = new Ext.Window({
-			title: sprintf('%s properties',data.username.capitalize())
+			title: sprintf(lang.FormatProperties,data.username.capitalize())
 			,modal:true
 			,labelWidth: 75
 			,width:380
@@ -413,7 +412,7 @@ DialogUserManager = {
 			,items: [tabs]
 				,buttons: [
 						{
-							text: 'Guardar',
+							text: lang.save,
 							//formBind: true,
 							handler:function(){
 								
@@ -457,7 +456,7 @@ DialogUserManager = {
 								UserController.SendData('User/UpdateUser',params,WindowUserManager);
 							}
 						}, {
-							text: 'Cancelar',
+							text: lang.cancel,
 							handler: function () {
 								WindowUserManager.close();
 							}

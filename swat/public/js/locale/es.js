@@ -1,2 +1,81 @@
-//'<span style="font-size: small">&nbsp;&nbsp;&nbsp;El usuario ha de cerrar la sessi&oacute;n y volver a abrirla para que los cambios<br>&nbsp;&nbsp; tengan efecto.<br><br></span>'
-//'<span style="font-size: small">Estado del bloqueo de cuenta en este controlador de dominio:</span>'
+lang = {};
+
+//Main App
+lang.name = 'Name';
+lang.description = 'Descripción';
+lang.path = 'Ruta';
+lang.comment = 'Comentario';
+lang.update = 'Actualizar';
+lang.cancel = 'Cancelar';
+lang.search = '<b>Buscar</b>';
+lang.bbar = {};
+lang.bbar.displayMsg = 'Mostrando  {0} - {1} de {2}';
+lang.NewGroup = 'Nuevo grupo';
+lang.DomainWizzard = 'Asistente para configurar dominio';
+lang.AddShare = 'Añadir recurso compartido';
+lang.NewUser = 'Nuevo usuario';
+lang.remove = 'Eliminar';
+lang.UsersAndGroups = 'Usuarios y grupos';
+lang.users = 'Usuarios';
+lang.groups = 'Groupos';
+lang.SystemTools = 'Herramientas del sistema';
+lang.ShareManagement = 'Administrar recursos compartidos';
+lang.ShareResources = 'Recursos compartidos';
+
+
+//menu
+lang.copy = 'Copiar ...';
+lang.AddToGroup = 'Añadir a un grupo';
+lang.DisableAccount = 'Desahibilitar usuario';
+lang.ResetPassword = 'Cambiar contraseña';
+lang.rename = 'Cambiar nombre';
+lang.properties = 'Propiedades';
+
+
+//Dialogs
+lang.dialog = {};
+lang.dialog.description = "<b>Descripción</b>";
+lang.dialog.groups = "<b>Groupos</b>";
+lang.dialog.name = "<b>Nombre</b>";
+lang.dialog.path = "<b>Ruta</b>";
+lang.dialog.comment = "<b>Comentario</b>";
+lang.dialog.MaximumAllowed = "<b>M&aacute;ximo permitido</b>";
+lang.dialog.MaximumAllowedUser = '<b>Permitir esta cantidad de usuarios&nbsp;&nbsp;&nbsp;&nbsp;</b>';
+lang.dialog.username = "<b>Usuario</b>";
+lang.dialog.fullname = "<b>Nombre Completo</b>";
+lang.dialog.password = "<b>Contraseña</b>";
+lang.dialog.profile = "<b>Ruta de acceso al perfil</b>";
+lang.dialog.logonscript = "<b>Script de inicio</b>"
+lang.dialog.LocalPath = "<b>Ruta de acceso local</b>"
+lang.dialog.to=" A: "
+lang.add = 'Añadir';
+lang.general = 'General';
+lang.save = 'Guardar';
+lang.create = 'Crear';
+lang.close = 'Cerrar';
+lang.ForcePasswordChange = 'El usuario debe de cambiar la contraseña';
+lang.PasswordNeverExpires = 'La contraseña nunca caduca';
+lang.CannotChangePassword = 'El usuario no puede cambiar la contraseña';
+lang.PasswordsNotMatch = 'Las contraseñas no son iguales';
+lang.PasswordStrength = 'La contraseña es demaciado debíl';
+lang.ResetPasswordInfo1 = '<span style="font-size: small">&nbsp;&nbsp;&nbsp;El usuario ha de cerrar la sessi&oacute;n y volver a abrirla para que los cambios<br>&nbsp;&nbsp; tengan efecto.<br><br></span>'
+lang.ResetPasswordInfo2 = '<span style="font-size: small">Estado del bloqueo de cuenta en este controlador de dominio:</span>'
+lang.UnlockUserAccount = 'Desbloquear usuario';
+lang.LockUserAccount = 'La cuenta está bloqueada'
+lang.FormatProperties = 'Propiedades de %s';
+lang.CopyOf = 'Copia de ';
+lang.UserProfile = 'Perfil de usuario';
+lang.HomeDir = 'Carpeta particular';
+lang.LocalPath='Ruta de acceso local';
+lang.connect = 'Connectar';
+lang.MenberOf='Miembro de';
+lang.profile='Perfil'
+lang.information='Información'
+lang.FormInvalidValues =  'El formulario contiene valores inválidos';
+lang.CommunicationFailed = 'La comunicación ha fallado ';
+lang.error = 'Error';
+lang.BoldError = '<b>Error</b>';
+
+
+
+

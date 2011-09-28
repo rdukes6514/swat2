@@ -60,7 +60,7 @@ ShareController = {
 												var Return = Ext.decode(response.responseText);
 												
 												if(!Return.success){
-													Ext.Msg.alert('<b>Error</b>',Return.msg);
+													Ext.Msg.alert(lang.BoldError,Return.msg);
 													return false;
 												} 
 												
@@ -75,7 +75,7 @@ ShareController = {
 
 										failure: function(response, opts) {
 												ErrorMsg = 'status code ' + response.status;
-												Ext.Msg.alert('<b>Error</b>',ErrorMsg);
+												Ext.Msg.alert(lang.BoldError,ErrorMsg);
 										},
 										params: params
 					});            

@@ -14,7 +14,7 @@ function SendForm(Form,MainWindow,url,params){
         params: params
         , success: function (form, action) {
             if(!action.result.success){
-				Ext.Msg.alert('Informaci&oacute;n',action.result.msg,MainWindow.close());
+				Ext.Msg.alert(lang.information,action.result.msg,MainWindow.close());
 				return false;
             }
 
@@ -25,16 +25,16 @@ function SendForm(Form,MainWindow,url,params){
 
             switch (action.failureType) {
 				case Ext.form.Action.CLIENT_INVALID:
-					Ext.Msg.alert('Error', 'El formulario contiene valores invalidos',MainWindow.close());
+					Ext.Msg.alert(lang.error,lang.FormInvalidValues,MainWindow.close());
 				break;
 				case Ext.form.Action.CONNECT_FAILURE:
-					Ext.Msg.alert('Error', 'La comunicacion ha fallado',MainWindow.close());
+					Ext.Msg.alert(lang.error,lang.CommunicationFailed,MainWindow.close());
                 break;
 				case Ext.form.Action.SERVER_INVALID:
-					Ext.Msg.alert('Error', action.result.msg,MainWindow.close());
+					Ext.Msg.alert(lang.error, action.result.msg,MainWindow.close());
                 break;
 				default:
-					Ext.Msg.alert('Error', action.result.msg,MainWindow.close());                                        
+					Ext.Msg.alert(lang.error, action.result.msg,MainWindow.close());                                        
 				
                 }
 

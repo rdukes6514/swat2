@@ -140,7 +140,7 @@ DialogShareManager = {
 																xtype : "radio"
 																,hideLabel:true
 																,name : "radiob"
-																,boxLabel:'<b>Allow this number of users&nbsp;&nbsp;&nbsp;&nbsp;</b>'
+																,boxLabel:lang.dialog.MaximumAllowedUser
 																,checked: radio2
 																,handler:function(radio,checked){
 																	if(checked){
@@ -165,7 +165,7 @@ DialogShareManager = {
 			activeTab: 0,
 			items: [
 					{
-						title: 'General'
+						title: lang.general
 						//,html: 'Another one'
 						,items: [FormGeneral]
 					}
@@ -216,7 +216,7 @@ DialogShareManager = {
 										}
 									}
 								}, {
-									text: 'Cancel',
+									text: lang.cancel,
 									handler: function () {
 										WindowShareManager.close();
 									}

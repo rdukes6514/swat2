@@ -22,7 +22,7 @@ lang.groups = 'Groups';
 lang.SystemTools = 'System tools';
 lang.ShareManagement = 'Share management';
 lang.ShareResources = 'Share resources';
-lang.ShareResources = 'Share resources';
+
 
 //menu
 lang.copy = 'Copy ...';
@@ -31,7 +31,7 @@ lang.DisableAccount = 'Disable account';
 lang.ResetPassword = 'Reset password';
 lang.rename = 'Rename';
 lang.properties = 'Properties';
-lang.properties = 'Properties';
+
 
 //Dialogs
 lang.dialog = {};
@@ -41,24 +41,42 @@ lang.dialog.name = "<b>Name</b>";
 lang.dialog.path = "<b>Path</b>";
 lang.dialog.comment = "<b>Comment</b>";
 lang.dialog.MaximumAllowed = "<b>Maximum allowed</b>";
+lang.dialog.MaximumAllowedUser = '<b>Allow this number of users&nbsp;&nbsp;&nbsp;&nbsp;</b>';
 lang.dialog.username = "<b>Username</b>";
 lang.dialog.fullname = "<b>Fullname</b>";
 lang.dialog.password = "<b>Password</b>";
+lang.dialog.profile = "<b>Path profile</b>";
+lang.dialog.logonscript = "<b>Logon script</b>"
+lang.dialog.LocalPath = "<b>Local path</b>"
+lang.dialog.to=" To: "
 lang.add = 'Add';
 lang.general = 'General';
 lang.save = 'Save';
 lang.create = 'Create';
 lang.close = 'Close';
 lang.ForcePasswordChange = 'The user must change the password';
+lang.PasswordNeverExpires = 'Password never expires';
 lang.CannotChangePassword = 'Cannot Change Password';
 lang.PasswordExpires = 'Password never expires';
 lang.PasswordsNotMatch = 'Passwords are not equal';
 lang.PasswordStrength = 'The password is too weak';
 lang.ResetPasswordInfo1 = '<span style="font-size: small">&nbsp;&nbsp;&nbsp;The user must log off and then reopen for the changes to take effect.<br><br></span>';
 lang.ResetPasswordInfo2 = '<span style="font-size: small">Account lockout status in this domain controller:</span>';
-lang.ResetPassword = 'Reset password';
 lang.UnlockUserAccount = 'Unlock user account';
+lang.LockUserAccount = 'The account is locked'
 lang.FormatProperties = '%s properties';
 lang.CopyOf = 'Copy of ';
+lang.UserProfile = 'User Profile';
+lang.HomeDir = 'Home Folder';
+lang.LocalPath='Local path';
+lang.connect = 'Connect';
+lang.MenberOf='Menber of';
+lang.profile='Profile'
+lang.information='Information'
+lang.FormInvalidValues =  'The form contains invalid values';
+lang.CommunicationFailed = 'The communication has failed ';
+lang.error = 'Error';
+lang.BoldError = '<b>Error</b>';
+
 
 

@@ -59,7 +59,7 @@ DialogResetPass = {
 													xtype: 'box'
 													,autoEl: {
 														tag: 'blockquote'
-														,html: ResetPasswordInfo2
+														,html: lang.ResetPasswordInfo2
 													}												
 												},{
 													xtype:'checkbox'

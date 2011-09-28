@@ -61,7 +61,7 @@ lang.PasswordNeverExpires = 'Password never expires';
 lang.CannotChangePassword = 'Cannot Change Password';
 lang.PasswordsNotMatch = 'The passwords don\'t match';
 lang.PasswordStrength = 'The password is too weak';
-lang.ResetPasswordInfo1 = '<span style="font-size: small">&nbsp;&nbsp;&nbsp;The user must log off and then reopen for the changes to take effect.<br><br></span>';
+lang.ResetPasswordInfo1 = '<span style="font-size: small">&nbsp;&nbsp;&nbsp;The user has to log off and back in for the changes to take effect.<br><br></span>';
 lang.ResetPasswordInfo2 = '<span style="font-size: small">Account lockout status in this domain controller:</span>';
 lang.UnlockUserAccount = 'Unlock user account';
 lang.LockUserAccount = 'The account is locked'

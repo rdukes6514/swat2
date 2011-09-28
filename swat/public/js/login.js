@@ -26,6 +26,8 @@ Ext.ux.swat.Login = Ext.extend(Ext.Window,{
 		this.langCombo = new Ext.form.ComboBox({
 			fieldLabel: lang.dialog.language
 			,name: "language"
+			,id: "idlanguage"
+			,typeAhead:true
 			,hiddenName: 'language'
 			,store: LangArray
 			,valueField:'id'
@@ -44,10 +46,25 @@ Ext.ux.swat.Login = Ext.extend(Ext.Window,{
 			}				
 		});
 		
+		temp = {};
+		temp.OldSelectValue = '';
 		this.langCombo.on('select', function(){
-			if(this.langCombo.getValue()!='')
-				document.location='?language='+this.langCombo.getValue();
+			var SelectValue = this.langCombo.getValue().trim();
+			//console.log('1:'+temp.OldSelectValue +' 2:'+SelectValue);
+			if(SelectValue!=''){
+				document.location='?language='+SelectValue;
+			}	
 		}, this);
+
+		/*
+		this.langCombo.on('change',function(combo, newValue, oldValue){
+                    console.log("Old Value: " + oldValue);
+                    console.log("New Value: " + newValue);
+        });
+        
+		this.langCombo.on('beforeselect',function (combo,record,index ) {
+			temp.OldSelectValue = record.data.field2.trim();
+		});*/
 		
 		
 		this.userField = new Ext.form.TextField({

@@ -18,22 +18,33 @@ Ext.ux.swat.Login = Ext.extend(Ext.Window,{
 		this.modal = true;
 		this.mainFieldWidth = 310;
 		
+
+		
+		var LangArray = new Array();
+		LangArray.push(new Array('en','English'));
+		LangArray.push(new Array('es','Español'));
+
+		
 		this.langCombo = new Ext.form.ComboBox({
-			fieldLabel: "Language",
-			name: "language",
-			store: new Ext.data.SimpleStore({
-				fields: ['language'],
-				data: ['English', 'Español'],
-				expandData: true
-			}),
-			displayField: 'language',
-			value: 'English',
-			triggerAction: 'all',
-			mode: 'local',
-			readOnly: true,
-			forceSelection: true,
-			width: this.mainFieldWidth
+			fieldLabel: "Language"
+			,name: "language"
+			,hiddenName: 'language'
+			,store: LangArray
+			,valueField:'id'
+			,displayField: 'language'
+			//,value: 'English'
+			,triggerAction: 'all'
+			,mode: 'local'
+			,readOnly: true
+			,forceSelection: true
+			,width: this.mainFieldWidth
+			,listeners   : {  
+				beforerender: function(combo){  
+					combo.setValue('en');// El ID de la opción por defecto  
+				}
+			}				
 		});
+	
 		
 		this.userField = new Ext.form.TextField({
 			fieldLabel: "Username"

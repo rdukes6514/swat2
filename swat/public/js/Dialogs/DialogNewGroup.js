@@ -29,14 +29,14 @@ DialogNewGroup = {
 				forceSelection: false,
 				store: ComboStore,
 				//allowBlank: false,
-				emptyText: 'ejemplo admins ...',
+				emptyText: '...',
 				triggerAction: 'all',
 				mode: 'local',
 				displayField: 'name',
 				//hiddenName: 'name',
 				valueField: 'rid',
 				//vtype: 'email',
-				fieldLabel: "<b>Groups</b>"
+				fieldLabel: lang.dialog.groups
 				//,width: 250
 				,anchor: "100%"
 		});	
@@ -60,7 +60,7 @@ DialogNewGroup = {
 									,id: "idGroupName"
 									,name: "name"
 									,allowBlank: false
-									,fieldLabel: "<b>Name</b>"
+									,fieldLabel: lang.dialog.name
 									,width: '95%'
 								},{			
 									xtype: "textfield"
@@ -69,7 +69,7 @@ DialogNewGroup = {
 									,name: "description"
 									,value:data.description
 									//,allowBlank: false
-									,fieldLabel: "<b>Description</b>"
+									,fieldLabel: lang.dialog.description
 									,width: '95%'
 								},{
 									xtype: 'box'
@@ -109,13 +109,13 @@ DialogNewGroup = {
 									,height: '75%'
 									},{
 										xtype: 'tbbutton',
-										text: 'Delete',
+										text: lang.remove,
 										handler: function () {
 											removeOptionSelected('memberlist', 1);
 										},style: 'float:right;padding-right: 5px;padding-top:2px;'
 									},{
 										xtype: 'tbbutton',
-										text: 'Add',
+										text: lang.add,
 										handler: function () {
 											
 											var idcomboGroups = Ext.getCmp('idcomboGroups');
@@ -147,7 +147,7 @@ DialogNewGroup = {
 
 									}]
                     ,buttons: [{
-                        text: 'Create',
+                        text: lang.create,
                         formBind: true,
                         handler:function(){
 							
@@ -189,7 +189,7 @@ DialogNewGroup = {
                         }
                     }, {
 
-                        text: 'Close',
+                        text: lang.close,
 
                         handler: function () {
 
@@ -202,7 +202,7 @@ DialogNewGroup = {
 
 
 		var WindowNewGroup = new Ext.Window({
-                	title: 'New group'
+                	title: lang.NewGroup
 			,modal:true
 			,width:380
 		    	,height:365

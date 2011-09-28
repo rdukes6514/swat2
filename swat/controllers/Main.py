@@ -17,5 +17,6 @@ class MainController(BaseController):
 			c.DnsDomain = session['DnsDomain'];
 			c.RootDSE = session['RootDSE'];
 			c.SambaVersion = session['SambaVersion'];
-			
+			c.language = session['language'];
+			#return c.language;
 		return render('/index.html')

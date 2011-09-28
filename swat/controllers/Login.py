@@ -22,6 +22,7 @@ class LoginController(BaseController):
 
 		username = request.params.get("username", "").strip()
 		password = request.params.get("password", "").strip()
+		language = request.params.get("language", "en").strip()
 
 		base = BaseModel(username,password);
 		
@@ -30,6 +31,7 @@ class LoginController(BaseController):
 
 		session['username'] = username;
 		session['password'] = password;
+		session['language'] = language;
 		session['RootDSE'] = base.RootDSE;
 		session['DnsDomain'] = base.DnsDomain;
 		session['SambaVersion'] = base.SambaVersion;

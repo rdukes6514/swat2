@@ -137,7 +137,7 @@ Ext.ux.swat.MainWindowApp = Ext.extend(Ext.Window,{
 				,width: 50
 				,editor : new Ext.form.TextField({readOnly:true})
 			},{
-				header: 'Name:',
+				header: lang.name,
 				renderer: function (value, metaData, record, rowIndex, colIndex, store) {
 				//alert(record.data.icon);
 				metaData.css = 'usuario';
@@ -153,7 +153,7 @@ Ext.ux.swat.MainWindowApp = Ext.extend(Ext.Window,{
 				,width: 200
 				,editor : NameEditor
 			},{
-				header: 'Description'
+				header: lang.description
 				,dataIndex: 'description'
 				,sortable: true
 				,width: 600
@@ -171,7 +171,7 @@ Ext.ux.swat.MainWindowApp = Ext.extend(Ext.Window,{
 				,width: 50
 				,editor : new Ext.form.TextField({readOnly:true})
 			},{
-				header: 'Name:',
+				header: lang.name,
 				renderer: function (value, metaData, record, rowIndex, colIndex, store) {
 				//alert(record.data.icon);
 				metaData.css = 'group-icon';
@@ -186,7 +186,7 @@ Ext.ux.swat.MainWindowApp = Ext.extend(Ext.Window,{
 				,width: 200
 				,editor : new Ext.form.TextField({allowBlank: false,name:'newname'})
 			},{
-				header: 'Descripcion'
+				header: lang.description
 				,dataIndex: 'description'
 				,sortable: true
 				,width: 600
@@ -197,7 +197,7 @@ Ext.ux.swat.MainWindowApp = Ext.extend(Ext.Window,{
 		this.ShareColumnModel = new Ext.grid.ColumnModel([
 		 	new Ext.grid.RowNumberer(), new Ext.grid.CheckboxSelectionModel(),
 			{
-				header: 'Name',
+				header: lang.name,
 				renderer: function (value, metaData, record, rowIndex, colIndex, store) {
 				//alert(record.data.icon);
 				metaData.css = 'HD-icon';
@@ -214,13 +214,13 @@ Ext.ux.swat.MainWindowApp = Ext.extend(Ext.Window,{
 				,width: 100
 				,editor : new Ext.form.TextField({allowBlank: false,name:'newsharename'})
 			},{
-				header: 'Path'
+				header: lang.path
 				,dataIndex: 'path'
 				,sortable: true
 				,width: 400
 				,editor : new Ext.form.TextField({allowBlank: false,name:'path'})
 			},{
-				header: 'Comment'
+				header: lang.comment
 				,dataIndex: 'comment'
 				,sortable: true
 				,width: 600
@@ -229,8 +229,8 @@ Ext.ux.swat.MainWindowApp = Ext.extend(Ext.Window,{
            	]); 
 
 		this.RowEditor = new Ext.ux.grid.RowEditor({
-			saveText: 'Update',
-			//cancelText: 'Cancelar',
+			saveText: lang.update,
+			cancelText: lang.cancel,
 			clicksToEdit: 2,
 			id: 'idRowEditor'
 		});
@@ -238,7 +238,7 @@ Ext.ux.swat.MainWindowApp = Ext.extend(Ext.Window,{
 		this.SearchBox = new Ext.ux.grid.Search({
 			iconCls:'icon-zoom',
 			align:'left',
-			//searchText:'<b>Buscar</b>',
+			searchText:lang.search,
 			minChars:3,
 			autoFocus:false,
 			iconCls: 'search',
@@ -259,7 +259,7 @@ Ext.ux.swat.MainWindowApp = Ext.extend(Ext.Window,{
 			,bbar: new Ext.PagingToolbar({
 		
 				displayInfo: true,
-				displayMsg: 'Displaying  {0} - {1} of {2}',
+				displayMsg: lang.bbar.displayMsg,
 				//emptyMsg: "No hay elementos",
 				store: this.UserStore,
 				pageSize: 18,
@@ -299,7 +299,7 @@ Ext.ux.swat.MainWindowApp = Ext.extend(Ext.Window,{
 
 		
 		this.AddGroupBtn= {
-			text: 'New group'
+			text: lang.NewGroup
 			,iconCls: 'add'
 			,handler: function () {
 			       GroupController.NewGroup();
@@ -307,12 +307,12 @@ Ext.ux.swat.MainWindowApp = Ext.extend(Ext.Window,{
 		};
 			
 		this.DomainWizzardBtn= {
-			text: 'Domain wizzard'
+			text: lang.DomainWizzard
 			,iconCls: 'add'
 		};
 			
 		this.AddShareBtn= {
-			text: 'Add share'
+			text: lang.AddShare
 			,iconCls: 'add'
 			,handler: function () {
 				   ShareController.NewShare();
@@ -320,7 +320,7 @@ Ext.ux.swat.MainWindowApp = Ext.extend(Ext.Window,{
 		};
 		
 		this.AddUserBtn= {
-			text: 'New user'
+			text: lang.NewUser
 			,iconCls: 'add'
 			,handler: function () {
 			       UserController.NewUser();
@@ -328,7 +328,7 @@ Ext.ux.swat.MainWindowApp = Ext.extend(Ext.Window,{
 		};	
 
 		this.DeleteUserBtn= {
-			text: 'Remove'
+			text: lang.remove
 			,iconCls: 'add'
 			,handler: function () {
 				UserController.DeleteUserList();
@@ -336,7 +336,7 @@ Ext.ux.swat.MainWindowApp = Ext.extend(Ext.Window,{
 		};
 
 		this.DeleteGroupBtn= {
-			text: 'Remove'
+			text: lang.remove
 			,iconCls: 'add'
 			,handler: function () {
 				GroupController.DeleteGroupList();
@@ -344,7 +344,7 @@ Ext.ux.swat.MainWindowApp = Ext.extend(Ext.Window,{
 		};	
 
 		this.DeleteShareBtn= {
-			text: 'Remove'
+			text: lang.remove
 			,iconCls: 'add'
 			,handler: function () {
 				ShareController.DeleteShareList();
@@ -359,18 +359,18 @@ Ext.ux.swat.MainWindowApp = Ext.extend(Ext.Window,{
 			,expanded:true
 			,children:[
 			{
-				text:'System tools'
+				text:lang.SystemTools
 				,iconCls:'system-icon'
 				,expanded:true
 				,children:[
 				{
-					text:'Share Management'
+					text:lang.ShareManagement
 					,iconCls:'share-icon'
 					,expanded:true
 					//,leaf:true
 					,children:[
 					{
-						text:'Share resources'
+						text:lang.ShareResources
 						,iconCls:'sharefolder-icon'
 						,leaf:true
 						,listeners: {
@@ -380,13 +380,13 @@ Ext.ux.swat.MainWindowApp = Ext.extend(Ext.Window,{
 						}							
 					}]
 				},{
-					text:'Users and groups'
+					text:lang.UsersAndGroups
 					,expanded:true
 					,iconCls:'users-icon'
 					//leaf:true
 					,children:[
 					{
-						text:'Users'
+						text:lang.users
 						,iconCls:'user-icon'
 						,leaf:true
 						,listeners: {
@@ -395,7 +395,7 @@ Ext.ux.swat.MainWindowApp = Ext.extend(Ext.Window,{
 								}
 						}							
 					},{
-						text:'Groups'
+						text:lang.groups
 						,iconCls:'groups-icon'
 						,leaf:true
 						,listeners: {
@@ -546,7 +546,7 @@ Ext.onReady(function(){
 	 var tb = new Ext.Toolbar({
 		items: [
 			{
-				text: 'Domain wizzard'
+				text: lang.DomainWizzard
 			}
 		]
 	 });

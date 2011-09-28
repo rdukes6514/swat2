@@ -38,7 +38,7 @@ DialogNewUser = {
 									,id: "idUsername"
 									,name: "username"
 									,allowBlank: false
-									,fieldLabel: "<b>Username</b>"
+									,fieldLabel: lang.dialog.username
 									,width: '95%'
 								},{			
 									xtype: "textfield"
@@ -47,7 +47,7 @@ DialogNewUser = {
 									,name: "fullname"
 									,value:data.fullname
 									//,allowBlank: false
-									,fieldLabel: "<b>Fullname</b>"
+									,fieldLabel: lang.dialog.fullname
 									,width: '95%'
 								},{			
 									xtype: "textfield"
@@ -56,7 +56,7 @@ DialogNewUser = {
 									,name: "description"
 									,value:data.description
 									//,allowBlank: false
-									,fieldLabel: "<b>Description</b>"
+									,fieldLabel: lang.dialog.description
 									,width: '95%'
 								},{
 									xtype: 'box'
@@ -70,7 +70,7 @@ DialogNewUser = {
 									,id: "idpass1"
 									,name: "pass1"
 									,allowBlank: false
-									,fieldLabel: "<b>Password</b>"
+									,fieldLabel: lang.dialog.password
 									,width: '95%'
 								},{
 									xtype: "PasswordMeter"
@@ -78,7 +78,7 @@ DialogNewUser = {
 									,id: "idpass2"
 									,name: "pass2"
 									,inputType: 'password'
-									,fieldLabel: "<b>Password</b>"
+									,fieldLabel: lang.dialog.password
 									,allowBlank: false
 									,width: '95%'
 								},{
@@ -86,7 +86,7 @@ DialogNewUser = {
 									,hideLabel:true
 									,fieldLabel: ''
 									,id:'IdForcePasswordChange'
-									,boxLabel: 'The user must change the password'
+									,boxLabel: lang.ForcePasswordChange
 									,name: 'changepassword'
 									,checked : data.changepassword
 									//,height: 30
@@ -105,7 +105,7 @@ DialogNewUser = {
 									,disabled:data.changepassword
 									,fieldLabel: ''
 									,id:'IdCannotChangePassword'
-									,boxLabel: 'Cannot Change Password'
+									,boxLabel: lang.CannotChangePassword
 									,name: 'cannotchangepassword'
 									,value:data.cannotchangepassword
 									//,checked : true
@@ -125,7 +125,7 @@ DialogNewUser = {
 									,disabled:data.changepassword
 									,fieldLabel: ''
 									,id:'IdPasswordExpires'
-									,boxLabel: 'Password never expires'
+									,boxLabel: lang.PasswordExpires
 									,name: 'passwordexpires'
 									,checked:data.passwordexpires
 									//,checked : true
@@ -143,7 +143,7 @@ DialogNewUser = {
 									xtype:'checkbox'
 									,hideLabel:true
 									,fieldLabel: ''
-									,boxLabel: 'Disabled account'
+									,boxLabel: lang.DisableAccount
 									,name: 'disable'
 									,checked:data.disable
 									//,checked : true
@@ -152,7 +152,7 @@ DialogNewUser = {
 								]
 					}]
                     ,buttons: [{
-                        text: 'Create',
+                        text: lang.create,
                         formBind: true,
                         handler:function(){
 							var pass1 =  Ext.getCmp('idpass1').getValue();
@@ -160,12 +160,12 @@ DialogNewUser = {
 							var strength = Ext.getCmp('idpass2').getStrength();
 
 							if (pass1 != pass2){
-								Ext.Msg.alert('Error','Las Contrase&ntilde;as no son iguales');
+								Ext.Msg.alert('Error',lang.PasswordsNotMatch);
 								return;
 							}
 
 							if (strength <= 60){
-								Ext.Msg.alert('Error','La Contrase&ntilde;a es demasiado d&eacute;bil');
+								Ext.Msg.alert('Error',lang.PasswordStrength);
 								return;								
 							}
 							
@@ -200,7 +200,7 @@ DialogNewUser = {
                         }
                     }, {
 
-                        text: 'Close',
+                        text: lang.close,
 
                         handler: function () {
 
@@ -213,7 +213,7 @@ DialogNewUser = {
 
 
 		var WindowNewUser = new Ext.Window({
-                	title: 'New user'
+                	title: lang.NewUser
 			,modal:true
 			,width:380
 		    	,height:365

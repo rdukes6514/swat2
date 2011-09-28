@@ -15,7 +15,7 @@ DialogGroupManager = {
 			,id: "iddescription"
 			,value:data.description 
 			,name: "description"
-			,fieldLabel: "<b>Description</b>"
+			,fieldLabel: lang.dialog.description
 			,width: '95%'
 		});
 			
@@ -40,14 +40,14 @@ DialogGroupManager = {
 				forceSelection: false,
 				store: ComboStore,
 				//allowBlank: false,
-				emptyText: 'ejemplo admins ...',
+				emptyText: '...',
 				triggerAction: 'all',
 				mode: 'local',
 				displayField: 'name',
 				//hiddenName: 'name',
 				valueField: 'rid',
 				//vtype: 'email',
-				fieldLabel: "<b>Groups</b>"
+				fieldLabel: lang.dialog.groups
 				//,width: 250
 				,anchor: "100%"
 		});	
@@ -104,13 +104,13 @@ DialogGroupManager = {
 									,height: '75%'
 									},{
 										xtype: 'tbbutton',
-										text: 'Delete',
+										text: lang.remove,
 										handler: function () {
 											removeOptionSelected('memberlist', 1);
 										},style: 'float:right;padding-right: 5px;padding-top:2px;'
 									},{
 										xtype: 'tbbutton',
-										text: 'Add',
+										text: lang.add,
 										handler: function () {
 											
 											var idcomboGroups = Ext.getCmp('idcomboGroups');
@@ -152,7 +152,7 @@ DialogGroupManager = {
 			activeTab: 0,
 			items: [
 					{
-						title: 'General'
+						title: lang.general
 						//,html: 'Another one'
 						,items: [FormGeneral]
 					}
@@ -172,7 +172,7 @@ DialogGroupManager = {
 			,items: [tabs]
 				,buttons: [
 						{
-							text: 'Guardar',
+							text: lang.save,
 							//formBind: true,
 							handler:function(){
 								
@@ -192,7 +192,7 @@ DialogGroupManager = {
 								UserController.SendData('Group/UpdateGroup',params,WindowUserManager);
 							}
 						}, {
-							text: 'Cancelar',
+							text: lang.cancel,
 							handler: function () {
 								WindowUserManager.close();
 							}

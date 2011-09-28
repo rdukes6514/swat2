@@ -12,9 +12,9 @@ DialogShareManager = {
 					,comment:''
 					,max_users:-1
 				};
-				title = 'New share';
+				title = lang.NewShare;
 		   } else {
-				title = sprintf('%s properties',data.name.capitalize());	
+				title = sprintf(lang.FormatProperties,data.name.capitalize());	
 				name = data.name;
 			}
 		   
@@ -22,7 +22,7 @@ DialogShareManager = {
 				iscopy_or_new = false
 			} else if(iscopy_or_new){
 				if(name.trim()!= ''){
-					title = 'Copy of '+name;
+					title = lang.CopyOf+name;
 				}
 				
 				name = '';
@@ -34,7 +34,7 @@ DialogShareManager = {
 			,id: "IdShareName"
 			,value:name 
 			,name: "name"
-			,fieldLabel: "<b>Name</b>"
+			,fieldLabel: lang.dialog.name
 			,width: '95%'	
 			,allowBlank: false							
 		});
@@ -46,7 +46,7 @@ DialogShareManager = {
 			,id: "IdPath"
 			,value:data.path 
 			,name: "path"
-			,fieldLabel: "<b>Path</b>"
+			,fieldLabel: lang.dialog.path
 			,width: '95%'
 			,allowBlank: false
 			/*,listeners: {
@@ -110,7 +110,7 @@ DialogShareManager = {
 									,id: "IdComment"
 									,value:data.comment 
 									,name: "comment"
-									,fieldLabel: "<b>Comment</b>"
+									,fieldLabel: lang.dialog.comment
 									,width: '95%'
 								}
 								,{	
@@ -123,7 +123,7 @@ DialogShareManager = {
 													,hideLabel:true
 													,id : "IdRadiobtn1"
 													,name : "radiob"
-													,boxLabel:'<b>Maximum allowed</b>'
+													,boxLabel:lang.dialog.MaximumAllowed
 													,checked: radio1
 													,handler:function(radio,checked){
 														if(checked){

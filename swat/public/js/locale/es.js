@@ -1,0 +1,2 @@
+//'<span style="font-size: small">&nbsp;&nbsp;&nbsp;El usuario ha de cerrar la sessi&oacute;n y volver a abrirla para que los cambios<br>&nbsp;&nbsp; tengan efecto.<br><br></span>'
+//'<span style="font-size: small">Estado del bloqueo de cuenta en este controlador de dominio:</span>'

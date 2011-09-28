@@ -15,7 +15,7 @@ AppContexMenu={
 
                 ,items: [
 							{
-								text: 'Copy ...'
+								text: lang.copy
 
 
 								,handler: this.OnUserContexMenuCopyClick
@@ -24,7 +24,7 @@ AppContexMenu={
 
 							}, {
 
-								text: 'Add to a group'
+								text: lang.AddToGroup
 
 
 								,handler: this.OnContexMenuAddUserGroupClick
@@ -33,7 +33,7 @@ AppContexMenu={
 
 							}, {
 
-								text: 'Disable account'
+								text: lang.DisableAccount
 								,id:'IdUserContexMenuDisableAccount'
 
 								,handler: this.OnUserContexMenuDisableAccountClick
@@ -42,7 +42,7 @@ AppContexMenu={
 
 							}, {
 
-								text: 'Reset password'
+								text: lang.ResetPassword 
 
 
 								,handler: this.OnUserContexMenuResetPassClick
@@ -51,7 +51,7 @@ AppContexMenu={
 
 							}, {
 
-								text: 'Delete'
+								text: lang.remove
 								,id:'IdUserContexMenuDelete'
 
 								,handler: this.OnUserContexMenuDeleteClick
@@ -60,7 +60,7 @@ AppContexMenu={
 
 							}, {
 
-								text: 'Rename'
+								text: lang.rename
 								,id:'IdUserContexMenuChangeName'
 
 								,handler: this.OnUserContexMenuRenameClick
@@ -69,7 +69,7 @@ AppContexMenu={
 
 							}, '-', {
 
-								text: 'Properties'
+								text: lang.properties
 
 
 								,handler: this.OnUserContexMenuPropertyClick
@@ -90,11 +90,11 @@ AppContexMenu={
                 items: [
                 
 							{
-								text: 'Copy ..'
+								text: lang.copy
 								,handler: this.OnShareContexMenuCopy
 							},{
 
-								text: 'Delete'
+								text: lang.remove
 								,id:'IdContainerContexMenuDelete'
 
 								,handler: this.OnShareContexMenuDeleteClick
@@ -103,7 +103,7 @@ AppContexMenu={
 
 							}, {
 
-								text: 'Rename'
+								text: lang.rename
 								,id:'IdContainerContexMenuChangeName'
 
 								,handler: this.OnShareContexMenuRenameClick
@@ -112,7 +112,7 @@ AppContexMenu={
 
 							}, {
 
-								text: 'Update'
+								text: lang.update
 
 								,handler: this.OnContexMenuUpdateClick
 
@@ -120,7 +120,7 @@ AppContexMenu={
 
 							},'-', {
 
-								text: 'Properties'
+								text: lang.properties
 
 								,handler: this.OnShareContexMenuPropertyClick
 
@@ -138,12 +138,12 @@ AppContexMenu={
 
                 items: [
 							{
-								text: 'Copy ...'
+								text: lang.copy
 								,handler: this.OnGroupContexMenuCopyClick
 								//,iconCls: 'edit_user'
 							},{
 
-								text: 'Delete'
+								text: lang.remove
 								,id:'IdGroupContexMenuDelete'
 
 								,handler: this.OnGroupContexMenuDeleteClick
@@ -152,7 +152,7 @@ AppContexMenu={
 
 							},{
 
-								text: 'Rename'
+								text: lang.rename
 								,id:'IdGroupContexMenuRename'
 
 								,handler: this.OnGroupContexMenuRenameClick
@@ -161,7 +161,7 @@ AppContexMenu={
 
 							},'-', {
 
-								text: 'Properties'
+								text: lang.properties
 								//,id:'IdBuiltinContexMenuProperties'
 
 								,handler: this.OnGroupContexMenuPropertyClick

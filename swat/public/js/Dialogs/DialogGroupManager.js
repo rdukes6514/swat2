@@ -161,7 +161,7 @@ DialogGroupManager = {
 
 			
 			var WindowUserManager = new Ext.Window({
-			title: sprintf('%s properties',data.name.capitalize())
+			title: sprintf(lang.FormatProperties,data.name.capitalize())
 			,modal:true
 			,labelWidth: 75
 			,width:380

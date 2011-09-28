@@ -59,7 +59,7 @@ lang.close = 'Close';
 lang.ForcePasswordChange = 'The user must change the password';
 lang.PasswordNeverExpires = 'Password never expires';
 lang.CannotChangePassword = 'Cannot Change Password';
-lang.PasswordsNotMatch = 'Passwords are not equal';
+lang.PasswordsNotMatch = 'The passwords don\'t match';
 lang.PasswordStrength = 'The password is too weak';
 lang.ResetPasswordInfo1 = '<span style="font-size: small">&nbsp;&nbsp;&nbsp;The user must log off and then reopen for the changes to take effect.<br><br></span>';
 lang.ResetPasswordInfo2 = '<span style="font-size: small">Account lockout status in this domain controller:</span>';

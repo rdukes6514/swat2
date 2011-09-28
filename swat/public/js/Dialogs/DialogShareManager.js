@@ -72,7 +72,7 @@ DialogShareManager = {
 			,allowDecimals: true
 			,decimalPrecision: 1
 			,accelerate: true
-			,width: 100
+			,width: 70
 		});
 		
 

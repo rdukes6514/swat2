@@ -59,11 +59,12 @@ class UserModel(BaseModel):
 		
 		return exists
 		
-	def LoadUserList(self):
+	def LoadUserList(self,AllUserInformation=False):
 		# fetch users
 		try:
 			self.sam_users = self.toArray(self.samrpipe.EnumDomainUsers(self.domain_handle, 0, 0, -1))
 			for (rid, username) in self.sam_users:
+				#FIXME optimize
 				user = self.GetUser(rid)
 				self.user_list.append(user)
 		except Exception,e:
@@ -80,7 +81,6 @@ class UserModel(BaseModel):
 			user_handle = self.samrpipe.OpenUser(self.domain_handle, security.SEC_FLAG_MAXIMUM_ALLOWED, rid);
 			info = self.samrpipe.QueryUserInfo(user_handle, samr.UserAllInformation);
 			user = self.QueryInfoToUser(info, user);
-			#group_rwa_list = self.samrpipe.GetGroupsForUser(user_handle).rids
 			user.group_list = self.GetUserGroups(rid);
 		except Exception,e:
 			self.SetError(e.message,0)

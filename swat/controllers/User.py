@@ -28,7 +28,6 @@ class UserController(BaseController):
 		if not self._check_session():
 			return json.dumps(self.AuthErr);
 
-		users = self.model.GetUserList();
 		
 		start = int(request.params.get("start",session['UserPageStart']));
 		limit = int(request.params.get("limit",session['UserPageLimit']));
@@ -42,6 +41,7 @@ class UserController(BaseController):
 		fields = request.params.get("fields","");
 		
 		
+		users = self.model.GetUserList();
 		if query.strip() != '':
 			if fields.count(',')>0:
 				fields='username';

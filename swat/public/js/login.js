@@ -5,7 +5,7 @@ Ext.ux.swat.Login = Ext.extend(Ext.Window,{
 	{
 		Ext.QuickTips.init();
 		//this.renderTo = "login";
-		this.title = "Login into the Samba Web Administration Tool";
+		this.title = document.title;
 		this.layout = "border";
 		this.draggable =false;
 		this.closable =false;

@@ -11,9 +11,9 @@ class MainController(BaseController):
 
 	def	index(self):
 		response.headers['Content-type'] = 'text/html; charset=utf-8'
-		language = request.params.get("language", "en").strip();
-		c.language = language;
-		c.title = "Samba Web Administration Tool"
+		#language = request.params.get("language",self.language).strip();
+		c.language = self.language;
+		c.title = self.Lang.PageTitle
 		c.auth = False
 		if self._check_session():
 			c.auth = True
@@ -21,5 +21,4 @@ class MainController(BaseController):
 			c.RootDSE = session['RootDSE'];
 			c.SambaVersion = session['SambaVersion'];
 			c.language = session['language'];
-			#return c.language;
 		return render('/index.html')

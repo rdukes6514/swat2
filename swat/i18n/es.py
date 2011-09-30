@@ -3,3 +3,4 @@ class Lang:
 	AuthError = "<b>Error de autenticaci&oacute;n</b>";
 	AnonymousAuthError = "<b>La autenticaci&oacute;n an&oacute;nima esta deshabilitada</b>";
 	NotAuth = "<b>Usted no esta autenticado</b>";
+	PageTitle= "Samba Herramienta de Administraci&oacute;n Web"

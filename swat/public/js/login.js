@@ -41,7 +41,7 @@ Ext.ux.swat.Login = Ext.extend(Ext.Window,{
 			,listeners   : {  
 				beforerender: function(combo){  
 					combo.setValue(Ext.ux.swat.Config.language);
-					console.log(Ext.ux.swat.Config.language);
+					//console.log(Ext.ux.swat.Config.language);
 				}
 			}				
 		});
@@ -159,7 +159,7 @@ Ext.ux.swat.Login = Ext.extend(Ext.Window,{
 			success: function(form, response) {
 				//self.location.href = "index.php?lang="+this.langCombo.getValue(); 
 									  //var obj = Ext.decode(response.responseText);
-									  console.dir(response);
+									  
 									  if(response.result.success == true){
 											location.href='/';
 											
@@ -200,13 +200,20 @@ Ext.ux.swat.Login = Ext.extend(Ext.Window,{
 											loadjscssfile('js/application.js');
 											this.close();
 									  } else {
-											//Ext.Msg.alert('Login Failed!', obj.msg); 
-											this.setDisabled(false);
-											Ext.Msg.show({title: "Error", msg: "Wrong username or password!", buttons: Ext.Msg.OK, icon: Ext.Msg.ERROR });
+										try{
+											Ext.Msg.show({title: "Error", msg: response.result.msg, buttons: Ext.Msg.OK, icon: Ext.Msg.ERROR });
+										} catch(e) {
+											Ext.Msg.show({title: "Error", msg: lang.ServerError, buttons: Ext.Msg.OK, icon: Ext.Msg.ERROR });
+										}
+										this.setDisabled(false);
 									  }				
 			},
 			failure: function(form, response){
-				Ext.Msg.show({title: "Error", msg: "Wrong username or password!", buttons: Ext.Msg.OK, icon: Ext.Msg.ERROR });
+				try{
+					Ext.Msg.show({title: "Error", msg: response.result.msg, buttons: Ext.Msg.OK, icon: Ext.Msg.ERROR });
+				} catch(e) {
+					Ext.Msg.show({title: "Error", msg: lang.ServerError, buttons: Ext.Msg.OK, icon: Ext.Msg.ERROR });
+				}
 				this.setDisabled(false);
 			},
 			scope: this

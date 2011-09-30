@@ -257,3 +257,12 @@ function setSelected(idselect, index) {
     return false;
 
 }
+
+function isset(variable_name) {
+	try {
+		if (typeof(eval(variable_name)) != 'undefined')
+			if (eval(variable_name) != null)
+				return true;
+    } catch(e) { }
+	return false;
+}

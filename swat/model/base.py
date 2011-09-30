@@ -7,6 +7,8 @@ from samba import param
 from samba.auth import system_session
 from samba.samdb import SamDB
 from samba import version
+from pylons import response
+from pylons import config
 
 #from  swat.lib.Logs import AppLog
 
@@ -29,6 +31,10 @@ class BaseModel:
 	def __init__(self,username,password):
 		self.username=username;
 		self.password=password;
+		language = config['language']
+		import_string = "from swat.i18n.%s import Lang"%language
+		exec import_string
+		self.Lang = Lang;
 		if self._connect():
 			self._GetBase();
 			self._GetDomainNames();
@@ -57,7 +63,7 @@ class BaseModel:
 			if not self.creds.is_anonymous():
 				self.auth_success = True;
 			else:
-				self.SetError('No esta permitido el bindeo anonimo',0)
+				self.SetError(self.Lang.AnonymousAuthError,0)
 				return False;
 				
 		return True;
@@ -85,7 +91,7 @@ class BaseModel:
 			else:
 				return True;
 		else:
-			self.SetError('Error de autenticacion',0);
+			self.SetError(self.Lang.AuthError,0);
 			return False;
 
 

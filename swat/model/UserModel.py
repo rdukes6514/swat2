@@ -169,7 +169,7 @@ class UserModel(BaseModel):
 
 	def UpdateUser(self, user):
 		if not self.isAuthenticate():
-			self.SetError('Usted no esta autenticado',0)
+			self.SetError(self.Lang.NotAuth,0)
 			return False;
 
 		try:

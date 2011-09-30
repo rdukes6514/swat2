@@ -47,7 +47,7 @@ class ShareModel(BaseModel):
 
 	def GetShare(self,name):
 		if not self.isAuthenticate():
-			self.SetError('Usted no esta autenticado',0)
+			self.SetError(self.Lang.NotAuth,0)
 			return False;
 		try:
 			name = unicode(name)
@@ -63,7 +63,7 @@ class ShareModel(BaseModel):
 
 	def UpdateShare(self,share):
 		if not self.isAuthenticate():
-			self.SetError('Usted no esta autenticado',0)
+			self.SetError(self.Lang.NotAuth,0)
 			return False;
 		try:
 			parm_error = 0x00000000
@@ -92,7 +92,7 @@ class ShareModel(BaseModel):
 	def AddShare(self, name, path, comment=None):
 		rid=-1;
 		if not self.isAuthenticate():
-			self.SetError("You are not authenticated",0)
+			self.SetError(self.Lang.NotAuth,0)
 			return False;
 		try:
 			#NetShareAdd(server_unc, level, info, parm_error)
@@ -117,7 +117,7 @@ class ShareModel(BaseModel):
 	def DeleteShare(self,name):
 		rid=-1;
 		if not self.isAuthenticate():
-			self.SetError('Usted no esta autenticado',0)
+			self.SetError(self.Lang.NotAuth,0)
 			return False;
 		try:
 				#NetShareDel(server_unc, share_name, reserved) -> None

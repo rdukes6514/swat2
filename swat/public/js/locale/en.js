@@ -78,6 +78,7 @@ lang.FormInvalidValues =  'The form contains invalid values';
 lang.CommunicationFailed = 'The communication has failed ';
 lang.error = 'Error';
 lang.BoldError = '<b>Error</b>';
+lang.ServerError = 'Server Error' ;
 
 
 

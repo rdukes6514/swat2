@@ -1,6 +1,5 @@
 import base64
 import time
-from pylons import response
 from swat.model.base import *;
 
 
@@ -24,7 +23,7 @@ class GroupModel(BaseModel):
 		try:
 			rid=int(rid);
 			if not self.isAuthenticate():
-				self.SetError('Usted no esta autenticado',0)
+				self.SetError(self.Lang.NotAuth,0)
 				return False;
 
 			group_handle = self.samrpipe.OpenGroup(self.domain_handle, security.SEC_FLAG_MAXIMUM_ALLOWED, rid)
@@ -45,7 +44,7 @@ class GroupModel(BaseModel):
 	def QueryInfoToGroup(self, query_info, group = None):
 		try:
 			if not self.isAuthenticate():
-				self.SetError('Usted no esta autenticado',0)
+				self.SetError(self.Lang.NotAuth,0)
 				return False;
 			if (group == None):
 				group = Group(self.GetLsaString(query_info.name), 
@@ -64,7 +63,7 @@ class GroupModel(BaseModel):
 		
 	def GetGroupMembers(self,gid):
 		if not self.isAuthenticate():
-			self.SetError('Usted no esta autenticado',0)
+			self.SetError(Lang.AuthError,0)
 			return False;
 		try:
 			gid = int(gid);
@@ -114,7 +113,7 @@ class GroupModel(BaseModel):
 	def GetUserGroups(self,rid):
 		try:
 			if not self.isAuthenticate():
-				self.SetError('Usted no esta autenticado',0)
+				self.SetError(self.Lang.NotAuth,0)
 				return False;
 
 			rid = int(rid);
@@ -138,7 +137,7 @@ class GroupModel(BaseModel):
 
 	def AddGroupMember(self,GroupRid,NewRid):
 		if not self.isAuthenticate():
-			self.SetError('Usted no esta autenticado',0)
+			self.SetError(self.Lang.NotAuth,0)
 			return False;
 		try:
 			GroupRid =  int(GroupRid);
@@ -152,7 +151,7 @@ class GroupModel(BaseModel):
 
 	def DeleteGroupMember(self,GroupRid,RemoveRid):
 		if not self.isAuthenticate():
-			self.SetError('Usted no esta autenticado',0)
+			self.SetError(self.Lang.NotAuth,0)
 			return False;
 		try:
 			GroupRid =  int(GroupRid);
@@ -166,7 +165,7 @@ class GroupModel(BaseModel):
 
 	def UpdateGroup(self,group):
 		if not self.isAuthenticate():
-			self.SetError('Usted no esta autenticado',0)
+			self.SetError(self.Lang.NotAuth,0)
 			return False;
 		try:
 			group_handle = self.samrpipe.OpenGroup(self.domain_handle, security.SEC_FLAG_MAXIMUM_ALLOWED, group.rid)
@@ -189,7 +188,7 @@ class GroupModel(BaseModel):
 	def AddGroup(self,name):
 		rid=-1;
 		if not self.isAuthenticate():
-			self.SetError('Usted no esta autenticado',0)
+			self.SetError(self.Lang.NotAuth,0)
 			return False;
 		try:
 			#Creates the new user on the server using default values for everything. Only the username is taken into account here.

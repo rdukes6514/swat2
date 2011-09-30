@@ -18,7 +18,7 @@ class LoginController(BaseController):
 			self.successOK = {'success': True,'RootDSE':session['RootDSE'],'DnsDomain':session['DnsDomain'],'SambaVersion':session['SambaVersion']}
 			return json.dumps(self.successOK);
 		#successERR = {'success': False, 'errors': { 'reason': 'Login failed. Try again.' }}		
-		successERR = {'success': False, 'msg': 'Error de autenticaci&oacute;n','num':0}
+		#successERR = {'success': False, 'msg': Lang.Auth,'num':0}
 
 		username = request.params.get("username", "").strip()
 		password = request.params.get("password", "").strip()
@@ -27,7 +27,7 @@ class LoginController(BaseController):
 		base = BaseModel(username,password);
 		
 		if(not base.isAuthenticate()):
-			return json.dumps({'success': False, 'msg': 'Error de autenticaci&oacute;n','num':0}) 
+			return json.dumps({'success': False, 'msg': self.Lang.InvalidCredentials,'num':0}) 
 
 		session['username'] = username;
 		session['password'] = password;

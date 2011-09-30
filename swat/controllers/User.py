@@ -286,7 +286,7 @@ class UserController(BaseController):
 				return json.dumps({'success': False, 'msg': e.args[1],'num':e.args[0]})
 			else:
 				return json.dumps({'success': False, 'msg': e.args,'num':-1})
-		return json.dumps({'success': True,'enable':enable})
+		return json.dumps(self.successOK)
 		
 
 	def UpdateUser(self):

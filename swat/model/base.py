@@ -7,7 +7,7 @@ from samba import param
 from samba.auth import system_session
 from samba.samdb import SamDB
 from samba import version
-from pylons import response
+from pylons import response,request
 from pylons import config
 
 #from  swat.lib.Logs import AppLog
@@ -48,6 +48,9 @@ class BaseModel:
 			#self.creds.set_domain("SAMDOM")
 			self.creds.set_domain("")
 			self.creds.set_workstation("")
+			if request.environ.has_key("REMOTE_HOST"):
+				creds.set_workstation(request.environ.get("REMOTE_HOST")); 
+				
 			self.LdapConn = samba.Ldb("ldap://%s" % self.server_address,lp=self.lp,credentials=self.creds)
 			self.samrpipe = samr.samr("ncalrpc:%s"% self.server_address, self.lp, self.creds)
 			self.srvsvcpipe = srvsvc.srvsvc('ncalrpc:%s' % self.server_address,credentials=self.creds)

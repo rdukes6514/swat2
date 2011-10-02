@@ -47,6 +47,7 @@ lang.dialog.username = "<b>Username</b>";
 lang.dialog.fullname = "<b>Fullname</b>";
 lang.dialog.password = "<b>Password</b>";
 lang.dialog.language = "<b>Language</b>";
+lang.dialog.domain = "<b>Domain</b>";
 lang.dialog.profile = "<b>Path profile</b>";
 lang.dialog.logonscript = "<b>Logon script</b>"
 lang.dialog.LocalPath = "<b>Local path</b>"
@@ -79,6 +80,6 @@ lang.CommunicationFailed = 'The communication has failed ';
 lang.error = 'Error';
 lang.BoldError = '<b>Error</b>';
 lang.ServerError = 'Server Error' ;
-
+lang.LocalSystemAuth= 'Local System Auth';
 
 

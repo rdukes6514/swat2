@@ -22,6 +22,28 @@ Ext.ux.swat.Login = Ext.extend(Ext.Window,{
 		LangArray.push(new Array('en','English'));
 		LangArray.push(new Array('es','Español'));
 
+		this.langDomain = new Ext.form.ComboBox({
+			fieldLabel: lang.dialog.domain
+			,name: "domain"
+			,id: "iddomain"
+			,typeAhead:true
+			,hiddenName: 'domain'
+			,store: DomainArray
+			,valueField:'id'
+			,displayField: 'domain'
+			//,value: 'English'
+			,triggerAction: 'all'
+			,mode: 'local'
+			,readOnly: true
+			,forceSelection: true
+			,width: this.mainFieldWidth
+			,listeners   : {  
+				beforerender: function(combo){  
+					combo.setValue('WorkGroup');
+					//console.log(Ext.ux.swat.Config.language);
+				}
+			}				
+		});
 		
 		this.langCombo = new Ext.form.ComboBox({
 			fieldLabel: lang.dialog.language
@@ -102,6 +124,7 @@ Ext.ux.swat.Login = Ext.extend(Ext.Window,{
 			,items: [
 				this.userField
 				,this.pwField
+				,this.langDomain
 				,this.langCombo
 			]
 			,buttons:[{

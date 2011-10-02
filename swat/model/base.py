@@ -7,6 +7,7 @@ from samba import param
 from samba.auth import system_session
 from samba.samdb import SamDB
 from samba import version
+from samba.param import LoadParm
 from pylons import response,request
 from pylons import config
 
@@ -15,6 +16,8 @@ from pylons import config
 class BaseModel:
 	lp = param.LoadParm()
 	lp.load_default()
+	WorkGroup = str(lp.get("workgroup"))
+	Realm = str(lp.get("realm"))
 	creds=None
 	LdapConn=None
 	auth_success=False
@@ -28,17 +31,18 @@ class BaseModel:
 	server_address='127.0.0.1'
 	#Log = AppLog();
 	
-	def __init__(self,username,password):
+	def __init__(self,username=None,password=None):
 		self.username=username;
 		self.password=password;
 		language = config['language']
 		import_string = "from swat.i18n.%s import Lang"%language
 		exec import_string
 		self.Lang = Lang;
-		if self._connect():
-			self._GetBase();
-			self._GetDomainNames();
-			self._SetCurrentDomain(0);
+		if ((self.username != None) and (self.password !=None)):
+			if self._connect():
+				self._GetBase();
+				self._GetDomainNames();
+				self._SetCurrentDomain(0);
 
 	def _connect(self):
 		try:

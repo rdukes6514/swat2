@@ -72,6 +72,15 @@
 	<script type="text/javascript">
 		Ext.ux.swat.Config = {}
 		Ext.ux.swat.Config.language =   '${c.language}';
+		
+		var DomainArray = new Array();
+		DomainArray.push(new Array('Local',lang.LocalSystemAuth));
+		console.log(lang.LocalSystemAuth);
+	%if c.WorkGroup != None:
+		DomainArray.push(new Array('WorkGroup','${c.WorkGroup}'));
+	% endif
+
+
 	</script> 
 
 

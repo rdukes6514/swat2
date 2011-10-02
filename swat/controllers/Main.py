@@ -3,7 +3,8 @@ import logging
 from pylons import request, response, session, tmpl_context as c, url
 from pylons.controllers.util import abort, redirect
 
-from swat.lib.base import BaseController, render
+from swat.lib.base import BaseController, render , jsonpickle
+from swat.model.base import BaseModel
 
 log = logging.getLogger(__name__)
 
@@ -15,6 +16,10 @@ class MainController(BaseController):
 		c.language = self.language;
 		c.title = self.Lang.PageTitle
 		c.auth = False
+		base = BaseModel();
+		c.WorkGroup = None
+		if base.WorkGroup.strip() != '':
+			c.WorkGroup = base.WorkGroup
 		if self._check_session():
 			c.auth = True
 			c.DnsDomain = session['DnsDomain'];
@@ -22,3 +27,4 @@ class MainController(BaseController):
 			c.SambaVersion = session['SambaVersion'];
 			c.language = session['language'];
 		return render('/index.html')
+

@@ -455,11 +455,11 @@ DialogUserManager = {
 							handler:function(){
 								
 								
-								
+								homedirvalue = '';
 								if(drivecombo.getValue().trim()!=''){
-									homedir = maphomedirdrive.getValue();
+									homedirvalue = maphomedirdrive.getValue();
 								} else {
-									homedir = homedir.getValue();
+									homedirvalue = homedir.getValue();
 								}
 								
                             //var optionList = new Array();
@@ -476,7 +476,7 @@ DialogUserManager = {
 										//,cannotchangepassword:CannotChangePassword.getValue()
 										,disable:disable.getValue()
 										,fullname:fullname.getValue()
-										,homedir:homedir
+										,homedir:homedirvalue
 										,locked:locked.getValue()
 										,logonscript:logonscript.getValue()
 										,maphomedirdrive:drivecombo.getValue()

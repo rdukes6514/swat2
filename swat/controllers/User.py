@@ -355,7 +355,7 @@ class UserController(BaseController):
 				#user.account_disabled = True;
 				if not self.model.UpdateUser(user):
 					raise Exception(self.model.LastErrorNumber,self.model.LastErrorStr)
-
+				"""
 				oldgrouplist = request.params.get("oldgrouplist","")
 				grouplist = request.params.get("grouplist","")
 				
@@ -389,14 +389,55 @@ class UserController(BaseController):
 				groupdiff = set(grouplist).difference(oldgrouplist);
 				for group_rid in groupdiff:
 					self.GroupModel.AddGroupMember(group_rid,rid);
+				"""
+				##
+				oldgrouplist = request.params.get("oldgrouplist","")
+				grouplist = request.params.get("grouplist","")
+
+				if(oldgrouplist.count(',')==0):
+					if(oldgrouplist.isdigit()):
+						number = int(oldgrouplist);
+						oldgrouplist=list();
+						oldgrouplist.append(number);
+					else:
+						oldgrouplist=list()
+				else:
+					oldgrouplist = oldgrouplist.split(',')
+				
+				oldgrouplist = map(int, oldgrouplist)
+
+				if(grouplist.count(',')==0):
+					if(grouplist.isdigit()):
+						number = int(grouplist);
+						grouplist=list();
+						grouplist.append(number);
+					else:
+						grouplist=list()
+				else:
+					grouplist = grouplist.split(',')
+				
+				grouplist = map(int, grouplist)
+				
+				groupdiff = set(oldgrouplist).difference(grouplist);
+						
+
+						
+				for group_rid in groupdiff:
+					self.GroupModel.DeleteGroupMember(group_rid,rid);
+					
+				groupdiff = set(grouplist).difference(oldgrouplist);
+
+						
+				for group_rid in groupdiff:
+					self.GroupModel.AddGroupMember(group_rid,rid);
 
 			except Exception,e:
 				if(self.iscopy):
 					raise;
 				if(len(e.args)>1):
-					return json.dumps({'success': False, 'msg': e.args[1],'num':e.args[0]})
+					return json.dumps({'success': False, 'msg': e.args[1],'num':e.args[0], 'groupdiff':list(groupdiff), 'oldgrouplist':list(oldgrouplist), 'grouplist':list(grouplist)})
 				else:
-					return json.dumps({'success': False, 'msg': e.args,'num':-1})
+					return json.dumps({'success': False, 'msg': e.args,'num':-1, 'groupdiff':list(groupdiff), 'oldgrouplist':list(oldgrouplist), 'grouplist':list(grouplist)})
 
 			if(self.iscopy):
 				return True;

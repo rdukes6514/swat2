@@ -145,21 +145,29 @@ class GroupModel(BaseModel):
 			group_handle = self.samrpipe.OpenGroup(self.domain_handle, security.SEC_FLAG_MAXIMUM_ALLOWED,GroupRid)
 			self.samrpipe.AddGroupMember(group_handle,NewRid, samr.SE_GROUP_ENABLED)
 		except Exception,e:
+			if(len(e.args)>1):
 				self.SetError(e.args[1],e.args[0])
+				raise Exception(e.args[0],e.args[1]);
+			else:
+				self.SetError(e.args,0)
 				raise Exception(str(e.args));
 
 
 	def DeleteGroupMember(self,GroupRid,RemoveRid):
 		if not self.isAuthenticate():
 			self.SetError(self.Lang.NotAuth,0)
-			return False;
+			return False
 		try:
 			GroupRid =  int(GroupRid);
 			RemoveRid =  int(RemoveRid);
 			group_handle = self.samrpipe.OpenGroup(self.domain_handle, security.SEC_FLAG_MAXIMUM_ALLOWED,GroupRid);
 			self.samrpipe.DeleteGroupMember(group_handle,RemoveRid);
 		except Exception,e:
+			if(len(e.args)>1):
 				self.SetError(e.args[1],e.args[0])
+				raise Exception(e.args[0],e.args[1]);
+			else:
+				self.SetError(e.args,0)
 				raise Exception(str(e.args));
 
 

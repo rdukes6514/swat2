@@ -56,7 +56,7 @@ Ext.ux.Wiz.Header = Ext.extend(Ext.BoxComponent, {
      * {@link Ext.ux.Wiz.Card}
      * @type String
      */
-    stepText : "Paso {0} de {1}: {2}",
+    stepText : lang.stepText,
 
     /**
      * @cfg {Object} autoEl The element markup used to render this component.

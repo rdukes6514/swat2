@@ -18,8 +18,11 @@ class MainController(BaseController):
 		c.auth = False
 		base = BaseModel();
 		c.WorkGroup = None
+		c.Realm = None
 		if base.WorkGroup.strip() != '':
 			c.WorkGroup = base.WorkGroup
+			c.Realm = base.Realm
+			
 		if self._check_session():
 			c.auth = True
 			c.DnsDomain = session['DnsDomain'];

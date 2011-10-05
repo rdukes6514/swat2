@@ -184,44 +184,15 @@ Ext.ux.swat.Login = Ext.extend(Ext.Window,{
 									  //var obj = Ext.decode(response.responseText);
 									  
 									  if(response.result.success == true){
-											location.href='/';
+									  
+											if(this.langDomain.getValue().trim()=='Local'){
+												//alert(this.langDomain.getValue().trim());
+												location.href='Provision';
+											} else {
+												location.href='/';
+											}
 											
-											//Config;
-											Ext.ux.swat.Config.DnsDomain =   response.result.DnsDomain;
-											Ext.ux.swat.Config.RootDSE =   response.result.RootDSE;
-											Ext.ux.swat.Config.SambaVersion =   response.result.SambaVersion;
-											this.close();
-											
-											//Plugins
-											loadjscssfile("./jslibs/RowEditor.js");
-											loadjscssfile("./jslibs/CheckColumn.js");
-											loadjscssfile("./jslibs/PasswordMeter.js");
-											loadjscssfile("./jslibs/Ext.ux.grid.Search.js");
 
-											//Wizard
-											loadjscssfile("./jslibs/wizard/CardLayout.js");
-											loadjscssfile("./jslibs/wizard/Wizard.js");
-											loadjscssfile("./jslibs/wizard/Header.js");
-											loadjscssfile("./jslibs/wizard/Card.js");		
-											
-											//Samba Flags
-											loadjscssfile('js/flags.js');
-											
-											//Dialogs
-											loadjscssfile("./js/Dialogs/SendDialog.js"); 											
-											loadjscssfile("./js/Dialogs/DialogResetPass.js"); 											
-											
-											//Menus
-											//loadjscssfile('js/ContexMenu.js');
-											loadjscssfile('js/ContexMenu.js');
-											
-											//Controllers
-											loadjscssfile('js/UserController.js');
-											
-											
-											//Base App
-											loadjscssfile('js/application.js');
-											this.close();
 									  } else {
 										try{
 											Ext.Msg.show({title: "Error", msg: response.result.msg, buttons: Ext.Msg.OK, icon: Ext.Msg.ERROR });
@@ -245,6 +216,59 @@ Ext.ux.swat.Login = Ext.extend(Ext.Window,{
 	}
 });
 
+//take from extjs/examples/shared/examples.js
+Ext.SimpleMsg = function(){
+    var msgCt;
+
+    function createBox(t, s){
+        return ['<div class="msg">',
+                '<div class="x-box-tl"><div class="x-box-tr"><div class="x-box-tc"></div></div></div>',
+                '<div class="x-box-ml"><div class="x-box-mr"><div class="x-box-mc"><h3>', t, '</h3>', s, '</div></div></div>',
+                '<div class="x-box-bl"><div class="x-box-br"><div class="x-box-bc"></div></div></div>',
+                '</div>'].join('');
+    }
+    return {
+        msg : function(title, format){
+            if(!msgCt){
+                msgCt = Ext.DomHelper.insertFirst(document.body, {id:'msg-div'}, true);
+            }
+            msgCt.alignTo(document, 't-t');
+            var s = String.format.apply(String, Array.prototype.slice.call(arguments, 1));
+            var m = Ext.DomHelper.append(msgCt, {html:createBox(title, s)}, true);
+            m.slideIn('t').pause(20).ghost("t", {remove:true});
+        },
+
+        init : function(){
+            /*
+            var t = Ext.get('exttheme');
+            if(!t){ // run locally?
+                return;
+            }
+            var theme = Cookies.get('exttheme') || 'aero';
+            if(theme){
+                t.dom.value = theme;
+                Ext.getBody().addClass('x-'+theme);
+            }
+            t.on('change', function(){
+                Cookies.set('exttheme', t.getValue());
+                setTimeout(function(){
+                    window.location.reload();
+                }, 250);
+            });*/
+
+            var lb = Ext.get('lib-bar');
+            if(lb){
+                lb.show();
+            }
+        }
+    };
+}();
+
 Ext.onReady(function(){
+
+	if(Ext.ux.swat.Config.Realm.trim()=='' && Ext.ux.swat.Config.WorkGroup=='WORKGROUP'){
+		Ext.SimpleMsg.msg(lang.information,lang.SetupDomain);
+	}
+	
 	new Ext.ux.swat.Login().show();
 });

@@ -60,9 +60,7 @@
   <link rel="stylesheet" type="text/css" href="./jslibs/theme/style.css"/>
 -->
 	<link rel="stylesheet" type="text/css" href="./jslibs/resources/css/RowEditor.css" />
-	<link rel="stylesheet" type="text/css" href="./jslibs/resources/css/Spinner.css" />
 	<link rel="stylesheet" type="text/css" href="./jslibs/resources/css/passwordmeter.css" />
-	<link rel="stylesheet" type="text/css" href="./jslibs/resources/css/gridsearch.css" />
 	<link rel="stylesheet" type="text/css" href="./jslibs/resources/css/ext-ux-wiz.css" />
 	<link rel="stylesheet" type="text/css" href="./css/app.css" /> 
  
@@ -71,7 +69,7 @@
 	<script type="text/javascript" src="./jslibs/ext-all-debug.js"></script> 
 	-->
 	<script type="text/javascript" src="./jslibs/adapter/ext/ext-base.js"></script> 
-	<script type="text/javascript" src="./jslibs/ext-all.js"></script>
+	<script type="text/javascript" src="./jslibs/ext-all-debug.js"></script>
 	
 	<!--
 	Lang:${c.language}
@@ -105,45 +103,19 @@
 		Ext.ux.swat.Config.RootDSE =   '${c.RootDSE}';
 		Ext.ux.swat.Config.SambaVersion =   '${c.SambaVersion}';
 	</script> 
-	
-	
 
-	
-	<script type="text/javascript" src="./jslibs/CompositeField.js"></script>
-	<script type="text/javascript" src="./jslibs/SpinnerField.js"></script>
-	<script type="text/javascript" src="./jslibs/Spinner.js"></script>
-	<script type="text/javascript" src="./jslibs/RowEditor.js"></script>
-	<script type="text/javascript" src="./jslibs/CheckColumn.js"></script>
+		
 	<script type="text/javascript" src="./jslibs/PasswordMeter.js"></script>
-	<script type="text/javascript" src="./jslibs/Ext.ux.grid.Search.js"></script>
-
-
 	<script type="text/javascript" src="./jslibs/wizard/CardLayout.js"></script>
 	<script type="text/javascript" src="./jslibs/wizard/Wizard.js"></script>
 	<script type="text/javascript" src="./jslibs/wizard/Header.js"></script>
 	<script type="text/javascript" src="./jslibs/wizard/Card.js"></script>		
+	<script type="text/javascript" src="./js/Provision.js"></script>		
 	
-	<script type="text/javascript" src="./js/lsaflags.js"></script>
-	
-	<script type="text/javascript" src="./js/Dialogs/SendDialog.js"></script> 
-	<script type="text/javascript" src="./js/Dialogs/DialogResetPass.js"></script> 
-	<script type="text/javascript" src="./js/Dialogs/DialogUserManager.js"></script>
-	<script type="text/javascript" src="./js/Dialogs/DialogNewUser.js"></script>  
-	<script type="text/javascript" src="./js/Dialogs/DialogGroupManager.js"></script>
-	<script type="text/javascript" src="./js/Dialogs/DialogNewGroup.js"></script>
-	<script type="text/javascript" src="./js/Dialogs/DialogShareManager.js"></script>
-
-	
-	<script type="text/javascript" src="./js/UserController.js"></script> 
-	<script type="text/javascript" src="./js/GroupController.js"></script> 
-	<script type="text/javascript" src="./js/ShareController.js"></script> 
-	
-	<script type="text/javascript" src="./js/ContexMenu.js"></script> 
-	
-	
-	<script type="text/javascript" src="./js/application.js"></script> 
 % else:
-	<script type="text/javascript" src="./js/login.js"></script> 
+	<script type="text/javascript">
+      //location.href = "/Main"
+	</script>  
 % endif
 </head> 
 <body> 

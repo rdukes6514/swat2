@@ -157,8 +157,9 @@ Ext.ux.Wiz.Card = Ext.extend(Ext.FormPanel, {
 		
 	    if (this.monitorValid) {
 			this.startMonitoring();	
-			
 		}
+		this.doLayout();
+
 	}
 	
 });

@@ -14,6 +14,8 @@ lang.bbar = {};
 lang.bbar.displayMsg = 'Displaying  {0} - {1} of {2}';
 lang.NewGroup = 'New group';
 lang.DomainWizzard = 'Domain wizzard';
+lang.DomainConfig = 'Domain settings';
+lang.DomainConfiguring = 'Configuring the domain...';
 lang.AddShare = 'Add share';
 lang.NewUser = 'New user';
 lang.remove = 'Delete';
@@ -81,5 +83,9 @@ lang.error = 'Error';
 lang.BoldError = '<b>Error</b>';
 lang.ServerError = 'Server Error' ;
 lang.LocalSystemAuth= 'Local System Auth';
-
-
+lang.SetupDomain= 'You must setup  the domain';
+lang.previousButtonText = '&lt; Previus';
+lang.nextButtonText = 'Next &gt;';
+lang.finishButtonText = 'Finish';
+lang.stepText = "Step {0} of {1}: {2}";
+lang.UnLoadText = "You have made changes on this page that you have not yet confirmed. If you navigate away from this page you will loose your unsaved changes"

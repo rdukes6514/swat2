@@ -6,3 +6,6 @@ build/*
 dist/*
 /swat/tests/backend-test-files/smb.conf.old
 favicon-1.ico
+ext-all-debug.js
+Wizard1.js
+Eventsource.py

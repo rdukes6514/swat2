@@ -92,25 +92,25 @@ this.showLoadMask(true, 'validating');
 	 * @cfg {String} previousButtonText The text to render the previous-button with.
 	 * Defaults to "&lt; Back" (< Back)
 	 */
-	previousButtonText : '&lt; Anterior',
+	previousButtonText : lang.previousButtonText,
 	
 	/**
 	 * @cfg {String} nextButtonText The text to render the next-button with.
 	 * Defaults to "Next &gt;" (Next >)
 	 */
-	nextButtonText : 'Siguiente &gt;',
+	nextButtonText : lang.nextButtonText,
 	
 	/**
 	 * @cfg {String} cancelButtonText The text to render the cancel-button with.
 	 * Defaults to "Cancel"
 	 */
-	cancelButtonText : 'Cancelar',	
+	cancelButtonText : lang.cancel,	
 	
 	/**
 	 * @cfg {String} finishButtonText The text to render the next-button with when the last
 	 * step of the wizard is reached. Defaults to "Finish"
 	 */
-	finishButtonText : 'Fininalizar',	
+	finishButtonText : lang.finishButtonText,	
 	
 	/**
 	 * @cfg {Object} headerConfig A config-object to use with {@link Ext.ux.Wiz.Header}.
@@ -220,8 +220,8 @@ this.showLoadMask(true, 'validating');
              */   
             'finish'
 	    );
-	    
 		Ext.ux.Wiz.superclass.initComponent.call(this);
+	    
 	},
 	
 // -------- helper
@@ -363,6 +363,7 @@ this.showLoadMask(true, 'validating');
     initButtons	: function()
     {
 		this.previousButton = new Ext.Button({
+			id:'IdPreviousButton',
 			text 	 : this.previousButtonText,
 			disabled : true,
 			minWidth : 75,
@@ -371,6 +372,7 @@ this.showLoadMask(true, 'validating');
 		});
 		
 		this.nextButton = new Ext.Button({
+			id:'IdNextButton',
 			text	 : this.nextButtonText,
 			minWidth : 75,
 			handler  : this.onNextClick,
@@ -378,6 +380,7 @@ this.showLoadMask(true, 'validating');
 		});
 		
 		this.cancelButton = new Ext.Button({
+			id:'IdCancelButton',
 			text	 : this.cancelButtonText,
 			handler  : this.onCancelClick,
 			scope	 : this,
@@ -485,7 +488,7 @@ this.showLoadMask(true, 'validating');
 	onFinish : function()
 	{
 	    if (this.fireEvent('finish', this, this.getWizardData()) !== false) {
-            this.close();
+            //this.close();
         }
 	},	
 	

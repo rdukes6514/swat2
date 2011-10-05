@@ -1,6 +1,7 @@
 
 import samba
 import ldb
+import logging,sys
 from samba.dcerpc import samr, security, lsa,srvsvc
 from samba import credentials
 from samba import param
@@ -22,6 +23,7 @@ class BaseModel:
 	LdapConn=None
 	auth_success=False
 	_isLastErrorAvailable=False
+	AuthLocal=False
 	LastErrorStr='';
 	LastErrorNumber=0;
 	RootDSE='' 
@@ -31,18 +33,39 @@ class BaseModel:
 	server_address='127.0.0.1'
 	#Log = AppLog();
 	
-	def __init__(self,username=None,password=None):
+	def __init__(self,username=None,password=None,AuthMethod="smb"):
 		self.username=username;
 		self.password=password;
+		self.AuthMethod=AuthMethod;
+		
 		language = config['language']
 		import_string = "from swat.i18n.%s import Lang"%language
 		exec import_string
+		
 		self.Lang = Lang;
+		self.Authenticate()
+		self.logger = logging.getLogger(__name__)
+		self.logger.addHandler(logging.StreamHandler(sys.stdout))
+		self.logger.setLevel(logging.INFO)
+
+
+	def Authenticate(self):
 		if ((self.username != None) and (self.password !=None)):
-			if self._connect():
-				self._GetBase();
-				self._GetDomainNames();
-				self._SetCurrentDomain(0);
+			if (self.AuthMethod=="smb"):
+				if self._connect():
+					self._GetBase();
+					self._GetDomainNames();
+					self._SetCurrentDomain(0);
+			elif (self.AuthMethod=="unix"):
+				from swat.model.auth.AuthUnix import AuthUnix
+				AuthMechanism = AuthUnix(self.username,self.password,self.Lang)
+				if AuthMechanism.Autenticate():
+					self.auth_success = True
+					self.AuthLocal = True
+				else:
+					self.SetError(AuthMechanism.LastErrorStr,AuthMechanism.LastErrorNumber)
+					
+				
 
 	def _connect(self):
 		try:
@@ -50,7 +73,7 @@ class BaseModel:
 			self.creds.set_username(self.username)
 			self.creds.set_password(self.password)
 			#self.creds.set_domain("SAMDOM")
-			self.creds.set_domain("")
+			self.creds.set_domain(self.WorkGroup)
 			self.creds.set_workstation("")
 			if request.environ.has_key("REMOTE_HOST"):
 				creds.set_workstation(request.environ.get("REMOTE_HOST")); 
@@ -64,7 +87,12 @@ class BaseModel:
 			self.SetError(msg,num)
 			return False;
 		except Exception,e:
-			self.SetError(e.message,0)
+			if(len(e.args)>1):
+				self.logger.info("%s %s" % (e.args[1],e.args[0]))
+				self.SetError(e.args[1],e.args[0])
+			else:
+				self.logger.info("%s %s" % (e.args[0],"Error"))
+				self.SetError(e.args,0)
 			return False;
 		else:
 			if not self.creds.is_anonymous():

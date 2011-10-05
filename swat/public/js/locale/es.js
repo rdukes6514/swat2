@@ -13,6 +13,8 @@ lang.bbar = {};
 lang.bbar.displayMsg = 'Mostrando  {0} - {1} de {2}';
 lang.NewGroup = 'Nuevo grupo';
 lang.DomainWizzard = 'Asistente para configurar dominio';
+lang.DomainConfig = 'Configuraci&oacute;n de dominio';
+lang.DomainConfiguring = 'Configurando el dominio...';
 lang.AddShare = 'A&ntilde;adir recurso compartido';
 lang.NewUser = 'Nuevo usuario';
 lang.remove = 'Eliminar';
@@ -78,8 +80,11 @@ lang.FormInvalidValues =  'El formulario contiene valores inv&aacute;lidos';
 lang.CommunicationFailed = 'La comunicaci&oacute;n ha fallado ';
 lang.error = 'Error';
 lang.BoldError = '<b>Error</b>';
-lang.ServerError = 'Erron en el servidor' ;
+lang.ServerError = 'Error en el servidor' ;
 lang.LocalSystemAuth= "Autenticación Local"
-
-
-
+lang.SetupDomain= 'Usted debe de configurar el dominio';
+lang.previousButtonText = '&lt; Anterior';
+lang.nextButtonText = 'Siguiente &gt;';
+lang.finishButtonText = 'Finalizar';
+lang.stepText = "Paso {0} de {1}: {2}";
+lang.UnLoadText = "Se han realizado cambios en esta p&aacute;gina que a&uacute;n no se ha confirmado. Si sale de esta p&aacute;gina usted perder&aacute; los cambios no guardados"

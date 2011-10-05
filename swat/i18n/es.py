@@ -4,3 +4,4 @@ class Lang:
 	AnonymousAuthError = "<b>La autenticaci&oacute;n an&oacute;nima esta deshabilitada</b>";
 	NotAuth = "<b>Usted no esta autenticado</b>";
 	PageTitle= "Samba Herramienta de Administraci&oacute;n Web"
+	OnlyAllowRoot= "<b>Solo root puede iniciar sessi&oacute;n</b>"

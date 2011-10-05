@@ -307,8 +307,12 @@ Ext.ux.swat.MainWindowApp = Ext.extend(Ext.Window,{
 		};
 			
 		this.DomainWizzardBtn= {
-			text: lang.DomainWizzard
+			id:'IdDomainWizzardBtn'
+			,text: lang.DomainWizzard
 			,iconCls: 'add'
+			,handler: function () {
+				   location.href = '/Provision'
+			}
 		};
 			
 		this.AddShareBtn= {
@@ -556,6 +560,10 @@ Ext.onReady(function(){
 	 MainAppW = new Ext.ux.swat.MainWindowApp({tbar:tb,id:'MainWindowApp'});
 	 MainAppW.show();
 	 MainAppW.maximize();
+	 
+	 if(Ext.ux.swat.Config.AuthRemote){
+		//Ext.getCmp('IdDomainWizzardBtn').disable();
+	 }
 	 	
 	 MainAppW.TreePanelBrowser.getRootNode().expand();
 	 MainAppW.fillToolBarUsers();

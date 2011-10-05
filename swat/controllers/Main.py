@@ -29,5 +29,6 @@ class MainController(BaseController):
 			c.RootDSE = session['RootDSE'];
 			c.SambaVersion = session['SambaVersion'];
 			c.language = session['language'];
+			c.AuthRemote = str(base.AuthRemote).lower()
 		return render('/index.html')
 

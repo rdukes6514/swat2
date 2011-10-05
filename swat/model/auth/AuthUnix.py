@@ -1,4 +1,4 @@
-import PAM ,logging ,sys,pwd
+import PAM ,sys,pwd
 from swat.model.auth.AuthBase import AuthBase
 
 class AuthUnix(AuthBase):
@@ -9,11 +9,7 @@ class AuthUnix(AuthBase):
 		self.PamAuth.start(self.service)
 		self.PamAuth.set_item(PAM.PAM_USER, self.user)
 		self.PamAuth.set_item(PAM.PAM_CONV, self._pam_conv)
-		
-		self.logger = logging.getLogger(__name__)
-		self.logger.addHandler(logging.StreamHandler(sys.stdout))
-		self.logger.setLevel(logging.INFO)
-		#self.logger.info("%s %s" % (self.user,self.password))
+
 
 	def Autenticate(self):
 		authenticated = False

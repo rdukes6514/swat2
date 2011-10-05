@@ -23,17 +23,19 @@ class BaseModel:
 	LdapConn=None
 	auth_success=False
 	_isLastErrorAvailable=False
+	AuthUnix=False
 	AuthLocal=False
+	AuthRemote=False
 	LastErrorStr='';
 	LastErrorNumber=0;
 	RootDSE='' 
-	DnsDomain='' 
-	SambaVersion='' 
+	DnsDomain=Realm 
 	schemaNamingContext='' 
 	server_address='127.0.0.1'
+	SambaVersion = version
 	#Log = AppLog();
 	
-	def __init__(self,username=None,password=None,AuthMethod="smb"):
+	def __init__(self,username=None,password=None,AuthMethod="local"):
 		self.username=username;
 		self.password=password;
 		self.AuthMethod=AuthMethod;
@@ -51,17 +53,32 @@ class BaseModel:
 
 	def Authenticate(self):
 		if ((self.username != None) and (self.password !=None)):
-			if (self.AuthMethod=="smb"):
-				if self._connect():
-					self._GetBase();
-					self._GetDomainNames();
-					self._SetCurrentDomain(0);
+			self.creds = credentials.Credentials()
+			self.creds.set_username(self.username)
+			self.creds.set_password(self.password)
+			self.creds.set_domain(self.WorkGroup)
+			self.creds.set_workstation("")
+			if request.environ.has_key("REMOTE_HOST"):
+				self.creds.set_workstation(request.environ.get("REMOTE_HOST")); 
+
+			if (self.AuthMethod=="local"):
+
+				from swat.model.auth.AuthLocal import AuthLocal
+				AuthMechanism = AuthLocal(self.creds,self.Lang,self.server_address)
+				if AuthMechanism.Autenticate():
+					if self._connect():
+						#self._GetBase();
+						self._GetDomainNames();
+						self._SetCurrentDomain(0);
+						self.AuthLocal = True
+						self.auth_success = True
+					
 			elif (self.AuthMethod=="unix"):
 				from swat.model.auth.AuthUnix import AuthUnix
 				AuthMechanism = AuthUnix(self.username,self.password,self.Lang)
 				if AuthMechanism.Autenticate():
 					self.auth_success = True
-					self.AuthLocal = True
+					self.AuthUnix = True
 				else:
 					self.SetError(AuthMechanism.LastErrorStr,AuthMechanism.LastErrorNumber)
 					
@@ -69,16 +86,7 @@ class BaseModel:
 
 	def _connect(self):
 		try:
-			self.creds = credentials.Credentials()
-			self.creds.set_username(self.username)
-			self.creds.set_password(self.password)
-			#self.creds.set_domain("SAMDOM")
-			self.creds.set_domain(self.WorkGroup)
-			self.creds.set_workstation("")
-			if request.environ.has_key("REMOTE_HOST"):
-				creds.set_workstation(request.environ.get("REMOTE_HOST")); 
-				
-			self.LdapConn = samba.Ldb("ldap://%s" % self.server_address,lp=self.lp,credentials=self.creds)
+			#self.LdapConn = samba.Ldb("ldap://%s" % self.server_address,lp=self.lp,credentials=self.creds)
 			self.samrpipe = samr.samr("ncalrpc:%s"% self.server_address, self.lp, self.creds)
 			self.srvsvcpipe = srvsvc.srvsvc('ncalrpc:%s' % self.server_address,credentials=self.creds)
 			#self.connect_handle = self.samrpipe.Connect(None, security.SEC_FLAG_MAXIMUM_ALLOWED)			
@@ -115,8 +123,6 @@ class BaseModel:
 				self.RootDSE = str(self.LdapConn.get_root_basedn());
 				self.DnsDomain = str(LdapSearchResult[0]["ldapServiceName"]).split(':')[0];
 				self.schemaNamingContext = LdapSearchResult[0]["schemaNamingContext"][0];
-				self.SambaVersion = version;
-				
 			except ldb.LdbError, (num, msg):
 				self.SetError(msg,num)
 				return False;

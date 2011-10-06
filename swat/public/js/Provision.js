@@ -381,7 +381,7 @@ DialogProvisionWizard = {
 		});
 		
 		 wizard.on('cancel',this.OnCloseWindows);
-		 wizard.on('close',this.OnCloseWindows);	
+		 wizard.on('close',this.OnCancel);	
 		 
 		 
 		 
@@ -396,7 +396,7 @@ DialogProvisionWizard = {
 		
 		Ext.getCmp('IdNextButton').on('click',function(){
 			if(wizard.currentCard == 1) {
-				Ext.getCmp('IdCancelButton').setDisabled(true);
+				//Ext.getCmp('IdCancelButton').setDisabled(true);
 			}
 					
 			if(wizard.currentCard == 2) {
@@ -440,6 +440,11 @@ DialogProvisionWizard = {
 				}
 			});  
 		}    
+	}
+	
+	,OnCancel:function(obj){
+		window.onbeforeunload = null;
+		location.href = '/';
 	}
 	
 	,OnFinish:function(wizard,data){

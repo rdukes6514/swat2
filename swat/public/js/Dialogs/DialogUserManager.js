@@ -35,7 +35,7 @@ DialogUserManager = {
 			,fieldLabel: ''
 			,boxLabel: lang.ForcePasswordChange
 			,name: 'ForcePasswordChange'
-			,name: 'IdForcePasswordChange'
+			,id: 'IdForcePasswordChange'
 			,checked : data.changepassword
 			,handler:function(checkbox,checked){
 				if(checked){

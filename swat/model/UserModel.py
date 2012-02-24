@@ -124,7 +124,9 @@ class UserModel(BaseModel):
 
 	def SetPassword(self,username,password):
 		try:
-			self.net.set_password(username,self.domain_name_list[0],password,self.creds)
+			
+			self.net.set_password(username,self.domain_name_list[0],password)
+			#self.net.set_password(username,self.domain_name_list[0],password,self.creds)
 			#net.set_password(username,'SAMDOM',password,self.creds)
 		except Exception,e:
 			self.SetError(e.message,0)

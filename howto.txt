@@ -1,0 +1,19 @@
+On debian:
+apt-get install python-pam python-cjson python-jsonpickle python-pylons
+
+add to smb.conf:
+server services = +smb -s3fs
+dcerpc endpoint servers = +winreg +srvsvc
+
+
+in /root/.profile add the python binding for samba4 example:
+export PYTHONPATH=/usr/local/samba/lib/python2.6/site-packages/
+export PATH=$PATH:/usr/local/samba/bin/:/usr/local/samba/sbin/
+
+uncompress GSoC-SWAT
+cd GSoC-SWAT/
+paster serve --reload development.ini &
+
+Open the browser and put: 
+http://server-ip:5001/
+

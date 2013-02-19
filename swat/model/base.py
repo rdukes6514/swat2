@@ -45,10 +45,10 @@ class BaseModel:
 		exec import_string
 		
 		self.Lang = Lang;
-		self.Authenticate()
 		self.logger = logging.getLogger(__name__)
 		self.logger.addHandler(logging.StreamHandler(sys.stdout))
 		self.logger.setLevel(logging.INFO)
+		self.Authenticate()
 
 
 	def Authenticate(self):

@@ -1,0 +1,5 @@
+#*.css linguist-detectable=false
+swat/public/jslibs/resources/css/** linguist-vendored
+
+
+
